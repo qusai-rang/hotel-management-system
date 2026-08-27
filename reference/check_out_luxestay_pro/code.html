@@ -1,0 +1,312 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>LuxeStay Pro - Check-out Workflow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#111c2d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1e293b",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fed488",
+                        "on-tertiary-container": "#8d9092",
+                        "tertiary": "#111516",
+                        "outline-variant": "#c5c6cd",
+                        "primary-fixed": "#d8e3fb",
+                        "on-surface-variant": "#45474c",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#bcc7de",
+                        "surface-dim": "#cbdbf5",
+                        "secondary": "#775a19",
+                        "tertiary-container": "#26292b",
+                        "secondary-fixed": "#ffdea5",
+                        "on-background": "#0b1c30",
+                        "on-primary-container": "#8590a6",
+                        "on-secondary-container": "#785a1a",
+                        "on-secondary-fixed": "#261900",
+                        "primary-fixed-dim": "#bcc7de",
+                        "inverse-surface": "#213145",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "surface-tint": "#545f73",
+                        "primary": "#091426",
+                        "surface-container-high": "#dce9ff",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-tertiary-fixed": "#191c1e",
+                        "outline": "#75777d",
+                        "surface-container": "#e5eeff",
+                        "surface-variant": "#d3e4fe",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "64px",
+                        "sidebar-collapsed": "72px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Noto Serif"],
+                        "headline-lg-mobile": ["Noto Serif"],
+                        "headline-md": ["Noto Serif"],
+                        "headline-sm": ["Noto Serif"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+<!-- Top Navigation (Transactional intent -> no full shell nav, but keeping a simplified header for context) -->
+<header class="fixed top-0 left-0 w-full h-header-height bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors group" onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_back</span>
+</button>
+<div class="flex items-baseline gap-3">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">LuxeStay Pro</h1>
+<span class="text-on-surface-variant opacity-50 hidden sm:inline-block">|</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant font-medium hidden sm:inline-block">Check-out Workflow</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">help</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Need Help?</span>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-[calc(theme(spacing.header-height)+theme(spacing.container-padding))] px-gutter md:px-container-padding pb-container-padding max-w-7xl mx-auto">
+<!-- Page Header -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant pb-6">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Check-out Procedure</p>
+<h2 class="font-headline-lg text-headline-lg text-primary md:hidden">Room 304</h2>
+<h2 class="font-headline-lg text-headline-lg text-primary hidden md:block">Check-out: Room 304 - Alexander Wright</h2>
+</div>
+<div class="flex items-center gap-2 bg-secondary/10 px-4 py-2 rounded-full border border-secondary/20">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md text-secondary font-bold uppercase tracking-wider">Pending Settlement</span>
+</div>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Column: Summary (Stay & Payment) -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<!-- Stay Summary -->
+<section class="glass-panel rounded-xl p-6 relative overflow-hidden">
+<!-- Subtle background accent -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-fixed/20 rounded-bl-full -mr-16 -mt-16 blur-2xl z-0"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">receipt_long</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Stay Summary</h3>
+</div>
+<div class="space-y-4">
+<!-- Header Row -->
+<div class="grid grid-cols-12 gap-4 pb-2 border-b border-outline-variant/50 font-label-md text-label-md text-on-surface-variant uppercase">
+<div class="col-span-6 md:col-span-8">Description</div>
+<div class="col-span-2 text-right hidden md:block">Qty</div>
+<div class="col-span-6 md:col-span-2 text-right">Amount</div>
+</div>
+<!-- Items -->
+<div class="grid grid-cols-12 gap-4 items-center group hover:bg-surface/50 p-2 -mx-2 rounded-lg transition-colors">
+<div class="col-span-6 md:col-span-8">
+<p class="font-body-md text-body-md text-on-surface font-medium">Deluxe King Room</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Oct 12 - Oct 15</p>
+</div>
+<div class="col-span-2 text-right hidden md:block font-body-md text-body-md text-on-surface-variant">3 Nights</div>
+<div class="col-span-6 md:col-span-2 text-right font-body-md text-body-md text-on-surface">$1,350.00</div>
+</div>
+<div class="grid grid-cols-12 gap-4 items-center group hover:bg-surface/50 p-2 -mx-2 rounded-lg transition-colors">
+<div class="col-span-6 md:col-span-8">
+<p class="font-body-md text-body-md text-on-surface font-medium">Restaurant - The Azure</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dinner service (Oct 13)</p>
+</div>
+<div class="col-span-2 text-right hidden md:block font-body-md text-body-md text-on-surface-variant">1</div>
+<div class="col-span-6 md:col-span-2 text-right font-body-md text-body-md text-on-surface">$185.00</div>
+</div>
+<div class="grid grid-cols-12 gap-4 items-center group hover:bg-surface/50 p-2 -mx-2 rounded-lg transition-colors">
+<div class="col-span-6 md:col-span-8">
+<p class="font-body-md text-body-md text-on-surface font-medium">Tranquility Spa</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Massage package (Oct 14)</p>
+</div>
+<div class="col-span-2 text-right hidden md:block font-body-md text-body-md text-on-surface-variant">2</div>
+<div class="col-span-6 md:col-span-2 text-right font-body-md text-body-md text-on-surface">$240.00</div>
+</div>
+</div>
+<!-- Subtotals -->
+<div class="mt-6 pt-4 border-t border-outline-variant space-y-2">
+<div class="flex justify-between items-center font-body-md text-body-md text-on-surface-variant">
+<span class="">Subtotal</span>
+<span class="">$1,775.00</span>
+</div>
+<div class="flex justify-between items-center font-body-md text-body-md text-on-surface-variant">
+<span class="">Taxes (12%)</span>
+<span class="">$213.00</span>
+</div>
+<div class="flex justify-between items-center font-body-md text-body-md text-secondary">
+<span class="">Loyalty Discount (Gold Tier)</span>
+<span class="">-$88.75</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Payment Summary Totals -->
+<section class="glass-panel rounded-xl p-6 bg-surface-container-low border-none shadow-sm">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 divide-y sm:divide-y-0 sm:divide-x divide-outline-variant/30">
+<div class="pt-4 sm:pt-0 sm:pr-4 flex flex-col items-center sm:items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Total Amount</span>
+<span class="font-headline-md text-headline-md text-on-surface">$1,899.25</span>
+</div>
+<div class="pt-4 sm:pt-0 sm:px-4 flex flex-col items-center sm:items-start">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase mb-1">Already Paid</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant/80">$450.00</span>
+<span class="font-label-md text-label-md text-outline mt-1 text-xs">(Deposit)</span>
+</div>
+<div class="pt-4 sm:pt-0 sm:pl-4 flex flex-col items-center sm:items-end">
+<span class="font-label-md text-label-md text-secondary uppercase mb-1 font-bold">Remaining Balance</span>
+<span class="font-display-lg text-display-lg text-primary">$1,449.25</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Action Area -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Payment Processing -->
+<section class="glass-panel rounded-xl p-6 bg-white border border-outline-variant shadow-sm">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+<h3 class="font-headline-sm text-headline-sm text-primary">Process Payment</h3>
+</div>
+<!-- Payment Method Selector -->
+<div class="grid grid-cols-3 gap-3 mb-6">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="payment_method" type="radio">
+<div class="flex flex-col items-center justify-center p-3 rounded-lg border border-outline-variant peer-checked:border-secondary peer-checked:bg-secondary-fixed/20 peer-checked:text-on-secondary-fixed transition-all hover:bg-surface">
+<span class="material-symbols-outlined mb-1">credit_card</span>
+<span class="font-label-md text-label-md">Card</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="payment_method" type="radio">
+<div class="flex flex-col items-center justify-center p-3 rounded-lg border border-outline-variant peer-checked:border-secondary peer-checked:bg-secondary-fixed/20 peer-checked:text-on-secondary-fixed transition-all hover:bg-surface">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="font-label-md text-label-md">Cash</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="payment_method" type="radio">
+<div class="flex flex-col items-center justify-center p-3 rounded-lg border border-outline-variant peer-checked:border-secondary peer-checked:bg-secondary-fixed/20 peer-checked:text-on-secondary-fixed transition-all hover:bg-surface">
+<span class="material-symbols-outlined mb-1">language</span>
+<span class="font-label-md text-label-md">Online</span>
+</div>
+</label>
+</div>
+<!-- Card Details (Mocked, assuming card is default selected) -->
+<div class="space-y-4 mb-6">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Card on File</label>
+<div class="flex items-center justify-between p-3 border border-outline-variant rounded-lg bg-surface-bright">
+<div class="flex items-center gap-3">
+<div class="w-8 h-6 bg-primary rounded flex items-center justify-center text-white text-[10px] font-bold">VISA</div>
+<span class="font-body-md text-body-md text-on-surface">•••• •••• •••• 4242</span>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:underline">Change</button>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Amount to Collect</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-body-md text-body-md text-on-surface-variant">$</span>
+<input class="w-full h-10 pl-8 pr-3 border border-outline-variant rounded-lg focus:border-secondary focus:ring-2 focus:ring-secondary/20 font-body-md text-body-md text-on-surface transition-shadow" readonly="" type="text" value="1,449.25">
+</div>
+</div>
+</div>
+<button class="w-full h-10 bg-surface-container-high border border-outline text-on-surface font-label-lg text-label-lg rounded-lg hover:bg-surface-variant transition-colors flex items-center justify-center gap-2 mb-6">
+<span class="material-symbols-outlined text-[20px]">contactless</span>
+                        Collect Payment
+                    </button>
+<!-- Invoice Toggle -->
+<div class="flex items-center justify-between p-4 bg-surface rounded-lg border border-outline-variant cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_2}}'">
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Generate Invoice</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Email folio to guest automatically</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value="">
+<div class="w-11 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+</section>
+<!-- Final Action -->
+<div class="pt-4">
+<button class="w-full py-4 bg-primary text-on-primary font-label-lg text-label-lg rounded-lg hover:bg-primary-container transition-transform active:scale-[0.98] flex items-center justify-center gap-2 shadow-sm" onclick="window.location.href='{{DATA:SCREEN:SCREEN_5}}'">
+<span class="material-symbols-outlined">how_to_reg</span>
+                        Confirm Check-out
+                    </button>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant mt-3">Room will be marked as "Dirty - Requires Cleaning"</p>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>

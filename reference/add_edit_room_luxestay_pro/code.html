@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Add/Edit Room - LuxeStay Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "secondary": "#775a19",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-fixed-dim": "#e9c176",
+                        "primary-container": "#1e293b",
+                        "surface": "#f8f9ff",
+                        "outline": "#75777d",
+                        "surface-container-high": "#dce9ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "surface-tint": "#545f73",
+                        "tertiary-container": "#26292b",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-container": "#8d9092",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "tertiary": "#111516",
+                        "inverse-surface": "#213145",
+                        "secondary-container": "#fed488",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#d8e3fb",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#45474c",
+                        "on-secondary-fixed": "#261900",
+                        "on-primary-container": "#8590a6",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#bcc7de",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#785a1a",
+                        "on-tertiary-fixed": "#191c1e",
+                        "inverse-primary": "#bcc7de",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c5c6cd",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#ffdea5",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "primary": "#091426",
+                        "on-primary-fixed": "#111c2d",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "background": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "sidebar-width": "260px",
+                        "gutter": "16px",
+                        "header-height": "64px",
+                        "container-padding": "24px",
+                        "sidebar-collapsed": "72px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "headline-sm": ["Noto Serif"],
+                        "headline-lg-mobile": ["Noto Serif"],
+                        "headline-md": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .custom-shadow-card {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+        .form-input-focus:focus {
+            border-color: #ffdea5;
+            box-shadow: 0 0 0 2px rgba(255, 222, 165, 0.5);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- Top Navigation (Shell logic: Supressed since this is a focused modal/task screen, but we'll show a simplified header for context as requested by prompt "clean modal or full-page form") -->
+<header class="bg-surface-container-lowest h-header-height border-b border-outline-variant flex items-center px-container-padding sticky top-0 z-40">
+<button aria-label="Go back" class="mr-4 text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="font-headline-sm text-headline-sm text-primary">Add New Room</div>
+<div class="ml-auto">
+<button class="text-on-surface-variant hover:text-secondary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-container-padding max-w-[1200px] mx-auto w-full">
+<form class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Primary Details (2/3 width on large screens) -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Basic Info Card -->
+<section class="bg-surface-container-lowest rounded-xl p-6 custom-shadow-card border border-outline-variant/30">
+<h2 class="font-headline-sm text-headline-sm mb-6 pb-2 border-b border-outline-variant/50">Basic Information</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Room Number</label>
+<input class="w-full h-[40px] rounded border border-outline-variant/50 bg-transparent px-3 py-2 text-on-background form-input-focus transition-all" placeholder="e.g. 101" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Floor</label>
+<input class="w-full h-[40px] rounded border border-outline-variant/50 bg-transparent px-3 py-2 text-on-background form-input-focus transition-all" placeholder="e.g. 1st Floor" type="text"/>
+</div>
+<div class="md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Room Type</label>
+<div class="relative">
+<select class="w-full h-[40px] rounded border border-outline-variant/50 bg-transparent px-3 py-2 text-on-background form-input-focus transition-all appearance-none cursor-pointer">
+<option disabled="" selected="" value="">Select Room Type</option>
+<option value="standard">Standard King</option>
+<option value="deluxe">Deluxe Double</option>
+<option value="suite">Executive Suite</option>
+<option value="penthouse">Penthouse</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Base Price (Per Night)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full h-[40px] rounded border border-outline-variant/50 bg-transparent pl-8 pr-3 py-2 text-on-background form-input-focus transition-all" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Status</label>
+<div class="relative">
+<select class="w-full h-[40px] rounded border border-outline-variant/50 bg-transparent px-3 py-2 text-on-background form-input-focus transition-all appearance-none cursor-pointer">
+<option value="available">Available</option>
+<option value="maintenance">Maintenance</option>
+<option value="cleaning">Cleaning</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Description Card -->
+<section class="bg-surface-container-lowest rounded-xl p-6 custom-shadow-card border border-outline-variant/30">
+<h2 class="font-headline-sm text-headline-sm mb-6 pb-2 border-b border-outline-variant/50">Description &amp; Highlights</h2>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Public Room Description</label>
+<textarea class="w-full rounded border border-outline-variant/50 bg-transparent px-3 py-2 text-on-background form-input-focus transition-all min-h-[120px]" placeholder="Describe the room's unique features, views, and atmosphere..."></textarea>
+</div>
+</section>
+</div>
+<!-- Right Column: Secondary Details (1/3 width) -->
+<div class="space-y-6">
+<!-- Capacity Card -->
+<section class="bg-surface-container-lowest rounded-xl p-6 custom-shadow-card border border-outline-variant/30">
+<h2 class="font-headline-sm text-headline-sm mb-6 pb-2 border-b border-outline-variant/50">Capacity</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="font-body-md text-body-md text-on-background">Max Adults</label>
+<input class="w-20 h-[40px] rounded border border-outline-variant/50 bg-transparent px-3 py-2 text-center text-on-background form-input-focus transition-all" min="1" type="number" value="2"/>
+</div>
+<div class="flex justify-between items-center">
+<label class="font-body-md text-body-md text-on-background">Max Children</label>
+<input class="w-20 h-[40px] rounded border border-outline-variant/50 bg-transparent px-3 py-2 text-center text-on-background form-input-focus transition-all" min="0" type="number" value="0"/>
+</div>
+</div>
+</section>
+<!-- Form Actions (Sticky on Mobile, Static on Desktop) -->
+<section class="bg-surface-container-lowest rounded-xl p-6 custom-shadow-card border border-outline-variant/30 sticky top-[88px]">
+<h2 class="font-headline-sm text-headline-sm mb-6 pb-2 border-b border-outline-variant/50">Actions</h2>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-lg text-label-lg py-3 px-4 rounded-lg hover:-translate-y-[1px] transition-transform shadow-sm flex justify-center items-center gap-2" type="button">
+<span class="material-symbols-outlined" data-icon="save">save</span>
+                            Save Room
+                        </button>
+<button class="w-full bg-transparent border border-primary text-primary font-label-lg text-label-lg py-3 px-4 rounded-lg hover:bg-surface-container-low transition-colors" type="button">
+                            Cancel
+                        </button>
+</div>
+</section>
+</div>
+</form>
+</main>
+</body></html>

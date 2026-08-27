@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Reservation Details - Luxe Stay</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#dce9ff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-tertiary-container": "#8d9092",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#26292b",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-primary-fixed": "#111c2d",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-primary-container": "#8590a6",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "primary-fixed": "#d8e3fb",
+                        "secondary": "#775a19",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "on-secondary-fixed": "#261900",
+                        "background": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#bcc7de",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "secondary-fixed": "#ffdea5",
+                        "tertiary": "#111516",
+                        "outline-variant": "#c5c6cd",
+                        "secondary-fixed-dim": "#e9c176",
+                        "outline": "#75777d",
+                        "on-error": "#ffffff",
+                        "primary-container": "#1e293b",
+                        "primary": "#091426",
+                        "surface-tint": "#545f73",
+                        "on-surface-variant": "#45474c",
+                        "secondary-container": "#fed488",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-surface": "#213145",
+                        "primary-fixed-dim": "#bcc7de",
+                        "surface-container": "#e5eeff",
+                        "on-background": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-container": "#785a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "sidebar-width": "260px",
+                        "unit": "4px",
+                        "sidebar-collapsed": "72px",
+                        "gutter": "16px",
+                        "header-height": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Noto Serif"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Noto Serif"],
+                        "headline-sm": ["Noto Serif"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-sidebar-width bg-primary dark:bg-primary-container text-secondary dark:text-secondary-fixed-dim font-body-md border-r border-outline-variant dark:border-outline shadow-sm flex flex-col p-4 z-30 hidden md:flex">
+<div class="flex items-center gap-4 mb-8 px-2 mt-2">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center overflow-hidden shrink-0">
+<span class="material-symbols-outlined text-primary text-xl">hotel</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-primary dark:text-primary-fixed m-0">Luxe Stay</h1>
+<p class="font-label-md text-label-md text-on-primary-fixed-variant opacity-80">Premium Management</p>
+</div>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-label-lg text-label-lg py-3 rounded-lg mb-6 hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            New Booking
+        </button>
+<div class="flex-1 overflow-y-auto pr-2 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg group scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined group-hover:text-on-primary" data-icon="dashboard">dashboard</span>
+<span class="">Dashboard</span>
+</a>
+<!-- ACTIVE TAB: Reservations -->
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-primary font-bold rounded-lg scale-95 active:scale-100 transition-transform shadow-sm" href="#">
+<span class="material-symbols-outlined fill-icon" data-icon="calendar_month" data-weight="fill">calendar_month</span>
+<span class="">Reservations</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg group scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined group-hover:text-on-primary" data-icon="bed">bed</span>
+<span class="">Rooms</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg group scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined group-hover:text-on-primary" data-icon="group">group</span>
+<span class="">Guests</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg group scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined group-hover:text-on-primary" data-icon="cleaning_services">cleaning_services</span>
+<span class="">Housekeeping</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg group scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined group-hover:text-on-primary" data-icon="payments">payments</span>
+<span class="">Billing</span>
+</a>
+</div>
+<div class="pt-4 mt-4 border-t border-primary-fixed-variant/30">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg group scale-95 active:scale-100 transition-transform" href="#">
+<span class="material-symbols-outlined group-hover:text-on-primary" data-icon="settings">settings</span>
+<span class="">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-sidebar-width flex flex-col relative w-full md:w-[calc(100%-260px)] h-full">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-full md:w-[calc(100%-260px)] h-header-height bg-surface dark:bg-surface-dim shadow-sm z-20 flex justify-between items-center px-container-padding font-label-lg text-label-lg">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 -ml-2 text-on-surface-variant rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex items-center bg-surface-container-highest rounded-full px-4 py-2 border border-outline-variant/30 text-on-surface-variant w-64 focus-within:border-secondary focus-within:ring-1 focus-within:ring-secondary/50 transition-all">
+<span class="material-symbols-outlined text-[18px] mr-2">search</span>
+<input class="bg-transparent border-none focus:outline-none focus:ring-0 w-full text-sm placeholder:text-on-surface-variant/70" placeholder="Search reservations..." type="text">
+</div>
+</div>
+<div class="flex items-center font-headline-md text-headline-md text-primary dark:text-primary-fixed md:absolute md:left-1/2 md:-translate-x-1/2">
+<span class="md:hidden">Luxe Stay HMS</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors relative cursor-pointer active:opacity-80 rounded-full hover:bg-surface-variant/50">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant/30 hidden sm:block"></div>
+<button class="hidden sm:flex items-center justify-center bg-primary text-on-primary px-4 py-2 rounded font-label-md text-label-md hover:bg-primary/90 transition-colors cursor-pointer active:opacity-80">
+                    Check In
+                </button>
+<div class="w-9 h-9 rounded-full bg-surface-variant overflow-hidden border border-outline-variant/30 shrink-0 cursor-pointer">
+<img alt="Manager Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3RtkTZ0_KV_JM-_I_-XqVAk07F646f77FAZfdvYV5WfjeS8GY3wNR61kL1xwQUT6g8jDyRpLhZMk3yrcDoEfbUpiOPjGeV3JcTo_TG3-h0nMP7LbuI9GrnaS6m_N7V7OejiFN2eInBLSwXv5lWz9hKQCtuAZ0tK_j_dcHR9DRsQ8OyOuLsJgs_gON78qWZmNrI3WdrdfCMDjL0TPxk7UiDWBTwq-Ql1O1AKmXefmio52TT1ElAbNYZA">
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<div class="flex-1 overflow-y-auto mt-header-height bg-surface-bright pt-6 pb-24 px-4 md:px-container-padding">
+<div class="max-w-[1200px] mx-auto flex flex-col gap-6">
+<!-- Action Header Row -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
+<div class="flex items-center gap-4">
+<a href="{{DATA:SCREEN:SCREEN_13}}" class="p-2 -ml-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors self-start md:self-auto flex items-center justify-center"><span class="material-symbols-outlined">arrow_back</span></a>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary m-0 tracking-tight">RSV-29381</h2>
+<span class="px-3 py-1 bg-[#10b981]/10 text-[#047857] font-label-md text-label-md rounded-full border border-[#10b981]/20">Confirmed</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Created on Oct 12, 2023 by Front Desk Agent</p>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<a href="{{DATA:SCREEN:SCREEN_13}}" class="p-2 -ml-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-colors self-start md:self-auto flex items-center justify-center"><span class="material-symbols-outlined">arrow_back</span></a>
+<a href="{{DATA:SCREEN:SCREEN_13}}" class="px-4 py-2 border border-error/30 text-error bg-surface-container-lowest rounded font-label-md text-label-md hover:bg-error-container/30 transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">cancel</span>Cancel Reservation</a>
+<a href="{{DATA:SCREEN:SCREEN_16}}" class="px-5 py-2 bg-primary text-on-primary rounded font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">how_to_reg</span>Check In</a>
+</div>
+</div>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Guest Info (Bento style) -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- Guest Profile Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.02)] p-6 relative overflow-hidden group"><div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div><a href="{{DATA:SCREEN:SCREEN_4}}" class="flex flex-col items-center text-center mb-6 hover:opacity-80 transition-opacity"><div class="w-20 h-20 rounded-full bg-surface-variant mb-4 overflow-hidden border-2 border-surface shadow-sm relative"><img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzB2fKiuy_m9CEDxmWlPe4G3sRCww1jJBgPE_IwqpQ_GDaEzc-lGpFs87oBEhMnGG0wtp-4S7dshDBVaKxzijbUXeS8nKiAD9wUKZK9aYiMia_gYrH1k25ZYS0hzBsRN0SNZ734rJotGQwWswN5n3bfdamYlp4AYhy9KyiU4lNDoUzCUpEn8dAiL0l3Sn5wcZ3StWTL_-O3MHdrWs5z1k0MGHCBmNe_dyVkiApe3cL9UkrkK4PJOwgtw"></div><h3 class="font-headline-sm text-headline-sm text-primary mb-1">Alexander Vance</h3><div class="flex items-center gap-2 justify-center"><span class="material-symbols-outlined text-secondary text-[16px] fill-icon">star</span><span class="font-label-md text-label-md text-secondary-container-dark tracking-wider uppercase">Platinum Member</span></div></a><hr class="border-outline-variant/20 mb-4"><div class="space-y-4"><div><p class="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Contact</p><div class="flex items-center gap-3 text-primary mb-2"><span class="material-symbols-outlined text-outline text-[18px]">mail</span><a class="font-body-sm text-body-sm hover:text-secondary transition-colors" href="mailto:a.vance@example.com">a.vance@example.com</a></div><div class="flex items-center gap-3 text-primary"><span class="material-symbols-outlined text-outline text-[18px]">call</span><a class="font-body-sm text-body-sm hover:text-secondary transition-colors" href="tel:+15550198234">+1 (555) 019-8234</a></div></div><div><p class="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Address</p><p class="font-body-sm text-body-sm text-primary leading-relaxed">4242 Corporate Park Blvd<br>Suite 400<br>San Francisco, CA 94107</p></div></div></div>
+<!-- Guest History Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.02)] p-6">
+<h4 class="font-headline-sm text-headline-sm text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">history</span>
+                                Guest History
+                            </h4>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/20">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Total Stays</p>
+<p class="font-headline-md text-headline-md text-primary">14</p>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/20">
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">Cancellations</p>
+<p class="font-headline-md text-headline-md text-primary">1</p>
+</div>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Last Stay</span>
+<span class="font-label-md text-label-md text-primary">Aug 12 - Aug 15, 2023</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Total Lifetime Spend</span>
+<span class="font-label-lg text-label-lg text-secondary">$12,450.00</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Stay Details -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Room & Dates (Glass/Premium feel) -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col sm:flex-row">
+<div class="sm:w-2/5 h-48 sm:h-auto relative">
+<img class="w-full h-full object-cover" data-alt="A wide architectural shot of a luxurious hotel room interior. The room features a king-sized bed with pristine white linens, soft ambient lighting, and elegant minimalist furniture. The color palette revolves around warm slates and hints of champagne gold. Large windows reveal a serene city view at dusk." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABysUIgx4qfgfv8NGpQK9-x7j5wkEh5xPZc5HjTMU8Mzp3045lyPRSZnb0SQ8LCXx3WhAwN4NBd5_q__zUYGpXQ_J_Lpz45JmPHwFCH8a44R9rQM0YxBFX48-PketZGHZ1qSc2OEXV-x2i6ETA56rDqIlTxcEGtwKZMLTQmEDwN_WyxxmXwYzO4qaNcdG9TIp-wWho103cGvVhiN5D9WLnS8mJiMlt6wuR8Nbe-zbMhxRkETul1zRBPA">
+<div class="absolute top-4 left-4 bg-surface-container-lowest/90 backdrop-blur px-3 py-1 rounded shadow-sm border border-white/20">
+<span class="font-label-md text-label-md text-primary font-bold">Room 304</span>
+</div>
+</div>
+<div class="p-6 sm:w-3/5 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-headline-md text-headline-md text-primary m-0">Deluxe King Suite</h3>
+<span class="bg-surface-variant text-primary px-2 py-1 rounded text-xs font-bold border border-outline-variant/30">2 Adults</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-2">Spacious 45sqm suite featuring panoramic city views, deep soaking tub, and exclusive access to the Club Lounge.</p>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Check In</p>
+<p class="font-body-lg text-body-lg text-primary font-medium">Oct 24, 2023</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">After 3:00 PM</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Check Out</p>
+<p class="font-body-lg text-body-lg text-primary font-medium">Oct 27, 2023</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Before 11:00 AM</p>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant/20 flex gap-4">
+<div class="flex items-center gap-1 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[16px]">wifi</span> Free Wifi
+                                    </div>
+<div class="flex items-center gap-1 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[16px]">local_cafe</span> Breakfast Inc.
+                                    </div>
+</div>
+</div>
+</div>
+<!-- 2-Col Grid for Payment and Requests -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Payment Summary -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.02)] p-6 flex flex-col">
+<h4 class="font-headline-sm text-headline-sm text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">receipt_long</span>
+                                    Payment Summary
+                                </h4>
+<div class="space-y-3 flex-1">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Room Rate (3 Nights x $350)</span>
+<span class="font-body-sm text-body-sm text-primary">$1,050.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Taxes &amp; Fees (14%)</span>
+<span class="font-body-sm text-body-sm text-primary">$147.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Airport Transfer</span>
+<span class="font-body-sm text-body-sm text-primary">$85.00</span>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-lg text-label-lg text-primary">Total Balance</span>
+<span class="font-headline-sm text-headline-sm text-primary">$1,282.00</span>
+</div>
+<div class="flex justify-between items-center mb-4">
+<span class="font-body-sm text-body-sm text-[#047857]">Paid (Visa ending in 4242)</span>
+<span class="font-body-sm text-body-sm text-[#047857]">-$500.00</span>
+</div>
+<div class="bg-secondary/10 p-4 rounded-lg flex justify-between items-center border border-secondary/20">
+<span class="font-label-lg text-label-lg text-secondary">Due at Check-out</span>
+<span class="font-headline-sm text-headline-sm text-secondary">$782.00</span>
+</div>
+</div>
+</div>
+<!-- Special Requests & Notes -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.02)] p-6 flex flex-col">
+<h4 class="font-headline-sm text-headline-sm text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">room_service</span>
+                                    Special Requests
+                                </h4>
+<div class="space-y-4 flex-1">
+<!-- Request Item -->
+<div class="flex items-start gap-3 p-3 bg-surface rounded-lg border border-outline-variant/20">
+<span class="material-symbols-outlined text-[#eab308] shrink-0 mt-0.5">star</span>
+<div>
+<p class="font-label-md text-label-md text-primary mb-1">Feather-free Pillows</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Guest has severe allergy. Housekeeping notified.</p>
+</div>
+</div>
+<!-- Request Item -->
+<div class="flex items-start gap-3 p-3 bg-surface rounded-lg border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary shrink-0 mt-0.5">cake</span>
+<div>
+<p class="font-label-md text-label-md text-primary mb-1">Anniversary Amenity</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Deliver champagne and strawberries on Oct 25 at 6:00 PM.</p>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-2 border border-dashed border-outline-variant text-on-surface-variant rounded hover:bg-surface hover:text-primary transition-colors font-label-md text-label-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                                    Add Internal Note
+                                </button>
+</div>
+</div>
+<!-- Timeline Section -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_12px_rgba(0,0,0,0.02)] p-6">
+<h4 class="font-headline-sm text-headline-sm text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">timeline</span>
+                                Activity Timeline
+                            </h4>
+<div class="relative pl-6 border-l-2 border-surface-variant space-y-6">
+<!-- Timeline Item -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 bg-surface-container-lowest border-2 border-secondary rounded-full"></div>
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
+<p class="font-label-md text-label-md text-primary">Pre-arrival Email Sent</p>
+<span class="font-label-md text-label-md text-on-surface-variant/70">Today, 09:00 AM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Automated system dispatched the welcome guide and upgrade offers.</p>
+</div>
+<!-- Timeline Item -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 bg-surface-variant border-2 border-surface-container-highest rounded-full"></div>
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
+<p class="font-label-md text-label-md text-primary">Deposit Payment Captured</p>
+<span class="font-label-md text-label-md text-on-surface-variant/70">Oct 12, 2023, 14:32 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Successfully processed $500.00 via Stripe gateway.</p>
+</div>
+<!-- Timeline Item -->
+<div class="relative">
+<div class="absolute -left-[31px] w-4 h-4 bg-surface-variant border-2 border-surface-container-highest rounded-full"></div>
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 mb-1">
+<p class="font-label-md text-label-md text-primary">Reservation Created</p>
+<span class="font-label-md text-label-md text-on-surface-variant/70">Oct 12, 2023, 14:30 PM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Created by Direct Web Booking.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for button feedback
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+
+
+</body></html>

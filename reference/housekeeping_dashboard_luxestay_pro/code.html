@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LuxeStay Pro - Housekeeping</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#111c2d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1e293b",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fed488",
+                        "on-tertiary-container": "#8d9092",
+                        "tertiary": "#111516",
+                        "outline-variant": "#c5c6cd",
+                        "primary-fixed": "#d8e3fb",
+                        "on-surface-variant": "#45474c",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#bcc7de",
+                        "surface-dim": "#cbdbf5",
+                        "secondary": "#775a19",
+                        "tertiary-container": "#26292b",
+                        "secondary-fixed": "#ffdea5",
+                        "on-background": "#0b1c30",
+                        "on-primary-container": "#8590a6",
+                        "on-secondary-container": "#785a1a",
+                        "on-secondary-fixed": "#261900",
+                        "primary-fixed-dim": "#bcc7de",
+                        "inverse-surface": "#213145",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "surface-tint": "#545f73",
+                        "primary": "#091426",
+                        "surface-container-high": "#dce9ff",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-tertiary-fixed": "#191c1e",
+                        "outline": "#75777d",
+                        "surface-container": "#e5eeff",
+                        "surface-variant": "#d3e4fe",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "64px",
+                        "sidebar-collapsed": "72px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Noto Serif"],
+                        "headline-lg-mobile": ["Noto Serif"],
+                        "headline-md": ["Noto Serif"],
+                        "headline-sm": ["Noto Serif"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .surface-card {
+            background-color: theme('colors.surface-container-lowest');
+            border: 1px solid theme('colors.outline-variant');
+            border-radius: theme('borderRadius.lg');
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="bg-primary text-secondary-fixed w-sidebar-width h-full flex flex-col py-6 px-4 shrink-0 shadow-sm z-50 fixed md:relative left-0 top-0 hidden md:flex transition-transform duration-300">
+<div class="flex items-center gap-3 mb-10 px-2">
+<span class="material-symbols-outlined text-3xl icon-fill" data-icon="hotel">hotel</span>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-secondary-fixed">LuxeStay Pro</h1>
+<p class="font-label-md text-label-md text-primary-fixed-dim">Premium HMS</p>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-primary font-medium hover:bg-on-primary-fixed-variant hover:text-secondary-fixed transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-primary font-medium hover:bg-on-primary-fixed-variant hover:text-secondary-fixed transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-lg text-label-lg">Reservations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-primary font-medium hover:bg-on-primary-fixed-variant hover:text-secondary-fixed transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="bed">bed</span>
+<span class="font-label-lg text-label-lg">Rooms</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-primary font-medium hover:bg-on-primary-fixed-variant hover:text-secondary-fixed transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-lg text-label-lg">Guests</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-secondary-fixed bg-on-primary-fixed-variant font-bold scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="cleaning_services">cleaning_services</span>
+<span class="font-label-lg text-label-lg">Housekeeping</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-primary font-medium hover:bg-on-primary-fixed-variant hover:text-secondary-fixed transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-lg text-label-lg">Billing</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-primary font-medium hover:bg-on-primary-fixed-variant hover:text-secondary-fixed transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-lg text-label-lg">Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-primary font-medium hover:bg-on-primary-fixed-variant hover:text-secondary-fixed transition-colors scale-95 duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto">
+<button class="w-full bg-secondary-fixed text-on-secondary-fixed font-label-lg text-label-lg py-3 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="upgrade">upgrade</span>
+                Upgrade Stay
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest text-primary h-header-height flex justify-between items-center px-gutter z-40 border-b border-outline-variant shrink-0 relative">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-2xl" data-icon="menu">menu</span>
+</button>
+<div class="hidden md:flex items-center bg-surface-container rounded-full px-4 py-2 border border-outline-variant focus-within:border-secondary focus-within:ring-1 focus-within:ring-secondary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm p-0 w-64 placeholder:text-on-surface-variant" placeholder="Search rooms, staff..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<button class="hover:text-primary transition-all duration-200 active:opacity-80">
+<span class="material-symbols-outlined text-2xl" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-primary transition-all duration-200 active:opacity-80">
+<span class="material-symbols-outlined text-2xl" data-icon="help">help</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="text-right hidden sm:block">
+<p class="font-label-lg text-label-lg text-primary group-hover:text-secondary transition-colors">Elena R.</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Housekeeping Mgr</p>
+</div>
+<img alt="Manager Profile" class="w-10 h-10 rounded-full object-cover border-2 border-transparent group-hover:border-secondary transition-all" data-alt="A professional headshot of a female hotel manager in a dark navy uniform blazer against a light minimalist background. Lighting is soft and bright, conveying a premium corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3-KkC5NAVvQGz1OJC0N3YHU_r0qd__A25T0RkO67vfF-j-Z-Bobe2ysHs6c5OQ69-usgCBUFSBQN8nxxtQmvMJ1YSB1aPvBLUC-QJOqkIlvTV1hyfPRT8SI3c4r8RHB3hDpEA8GshyYdIe3t3d1EMyEQ0WVy7pn29auoIipFBXdDsQNvsI3fYCNCfhM5l72LZvHdhiC1vUNQh9nkV4LxCEyA1zmrBBAvZ9bXbiylOuJm_MQ2jvqpeeg"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-container-padding bg-background">
+<!-- Header -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Housekeeping Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Today's room status and staff assignments.</p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-lowest border border-primary text-primary px-4 py-2 rounded font-label-lg text-label-lg flex items-center gap-2 hover:-translate-y-0.5 transition-transform">
+<span class="material-symbols-outlined text-lg" data-icon="print">print</span>
+                        Print Report
+                    </button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-label-lg text-label-lg flex items-center gap-2 hover:-translate-y-0.5 transition-transform shadow-md hover:shadow-lg">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+                        New Task
+                    </button>
+</div>
+</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+<!-- Dirty -->
+<div class="surface-card p-4 flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Dirty</p>
+<div class="bg-error-container text-on-error-container p-1.5 rounded-full">
+<span class="material-symbols-outlined text-xl" data-icon="warning">warning</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-primary">42</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">rooms</span>
+</div>
+</div>
+<!-- In Progress -->
+<div class="surface-card p-4 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex justify-between items-start">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">In Progress</p>
+<div class="bg-secondary-container text-on-secondary-container p-1.5 rounded-full">
+<span class="material-symbols-outlined text-xl" data-icon="sync">sync</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-primary">18</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">rooms</span>
+</div>
+</div>
+<!-- Inspected -->
+<div class="surface-card p-4 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-emerald-600"></div>
+<div class="flex justify-between items-start">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Inspected (Ready)</p>
+<div class="bg-emerald-100 text-emerald-800 p-1.5 rounded-full">
+<span class="material-symbols-outlined text-xl" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-primary">85</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">rooms</span>
+</div>
+</div>
+<!-- Out of Order -->
+<div class="surface-card p-4 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex justify-between items-start">
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Out of Order</p>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed p-1.5 rounded-full">
+<span class="material-symbols-outlined text-xl" data-icon="build">build</span>
+</div>
+</div>
+<div class="mt-4 flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-primary">3</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">rooms</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout for Main Content -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Room List (Spans 2 columns on XL) -->
+<div class="xl:col-span-2 surface-card flex flex-col">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-sm text-headline-sm text-primary">Priority Rooms</h3>
+<div class="flex gap-2">
+<select class="bg-surface border border-outline-variant rounded font-body-sm text-body-sm px-3 py-1.5 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none">
+<option>All Floors</option>
+<option>Floor 1</option>
+<option>Floor 2</option>
+</select>
+<select class="bg-surface border border-outline-variant rounded font-body-sm text-body-sm px-3 py-1.5 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none">
+<option>Status: Dirty</option>
+<option>Status: In Progress</option>
+<option>Status: All</option>
+</select>
+</div>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-slate-50 sticky top-0 z-10">
+<tr>
+<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase border-b border-outline-variant w-16">Room</th>
+<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase border-b border-outline-variant">Type</th>
+<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase border-b border-outline-variant">Status</th>
+<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase border-b border-outline-variant">Assigned To</th>
+<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase border-b border-outline-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody>
+<!-- Row 1 (Dirty) -->
+<tr class="hover:bg-slate-50 border-b border-slate-100 transition-colors group">
+<td class="py-3 px-4 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<span class="font-headline-sm text-headline-sm text-primary">102</span>
+</td>
+<td class="py-3 px-4">
+<p class="font-body-sm text-body-sm text-primary">Deluxe King</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Stayover</p>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-error-container text-on-error-container px-2 py-1 rounded-full font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                                            Dirty
+                                        </span>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1 text-[10px]">2h ago</p>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<img alt="Staff Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A small circular avatar of a young male hotel staff member in a neat grey uniform, smiling gently against a white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD9apJ8aJ-Fzmi3vv605nWV-0dG0z7kjYj0PuyyjO3RchApUN1LOP791T2GjZiOcHBYbraLg_Qw3V1uf9tvNkNLxfh5m5ML8T-1D6nehpZgJaIJOMeUvNVQV5C9QHNGMUgwzzm__xiLd2oanmnvUtFhvjOwnermENitWaJCgbK6jbP_uqYXEJmsIy9aqEswNyloxpVylW7eFDHW1VgJvo5Yx4nsyIeZ5gy3EvHa2B0iA6KiG0nybjCAw"/>
+<div>
+<p class="font-body-sm text-body-sm text-primary">Marcus T.</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Update Status">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Add Note">
+<span class="material-symbols-outlined" data-icon="note_add">note_add</span>
+</button>
+<button class="p-1.5 text-error hover:bg-error-container rounded transition-colors" title="Report Issue">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 (In Progress) -->
+<tr class="hover:bg-slate-50 border-b border-slate-100 transition-colors group">
+<td class="py-3 px-4 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<span class="font-headline-sm text-headline-sm text-primary">205</span>
+</td>
+<td class="py-3 px-4">
+<p class="font-body-sm text-body-sm text-primary">Executive Suite</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Checkout</p>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-1 rounded-full font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px] animate-spin" data-icon="sync">sync</span>
+                                            Cleaning
+                                        </span>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1 text-[10px]">15m ago</p>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<img alt="Staff Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A small circular avatar of a female hotel staff member in a neat grey uniform, looking professional against a light background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw6I0VqxYSx22jX8527ndS8DqXTbBlT-OiBO_5VF07Eb0WWYDzG4LSEIZTTzhPBbYi9shZw7z9Ee01K5P_or3O12WlgrxHu2_Sn_nnDLz4nWXgEBy1A6rky2aXd8VLqMSlxnGRTkUS_suR2dSf6KHhy4DmKF7U3kn8NYnZ9_1b-Ex1fkEfNPLsoJ1oooH7XAk8-ZxoTEuAD4EwkLYX5p98Mm69a7ciIzrUbgTrZpX2XttaIHwXS1n6Tg"/>
+<div>
+<p class="font-body-sm text-body-sm text-primary">Sarah J.</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Update Status">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Add Note">
+<span class="material-symbols-outlined" data-icon="note_add">note_add</span>
+</button>
+<button class="p-1.5 text-error hover:bg-error-container rounded transition-colors" title="Report Issue">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 (Maintenance) -->
+<tr class="hover:bg-slate-50 border-b border-slate-100 transition-colors group">
+<td class="py-3 px-4 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<span class="font-headline-sm text-headline-sm text-primary">312</span>
+</td>
+<td class="py-3 px-4">
+<p class="font-body-sm text-body-sm text-primary">Standard Double</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Vacant</p>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-tertiary-fixed text-on-tertiary-fixed px-2 py-1 rounded-full font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="build">build</span>
+                                            Maintenance
+                                        </span>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1 text-[10px]">1d ago</p>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<button class="font-label-md text-label-md text-secondary border border-secondary px-2 py-1 rounded hover:bg-secondary hover:text-white transition-colors">Assign Staff</button>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Update Status">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Add Note">
+<span class="material-symbols-outlined" data-icon="note_add">note_add</span>
+</button>
+<button class="p-1.5 text-error hover:bg-error-container rounded transition-colors" title="Report Issue">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 (Clean / Needs Inspection) -->
+<tr class="hover:bg-slate-50 border-b border-slate-100 transition-colors group">
+<td class="py-3 px-4 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-fixed-dim"></div>
+<span class="font-headline-sm text-headline-sm text-primary">401</span>
+</td>
+<td class="py-3 px-4">
+<p class="font-body-sm text-body-sm text-primary">Penthouse Suite</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Arrival</p>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1 bg-primary-fixed text-primary px-2 py-1 rounded-full font-label-md text-label-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="visibility">visibility</span>
+                                            Needs Inspection
+                                        </span>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1 text-[10px]">5m ago</p>
+</td>
+<td class="py-3 px-4">
+<div class="flex items-center gap-2">
+<img alt="Staff Avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A small circular avatar of an older male hotel supervisor in a navy suit, looking authoritative but friendly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFo4gLbyups-5-EXTqSLqswXRDczSp_T6judTh0Zn3TsKIA9RN9PlqrjuPgBHy_U_4142UTq4pJZfK7lDANbiGJzIsg2tHcTcJQXc-5kiSrfTQSjoPaTwWDdCQLJUjaxqfwCvoPPezqzzUdwc6wgcgEiqIxGATsnGIuc3n49pys0daFi3QtFMsoz01sen1OjthpnUSnBceLO8_6Wap40uwEwBhxLv7KFC6H8es6BnRd3xAQySdm5VwDQ"/>
+<div>
+<p class="font-body-sm text-body-sm text-primary">David W.</p>
+</div>
+</div>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Update Status">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Add Note">
+<span class="material-symbols-outlined" data-icon="note_add">note_add</span>
+</button>
+<button class="p-1.5 text-error hover:bg-error-container rounded transition-colors" title="Report Issue">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Sidebar / Cleaning Schedule -->
+<div class="surface-card flex flex-col h-[600px] xl:h-auto">
+<div class="p-4 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary">Staff Schedule</h3>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="calendar_today">calendar_today</span>
+</div>
+<div class="p-4 flex-1 overflow-y-auto space-y-4">
+<!-- Staff Card 1 -->
+<div class="border border-outline-variant rounded-lg p-3 hover:border-secondary transition-colors cursor-pointer bg-white">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<img alt="Staff" class="w-10 h-10 rounded-full object-cover" data-alt="A small portrait of a female housekeeping staff member, smiling, professional lighting, white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfO-MBjCAd5xmRLx2t5sP6hP9StxMGhFHdG18li-mOQRv8i6pRFG08W74VpBF_oN73nHJ-BGxx0nBAaPmYR0-u04LXnYjZDapLwo24eP1W5ZMqCIGMn3iFhfnbZAs2oSqoFwQiBgSclz7_PFfYzFsMA14nGQ_jqF-_-aBdvXoQnVPewc-X3ANQf4nlSVk9FADY46mrRzI5kK54E3mAJcg53TmFUzUzyydjV33-OV3P9RH2oz3gPetTIw"/>
+<div>
+<p class="font-label-lg text-label-lg text-primary">Sarah J.</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Floor 2 • 8/12 Rooms</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm text-primary">66%</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-variant rounded-full h-1.5 mb-2">
+<div class="bg-secondary h-1.5 rounded-full" style="width: 66%"></div>
+</div>
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span>Active: Rm 205</span>
+<span>Ends: 4:00 PM</span>
+</div>
+</div>
+<!-- Staff Card 2 -->
+<div class="border border-outline-variant rounded-lg p-3 hover:border-secondary transition-colors cursor-pointer bg-white">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-3">
+<img alt="Staff" class="w-10 h-10 rounded-full object-cover" data-alt="A small portrait of a male housekeeping staff member, serious expression, professional lighting, white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaQwV4yRdkUoqvf7YVuMrdnqG3peA4ENTc8CaZCcN0-ag4G28dMG-2M0h6LQILECWXbmN_idfXDPrLmjV46sKZqj-es1JHLt6657YVFZuelEq3EOmuqxzzSPc5qw-JbKcU9RF6sOm3k7u0KQRO1XKOA0bHSlzGbPgDSwpUHVzXHyBLqfuP7QLLg6PWxlqg5msYxjGSKnvfhIrf-bchIIBww-omq6eoKsyFnDPn0F5l7B-TPpgixf0p3g"/>
+<div>
+<p class="font-label-lg text-label-lg text-primary">Marcus T.</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Floor 1 • 4/10 Rooms</p>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-sm text-headline-sm text-primary">40%</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-variant rounded-full h-1.5 mb-2">
+<div class="bg-error h-1.5 rounded-full" style="width: 40%"></div>
+</div>
+<div class="flex justify-between font-label-md text-label-md text-on-surface-variant">
+<span class="text-error">Delayed</span>
+<span>Ends: 5:00 PM</span>
+</div>
+</div>
+<!-- Add Staff Button -->
+<button class="w-full py-3 border border-dashed border-outline-variant text-on-surface-variant font-label-lg text-label-lg rounded-lg flex items-center justify-center gap-2 hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="person_add">person_add</span>
+                             Assign Additional Staff
+                         </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

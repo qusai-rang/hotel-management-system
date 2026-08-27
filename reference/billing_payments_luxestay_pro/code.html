@@ -1,0 +1,445 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Billing &amp; Payments - LuxeStay Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#111c2d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#1e293b",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "background": "#f8f9ff",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#fed488",
+                        "on-tertiary-container": "#8d9092",
+                        "tertiary": "#111516",
+                        "outline-variant": "#c5c6cd",
+                        "primary-fixed": "#d8e3fb",
+                        "on-surface-variant": "#45474c",
+                        "secondary-fixed-dim": "#e9c176",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#bcc7de",
+                        "surface-dim": "#cbdbf5",
+                        "secondary": "#775a19",
+                        "tertiary-container": "#26292b",
+                        "secondary-fixed": "#ffdea5",
+                        "on-background": "#0b1c30",
+                        "on-primary-container": "#8590a6",
+                        "on-secondary-container": "#785a1a",
+                        "on-secondary-fixed": "#261900",
+                        "primary-fixed-dim": "#bcc7de",
+                        "inverse-surface": "#213145",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "surface-tint": "#545f73",
+                        "primary": "#091426",
+                        "surface-container-high": "#dce9ff",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-tertiary-fixed": "#191c1e",
+                        "outline": "#75777d",
+                        "surface-container": "#e5eeff",
+                        "surface-variant": "#d3e4fe",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "header-height": "64px",
+                        "sidebar-collapsed": "72px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Noto Serif"],
+                        "headline-lg-mobile": ["Noto Serif"],
+                        "headline-md": ["Noto Serif"],
+                        "headline-sm": ["Noto Serif"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Surface Card Style */
+        .surface-card {
+            background-color: theme('colors.surface-container-lowest');
+            border: 1px solid theme('colors.outline-variant');
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            border-radius: theme('borderRadius.lg');
+        }
+    </style>
+</head>
+<body class="h-full flex overflow-hidden antialiased">
+<!-- SideNavBar -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full w-sidebar-width bg-primary dark:bg-primary-container flex-col py-6 px-4 z-50">
+<div class="flex items-center gap-4 px-2 mb-8"><div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary">domain</span></div><div><h1 class="font-headline-sm text-headline-sm text-on-primary">Luxe Stay</h1><p class="font-label-md text-label-md opacity-70">Premium Management</p></div></div>
+<button class="w-full bg-secondary-fixed hover:bg-secondary-fixed-dim text-primary font-label-lg text-label-lg py-3 px-4 rounded-lg flex items-center justify-center gap-2 mb-8 transition-colors"><span class="material-symbols-outlined">add</span>New Booking</button><ul class="flex-1 space-y-2"><li class=""><a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg scale-95 active:scale-100" href="#"><span class="material-symbols-outlined">dashboard</span>Dashboard</a></li><li class=""><a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg scale-95 active:scale-100" href="#"><span class="material-symbols-outlined">calendar_month</span>Reservations</a></li><li class=""><a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg scale-95 active:scale-100" href="#"><span class="material-symbols-outlined">bed</span>Rooms</a></li><li class=""><a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg scale-95 active:scale-100" href="#"><span class="material-symbols-outlined">group</span>Guests</a></li><li class=""><a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg scale-95 active:scale-100" href="#"><span class="material-symbols-outlined">cleaning_services</span>Housekeeping</a></li><li class=""><a class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-primary font-bold rounded-lg scale-95 active:scale-100" href="#"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>Billing</a></li></ul>
+<div class="mt-auto pt-6 border-t border-on-primary-fixed-variant"><a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg scale-95 active:scale-100" href="#"><span class="material-symbols-outlined">settings</span>Settings</a></div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 md:pl-sidebar-width overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-full md:w-[calc(100%-theme(spacing.sidebar-width))] h-header-height bg-surface-container-lowest dark:bg-surface-container-low border-b border-outline-variant flex justify-between items-center px-container-padding z-40">
+<div class="flex items-center gap-4 flex-1">
+<!-- Mobile Menu Button (hidden on md) -->
+<button class="md:hidden p-2 -ml-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed md:hidden m-0">LuxeStay Pro</h2>
+<!-- Search Bar -->
+<div class="hidden sm:flex relative w-full max-w-md ml-4 md:ml-0">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 rounded-full border border-outline-variant bg-surface focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none font-body-sm text-body-sm text-on-surface transition-all" placeholder="Search invoices, guests, rooms..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-2 sm:gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all duration-200 active:opacity-80 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all duration-200 active:opacity-80 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined text-[24px]">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2 cursor-pointer hover:border-secondary transition-colors">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="Close up professional headshot of a hotel manager in a sharp navy suit, smiling warmly against a blurred bright modern hotel lobby background. Bright lighting, corporate modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDHHE_mU2EjPu3THRmCD_y50q9KToGxeMsmANl7AMSzf3iZZPxridYOcJideATT8wFbbi4yWdQfOGMEQGaJ-KHPo2S3X3lsyXIGaXqYOnNc1feiI8kdCnd8PbKh65C72QJCQC8MEp_MZ9sJ80rqGWb4cMYlqPvdI3Xu05qgy1vXxM8UJG49MV1xBGKcTREK955E_WtuEkalsmqEdO37q_CHydmcg_JLSSpNcglIz3jHpR0KmgMqR7BMg">
+</div>
+</div>
+</header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 overflow-y-auto mt-header-height p-gutter md:p-container-padding pb-24">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background m-0">Billing &amp; Payments</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 m-0">Manage transactions, invoices, and financial performance.</p>
+</div>
+<div class="flex gap-3">
+<button class="h-10 px-4 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export
+                    </button>
+<button class="h-10 px-4 py-2 rounded bg-primary text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container hover:-translate-y-0.5 transition-all shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Quick Add Charge
+                    </button>
+</div>
+</div>
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Metric 1 -->
+<div class="surface-card p-6 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-surface-container-high rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start mb-4 z-10">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Total Revenue (MTD)</span>
+<div class="p-2 bg-primary-fixed rounded text-primary">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+</div>
+</div>
+<div class="z-10">
+<h3 class="font-headline-lg text-headline-lg text-on-background m-0">$124,500.00</h3>
+<p class="font-body-sm text-body-sm text-secondary mt-1 m-0 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                            +12.5% vs last month
+                        </p>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="surface-card p-6 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-surface-container-high rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start mb-4 z-10">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Pending Payments</span>
+<div class="p-2 bg-secondary-container rounded text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]">pending_actions</span>
+</div>
+</div>
+<div class="z-10">
+<h3 class="font-headline-lg text-headline-lg text-on-background m-0">$18,240.50</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 m-0">Across 42 active folios</p>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="surface-card p-6 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-surface-container-high rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start mb-4 z-10">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Today's Transactions</span>
+<div class="p-2 bg-surface-container-highest rounded text-on-surface">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</div>
+</div>
+<div class="z-10">
+<h3 class="font-headline-lg text-headline-lg text-on-background m-0">143</h3>
+<p class="font-body-sm text-body-sm text-secondary mt-1 m-0 flex items-center gap-1">
+                            $8,450.00 processed
+                        </p>
+</div>
+</div>
+<!-- Metric 4 -->
+<div class="surface-card p-6 flex flex-col relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-surface-container-high rounded-full opacity-50 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start mb-4 z-10">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Refunds (MTD)</span>
+<div class="p-2 bg-error-container rounded text-on-error-container">
+<span class="material-symbols-outlined text-[20px]">currency_exchange</span>
+</div>
+</div>
+<div class="z-10">
+<h3 class="font-headline-lg text-headline-lg text-on-background m-0">$1,250.00</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 m-0">3 instances processed</p>
+</div>
+</div>
+</div>
+<!-- Filters & Actions Bar -->
+<div class="flex flex-col md:flex-row gap-4 justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-background m-0 w-full md:w-auto">Recent Transactions</h3>
+<div class="flex flex-wrap gap-3 w-full md:w-auto">
+<!-- Date Filter -->
+<div class="relative">
+<select class="appearance-none h-10 pl-4 pr-10 border border-outline-variant rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none cursor-pointer">
+<option>Last 7 Days</option>
+<option>Today</option>
+<option>This Month</option>
+<option>Custom Range...</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+<!-- Status Filter -->
+<div class="relative">
+<select class="appearance-none h-10 pl-4 pr-10 border border-outline-variant rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none cursor-pointer">
+<option>All Statuses</option>
+<option>Paid</option>
+<option>Pending</option>
+<option>Refunded</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+<!-- Department Filter -->
+<div class="relative">
+<select class="appearance-none h-10 pl-4 pr-10 border border-outline-variant rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none cursor-pointer">
+<option>All Departments</option>
+<option>Room</option>
+<option>Restaurant</option>
+<option>Spa</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Data Table -->
+<div class="surface-card overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-bright border-b border-outline-variant">
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase whitespace-nowrap">Date &amp; Time</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase whitespace-nowrap">Guest / Folio</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase whitespace-nowrap">Type</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase whitespace-nowrap text-right">Amount</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase whitespace-nowrap text-center">Status</th>
+<th class="p-4 font-label-md text-label-md text-on-surface-variant uppercase whitespace-nowrap">Method</th>
+<th class="p-4 w-12"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="p-4">
+<div class="font-body-sm text-body-sm text-on-background">Oct 24, 2023</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">14:32</div>
+</td>
+<td class="p-4">
+<a href="#" class="font-body-md text-body-md text-primary font-medium hover:text-secondary transition-colors">Eleanor Vance</a>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">Folio #8842</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">bed</span>
+<span class="font-body-sm text-body-sm text-on-background">Room Rate</span>
+</div>
+</td>
+<td class="p-4 text-right font-body-md text-body-md text-on-background font-medium">
+                                    $450.00
+                                </td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md">
+                                        Paid
+                                    </span>
+</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">
+                                    Visa •••• 4242
+                                </td>
+<td class="p-4 text-right">
+<button class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="p-4">
+<div class="font-body-sm text-body-sm text-on-background">Oct 24, 2023</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">12:15</div>
+</td>
+<td class="p-4">
+<div class="font-body-md text-body-md text-primary font-medium">Marcus Sterling</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">Folio #8845</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">restaurant</span>
+<span class="font-body-sm text-body-sm text-on-background">Restaurant</span>
+</div>
+</td>
+<td class="p-4 text-right font-body-md text-body-md text-on-background font-medium">
+                                    $125.50
+                                </td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded-full bg-secondary-container/30 text-on-secondary-container font-label-md text-label-md border border-secondary-container">
+                                        Pending
+                                    </span>
+</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">
+                                    Room Charge
+                                </td>
+<td class="p-4 text-right">
+<button class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="p-4">
+<div class="font-body-sm text-body-sm text-on-background">Oct 23, 2023</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">09:45</div>
+</td>
+<td class="p-4">
+<div class="font-body-md text-body-md text-primary font-medium">Sophia Chen</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">Folio #8839</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">spa</span>
+<span class="font-body-sm text-body-sm text-on-background">Spa Service</span>
+</div>
+</td>
+<td class="p-4 text-right font-body-md text-body-md text-on-background font-medium">
+                                    $210.00
+                                </td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded-full bg-error-container/30 text-on-error-container font-label-md text-label-md border border-error-container">
+                                        Refunded
+                                    </span>
+</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">
+                                    Amex •••• 1005
+                                </td>
+<td class="p-4 text-right">
+<button class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-lowest/50 transition-colors group">
+<td class="p-4">
+<div class="font-body-sm text-body-sm text-on-background">Oct 23, 2023</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">08:30</div>
+</td>
+<td class="p-4">
+<div class="font-body-md text-body-md text-primary font-medium">David Miller</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">Folio #8850</div>
+</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">local_cafe</span>
+<span class="font-body-sm text-body-sm text-on-background">Room Service</span>
+</div>
+</td>
+<td class="p-4 text-right font-body-md text-body-md text-on-background font-medium">
+                                    $45.00
+                                </td>
+<td class="p-4 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md">
+                                        Paid
+                                    </span>
+</td>
+<td class="p-4 font-body-sm text-body-sm text-on-surface-variant">
+                                    Room Charge
+                                </td>
+<td class="p-4 text-right">
+<button class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container opacity-0 group-hover:opacity-100 transition-all">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="p-4 border-t border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 4 of 143 entries</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-label-md text-label-md">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container font-label-md text-label-md">3</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+
+</body></html>

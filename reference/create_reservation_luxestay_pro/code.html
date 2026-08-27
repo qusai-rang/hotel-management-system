@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Luxe Stay - New Reservation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#dce9ff",
+                      "surface-variant": "#d3e4fe",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-fixed": "#191c1e",
+                      "on-tertiary-container": "#8d9092",
+                      "surface-bright": "#f8f9ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#26292b",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-primary-fixed": "#111c2d",
+                      "error": "#ba1a1a",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#f8f9ff",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "on-primary-container": "#8590a6",
+                      "surface-container-highest": "#d3e4fe",
+                      "on-surface": "#0b1c30",
+                      "primary-fixed": "#d8e3fb",
+                      "secondary": "#775a19",
+                      "on-secondary-fixed-variant": "#5d4201",
+                      "on-secondary-fixed": "#261900",
+                      "background": "#f8f9ff",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#eaf1ff",
+                      "inverse-primary": "#bcc7de",
+                      "on-primary-fixed-variant": "#3c475a",
+                      "secondary-fixed": "#ffdea5",
+                      "tertiary": "#111516",
+                      "outline-variant": "#c5c6cd",
+                      "secondary-fixed-dim": "#e9c176",
+                      "outline": "#75777d",
+                      "on-error": "#ffffff",
+                      "primary-container": "#1e293b",
+                      "primary": "#091426",
+                      "surface-tint": "#545f73",
+                      "on-surface-variant": "#45474c",
+                      "secondary-container": "#fed488",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#cbdbf5",
+                      "inverse-surface": "#213145",
+                      "primary-fixed-dim": "#bcc7de",
+                      "surface-container": "#e5eeff",
+                      "on-background": "#0b1c30",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#e0e3e5",
+                      "on-secondary-container": "#785a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "sidebar-width": "260px",
+                      "unit": "4px",
+                      "sidebar-collapsed": "72px",
+                      "gutter": "16px",
+                      "header-height": "64px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Noto Serif"],
+                      "label-md": ["Inter"],
+                      "headline-md": ["Noto Serif"],
+                      "headline-sm": ["Noto Serif"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Noto Serif"],
+                      "display-lg": ["Noto Serif"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background antialiased font-body-md">
+<!-- Suppressed Nav Shells because intent is Linear/Transactional (New Reservation Flow) -->
+<!-- Main Content Canvas (Focused Journey) -->
+<main class="min-h-screen flex items-center justify-center p-4 md:p-8">
+<!-- Modal / Form Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/30 w-full max-w-4xl overflow-hidden flex flex-col md:flex-row h-[85vh] md:h-auto min-h-[600px]">
+<!-- Left Side: Progress & Context -->
+<div class="bg-primary text-on-primary w-full md:w-[280px] flex-shrink-0 p-8 flex flex-col justify-between">
+<div>
+<div class="font-headline-sm text-headline-sm mb-8 tracking-tight">New Reservation</div>
+<!-- Progress Indicator -->
+<nav aria-label="Progress">
+<ol class="overflow-hidden" role="list">
+<!-- Step 1: Active -->
+<li class="relative pb-10">
+<div aria-hidden="true" class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-outline-variant/30"></div>
+<div class="relative flex items-center group">
+<span class="h-9 flex items-center">
+<span class="relative z-10 w-8 h-8 flex items-center justify-center bg-secondary rounded-full">
+<span class="font-label-lg text-label-lg text-on-primary">1</span>
+</span>
+</span>
+<span class="ml-4 min-w-0 flex flex-col">
+<span class="font-label-lg text-label-lg tracking-wide text-secondary-fixed">Dates &amp; Room</span>
+<span class="font-body-sm text-body-sm text-on-primary/70">Select stay details</span>
+</span>
+</div>
+</li>
+<!-- Step 2: Upcoming -->
+<li class="relative pb-10">
+<div aria-hidden="true" class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-outline-variant/30"></div>
+<div class="relative flex items-center group">
+<span class="h-9 flex items-center">
+<span class="relative z-10 w-8 h-8 flex items-center justify-center bg-primary border-2 border-outline-variant/50 rounded-full">
+<span class="font-label-lg text-label-lg text-outline-variant/50">2</span>
+</span>
+</span>
+<span class="ml-4 min-w-0 flex flex-col">
+<span class="font-label-lg text-label-lg tracking-wide text-on-primary/50">Guest Info</span>
+<span class="font-body-sm text-body-sm text-on-primary/40">Profile or new guest</span>
+</span>
+</div>
+</li>
+<!-- Step 3: Upcoming -->
+<li class="relative">
+<div class="relative flex items-center group">
+<span class="h-9 flex items-center">
+<span class="relative z-10 w-8 h-8 flex items-center justify-center bg-primary border-2 border-outline-variant/50 rounded-full">
+<span class="font-label-lg text-label-lg text-outline-variant/50">3</span>
+</span>
+</span>
+<span class="ml-4 min-w-0 flex flex-col">
+<span class="font-label-lg text-label-lg tracking-wide text-on-primary/50">Review &amp; Deposit</span>
+<span class="font-body-sm text-body-sm text-on-primary/40">Confirm booking</span>
+</span>
+</div>
+</li>
+</ol>
+</nav>
+</div>
+<div class="mt-8 hidden md:block">
+<button class="font-label-md text-label-md text-on-primary/70 hover:text-on-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+                        Cancel Reservation
+                    </button>
+</div>
+</div>
+<!-- Right Side: Active Step Content (Step 1) -->
+<div class="flex-1 flex flex-col bg-surface-container-lowest">
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto p-6 md:p-10">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6">Stay Details</h2>
+<div class="space-y-8">
+<!-- Date Selection -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Check-in Date</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="calendar_month">calendar_month</span>
+<input class="w-full h-[40px] pl-10 pr-3 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary/20 font-body-md text-on-surface bg-surface-container-lowest" type="date" value="2024-05-15"/>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Check-out Date</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="calendar_month">calendar_month</span>
+<input class="w-full h-[40px] pl-10 pr-3 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary/20 font-body-md text-on-surface bg-surface-container-lowest" type="date" value="2024-05-18"/>
+</div>
+</div>
+</div>
+<!-- Occupancy -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Adults</label>
+<div class="relative">
+<select class="w-full h-[40px] px-3 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary/20 font-body-md text-on-surface bg-surface-container-lowest appearance-none">
+<option>1</option>
+<option selected="">2</option>
+<option>3</option>
+<option>4</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">Children</label>
+<div class="relative">
+<select class="w-full h-[40px] px-3 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary/20 font-body-md text-on-surface bg-surface-container-lowest appearance-none">
+<option selected="">0</option>
+<option>1</option>
+<option>2</option>
+<option>3</option>
+</select>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant/30"/>
+<!-- Room Type Selection (Bento-style Grid) -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-4">Select Room Type</label>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Option 1 (Selected) -->
+<label class="relative cursor-pointer">
+<input checked="" class="peer sr-only" name="room_type" type="radio"/>
+<div class="p-4 rounded-lg border-2 border-secondary bg-surface-container-low shadow-sm transition-all h-full">
+<div class="flex justify-between items-start mb-2">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">Executive Suite</span>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mb-4">King bed, city view, access to Club Lounge.</div>
+<div class="flex justify-between items-end">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="local_bar">local_bar</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">$450/nt</span>
+</div>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="relative cursor-pointer">
+<input class="peer sr-only" name="room_type" type="radio"/>
+<div class="p-4 rounded-lg border border-outline-variant hover:border-outline bg-surface-container-lowest hover:shadow-sm transition-all h-full opacity-80 peer-checked:opacity-100">
+<div class="flex justify-between items-start mb-2">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">Deluxe King</span>
+<span class="material-symbols-outlined text-outline-variant" data-icon="circle">circle</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mb-4">King bed, partial ocean view, balcony.</div>
+<div class="flex justify-between items-end">
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="wifi">wifi</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">$320/nt</span>
+</div>
+</div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-6 border-t border-outline-variant/30 bg-surface-bright flex justify-between items-center mt-auto">
+<button class="md:hidden font-label-md text-label-md text-on-surface-variant">Cancel</button>
+<div class="hidden md:block font-body-sm text-body-sm text-on-surface-variant">
+                        Subtotal: <span class="font-bold text-on-surface">$1,350.00</span> (3 nights)
+                    </div>
+<button class="bg-primary text-on-primary font-label-lg text-label-lg px-6 py-2.5 rounded hover:-translate-y-[1px] transition-transform flex items-center gap-2">
+                        Next: Guest Info
+                        <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

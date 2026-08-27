@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Room Type &amp; Floor Management | LuxeStay Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#0b1c30",
+                      "secondary": "#775a19",
+                      "inverse-on-surface": "#eaf1ff",
+                      "secondary-fixed-dim": "#e9c176",
+                      "primary-container": "#1e293b",
+                      "surface": "#f8f9ff",
+                      "outline": "#75777d",
+                      "surface-container-high": "#dce9ff",
+                      "on-surface": "#0b1c30",
+                      "surface-container-highest": "#d3e4fe",
+                      "surface-bright": "#f8f9ff",
+                      "surface-tint": "#545f73",
+                      "tertiary-container": "#26292b",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "on-tertiary-container": "#8d9092",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#5d4201",
+                      "tertiary": "#111516",
+                      "inverse-surface": "#213145",
+                      "secondary-container": "#fed488",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#d8e3fb",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#45474c",
+                      "on-secondary-fixed": "#261900",
+                      "on-primary-container": "#8590a6",
+                      "on-error": "#ffffff",
+                      "primary-fixed-dim": "#bcc7de",
+                      "surface-container-low": "#eff4ff",
+                      "surface-container": "#e5eeff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-container": "#785a1a",
+                      "on-tertiary-fixed": "#191c1e",
+                      "inverse-primary": "#bcc7de",
+                      "error": "#ba1a1a",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c5c6cd",
+                      "surface-dim": "#cbdbf5",
+                      "secondary-fixed": "#ffdea5",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#d3e4fe",
+                      "tertiary-fixed": "#e0e3e5",
+                      "on-primary-fixed-variant": "#3c475a",
+                      "primary": "#091426",
+                      "on-primary-fixed": "#111c2d",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "background": "#f8f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "sidebar-width": "260px",
+                      "gutter": "16px",
+                      "header-height": "64px",
+                      "container-padding": "24px",
+                      "sidebar-collapsed": "72px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Noto Serif"],
+                      "headline-sm": ["Noto Serif"],
+                      "headline-lg-mobile": ["Noto Serif"],
+                      "headline-md": ["Noto Serif"],
+                      "display-lg": ["Noto Serif"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-lg": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-unit w-sidebar-width h-screen sticky left-0 top-0 bg-primary shadow-sm z-50">
+<div class="px-container-padding py-6">
+<h1 class="font-headline-sm text-headline-sm text-secondary-fixed tracking-tight">LuxeStay Pro</h1>
+<p class="font-label-md text-label-md text-on-primary-container mt-1">Grand Plaza Heights</p>
+</div>
+<nav class="flex-1 mt-6">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center space-x-3 py-3 text-on-primary-container pl-5 hover:text-secondary-fixed-dim hover:bg-primary-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 text-on-primary-container pl-5 hover:text-secondary-fixed-dim hover:bg-primary-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="bed">bed</span>
+<span class="font-label-lg text-label-lg">Room Management</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 text-on-primary-container pl-5 hover:text-secondary-fixed-dim hover:bg-primary-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-lg text-label-lg">Reservations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 text-on-primary-container pl-5 hover:text-secondary-fixed-dim hover:bg-primary-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="concierge">concierge</span>
+<span class="font-label-lg text-label-lg">Guest Services</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 text-on-primary-container pl-5 hover:text-secondary-fixed-dim hover:bg-primary-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-lg text-label-lg">Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-3 text-secondary-fixed font-bold border-l-4 border-secondary-fixed pl-4 bg-primary-container transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="px-container-padding py-6">
+<button class="w-full bg-secondary-container text-on-secondary-fixed-variant font-label-lg text-label-lg py-3 rounded-DEFAULT hover:bg-secondary-fixed-dim transition-colors shadow-sm mb-6">
+                Upgrade Stay
+            </button>
+<ul class="space-y-2 border-t border-primary-container pt-4">
+<li>
+<a class="flex items-center space-x-3 py-2 text-on-primary-container pl-5 hover:text-secondary-fixed-dim transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-lg text-label-lg">Support</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 py-2 text-on-primary-container pl-5 hover:text-secondary-fixed-dim transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-lg text-label-lg">Logout</span>
+</a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-container-padding w-full h-header-height sticky top-0 z-40 bg-surface-container-lowest border-b border-outline-variant shadow-sm transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-2 focus-within:ring-2 focus-within:ring-secondary-container">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-body-sm font-body-sm text-on-surface placeholder:text-outline w-64 focus:ring-0 p-0" placeholder="Search settings..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Manager Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a diverse hotel manager in business attire, smiling warmly against a clean, softly lit corporate background. The lighting is high-key and modern, conveying trust and competence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjZ6zzfRyym1pjfJFqLn6ugocQwPWaLsjy-WY421RuVTntzWK05U8hN7Di6Sy7PEHakIwwRlkXSfHbYWkh5UphieDSmI7uaQWScdPaKsB0oitwcaWQ2aiQ7aHTs63BH908zwUvFLyOJx3rWZthzIX6Y4fYZG4NI4N16jNX-Fs4OpKOuTOIWgr6riS_5cDDvEmr5505KZLVfAnvUfVQrKXFugoNvR4lPuzDTwUcKznl-EmA-oUe1SfK5g"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="p-container-padding flex-1 overflow-y-auto">
+<div class="mb-8 flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Property Configuration</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage room categorizations and physical floor layouts for Grand Plaza Heights.</p>
+</div>
+</div>
+<!-- Tabs -->
+<div class="border-b border-outline-variant mb-6">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8">
+<button aria-current="page" class="border-secondary text-secondary whitespace-nowrap py-4 px-1 border-b-2 font-label-lg text-label-lg">
+                        Room Types
+                    </button>
+<button class="border-transparent text-on-surface-variant hover:text-secondary hover:border-outline-variant whitespace-nowrap py-4 px-1 border-b-2 font-label-lg text-label-lg">
+                        Floor Management
+                    </button>
+</nav>
+</div>
+<!-- Tab Content: Room Types -->
+<div class="space-y-6">
+<!-- Action Bar -->
+<div class="flex justify-between items-center">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant focus-within:ring-2 focus-within:ring-secondary-container">
+<span class="material-symbols-outlined text-outline mr-2" data-icon="filter_list">filter_list</span>
+<input class="bg-transparent border-none outline-none text-body-sm font-body-sm text-on-surface placeholder:text-outline w-48 focus:ring-0 p-0" placeholder="Filter room types..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-lg text-label-lg px-4 py-2 rounded-DEFAULT hover:-translate-y-px shadow-sm hover:shadow-md transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                        New Room Type
+                    </button>
+</div>
+<!-- Bento Grid for Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface border border-outline-variant rounded-lg p-6 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="category">category</span>
+<span class="bg-secondary-container/20 text-on-secondary-container font-label-md text-label-md px-2 py-1 rounded-full">Active</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-background">12</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Total Room Types</p>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-6 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="bed">bed</span>
+<span class="bg-surface-container-high text-on-surface font-label-md text-label-md px-2 py-1 rounded-full">Capacity</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-background">340</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Total Rooms Across Types</p>
+</div>
+<div class="bg-surface border border-outline-variant rounded-lg p-6 shadow-sm flex flex-col justify-center items-center text-center border-dashed bg-surface-container-lowest">
+<span class="material-symbols-outlined text-outline mb-2 text-3xl" data-icon="auto_awesome">auto_awesome</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Need pricing recommendations?</p>
+<button class="text-secondary font-label-md text-label-md hover:underline">Run Analysis</button>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface border border-outline-variant rounded-lg shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 border-b border-slate-100">
+<th class="py-3 px-6 font-label-md text-label-md text-primary uppercase tracking-wider">Type Name &amp; Code</th>
+<th class="py-3 px-6 font-label-md text-label-md text-primary uppercase tracking-wider">Base Price</th>
+<th class="py-3 px-6 font-label-md text-label-md text-primary uppercase tracking-wider">Total Rooms</th>
+<th class="py-3 px-6 font-label-md text-label-md text-primary uppercase tracking-wider">Capacity</th>
+<th class="py-3 px-6 font-label-md text-label-md text-primary uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-background">
+<!-- Row 1 -->
+<tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-blue-400 rounded-full"></div>
+<div>
+<p class="font-label-lg text-label-lg">Standard King</p>
+<p class="text-on-surface-variant text-xs">STD-K</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 font-label-lg text-label-lg">$249<span class="text-on-surface-variant font-body-sm text-body-sm">/night</span></td>
+<td class="py-4 px-6">120</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-on-surface-variant hover:text-secondary p-2 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-emerald-400 rounded-full"></div>
+<div>
+<p class="font-label-lg text-label-lg">Deluxe Double</p>
+<p class="text-on-surface-variant text-xs">DLX-D</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 font-label-lg text-label-lg">$319<span class="text-on-surface-variant font-body-sm text-body-sm">/night</span></td>
+<td class="py-4 px-6">85</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-on-surface-variant hover:text-secondary p-2 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-8 bg-secondary rounded-full"></div>
+<div>
+<p class="font-headline-sm text-headline-sm font-headline-sm">Executive Suite</p>
+<p class="text-on-surface-variant text-xs">EXE-S</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 font-label-lg text-label-lg">$599<span class="text-on-surface-variant font-body-sm text-body-sm">/night</span></td>
+<td class="py-4 px-6">15</td>
+<td class="py-4 px-6">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="person">person</span>
+</div>
+</td>
+<td class="py-4 px-6 text-right">
+<button class="text-on-surface-variant hover:text-secondary p-2 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

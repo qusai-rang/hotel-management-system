@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Room Management - Luxe Stay HMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#dce9ff",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-tertiary-container": "#8d9092",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#26292b",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-primary-fixed": "#111c2d",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-primary-container": "#8590a6",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-surface": "#0b1c30",
+                        "primary-fixed": "#d8e3fb",
+                        "secondary": "#775a19",
+                        "on-secondary-fixed-variant": "#5d4201",
+                        "on-secondary-fixed": "#261900",
+                        "background": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#bcc7de",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "secondary-fixed": "#ffdea5",
+                        "tertiary": "#111516",
+                        "outline-variant": "#c5c6cd",
+                        "secondary-fixed-dim": "#e9c176",
+                        "outline": "#75777d",
+                        "on-error": "#ffffff",
+                        "primary-container": "#1e293b",
+                        "primary": "#091426",
+                        "surface-tint": "#545f73",
+                        "on-surface-variant": "#45474c",
+                        "secondary-container": "#fed488",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-surface": "#213145",
+                        "primary-fixed-dim": "#bcc7de",
+                        "surface-container": "#e5eeff",
+                        "on-background": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-secondary-container": "#785a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "sidebar-width": "260px",
+                        "unit": "4px",
+                        "sidebar-collapsed": "72px",
+                        "gutter": "16px",
+                        "header-height": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Noto Serif"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Noto Serif"],
+                        "headline-sm": ["Noto Serif"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Noto Serif"],
+                        "display-lg": ["Noto Serif"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-lg": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #E2E8F0;
+        }
+        
+        .room-card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .room-card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-full overflow-hidden flex font-body-md">
+<!-- SideNavBar (Shared Component) -->
+<nav aria-label="Sidebar" class="fixed left-0 top-0 h-full w-sidebar-width bg-primary dark:bg-primary-container flex flex-col p-4 border-r border-outline-variant shadow-sm z-30 hidden md:flex">
+<!-- Brand -->
+<div class="flex items-center gap-4 px-4 py-6 mb-4">
+<div class="w-10 h-10 rounded bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hotel</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-primary">Luxe Stay</h1>
+<p class="font-label-md text-label-md text-primary-fixed-dim">Premium Management</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-2 flex-grow overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                Reservations
+            </a>
+<!-- Active Tab: Rooms -->
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-primary font-bold rounded-lg scale-95 active:scale-100 transition-transform shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bed</span>
+                Rooms
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+                Guests
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">cleaning_services</span>
+                Housekeeping
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Billing
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors rounded-lg mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</div>
+<!-- CTA -->
+<div class="mt-4 px-2">
+<button class="w-full py-3 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-lg shadow-sm hover:bg-secondary-fixed transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                New Booking
+            </button>
+</div>
+</nav>
+<!-- Main Content Area Wrapper -->
+<div class="flex-grow flex flex-col md:ml-[260px] h-full overflow-hidden relative w-full">
+<!-- TopNavBar (Shared Component) -->
+<header class="fixed top-0 right-0 w-full md:w-[calc(100%-260px)] h-header-height bg-surface shadow-sm z-20 flex justify-between items-center px-container-padding">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-primary p-2 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-headline-md text-headline-md text-primary hidden sm:block">Luxe Stay HMS</div>
+<!-- Search -->
+<div class="relative ml-4 hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-10 pr-4 py-2 h-10 w-64 bg-surface-container-lowest border border-outline-variant rounded-full text-body-sm focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all" placeholder="Search rooms, guests..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80 relative p-2">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant hidden sm:block"></div>
+<button class="hidden sm:flex px-4 h-10 bg-primary text-on-primary font-label-lg text-label-lg rounded-full items-center gap-2 hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">login</span>
+                    Check In
+                </button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant cursor-pointer">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a luxury hotel manager, warm lighting, corporate modern aesthetic, crisp focus." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMHhh2_CXJrWRz63-uHro-Q4Yz1Oq1VS4-oa3WLicpPCIBF0_ug-heNO-gQ0HtIiAurOmqqUnTiBIk7s9MvZ4pVXXuy4DLJttJ0AMydhxYm-4d7p-ZiSXADMnhMILl8JwsNlfOETQwVxsc3SNLWbOXIJAhEsIpE2rIdInjQQ0XrBt2ujEHDD5tH58zZlmYz8V3kI7B25CWGB3Jti8NTjd0dqEamhHZuHtjKrkotXV0cWUuQtjJNk7m9g"/>
+</div>
+</div>
+</header>
+<!-- Page Content Scrollable Area -->
+<main class="flex-grow pt-header-height overflow-y-auto w-full">
+<div class="p-container-padding max-w-7xl mx-auto flex flex-col gap-6">
+<!-- Header & Filters Bento -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+<div class="lg:col-span-4 flex flex-col gap-2">
+<h2 class="font-display-lg text-display-lg text-on-surface m-0 leading-tight">Rooms</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time status and management</p>
+</div>
+<!-- Filter Glass Panel -->
+<div class="lg:col-span-8 glass-panel rounded-xl p-4 flex flex-wrap gap-4 items-center justify-between shadow-sm">
+<div class="flex flex-wrap gap-4 items-center">
+<!-- Floor Filter -->
+<div class="flex items-center gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Floor</label>
+<select class="h-10 pl-3 pr-8 bg-surface-container-lowest border border-outline-variant rounded text-body-sm focus:border-secondary focus:ring-1 focus:ring-secondary appearance-none">
+<option>All Floors</option>
+<option>Floor 1 - Lobby Level</option>
+<option>Floor 2 - Mezzanine</option>
+<option>Floor 3 - Executive</option>
+<option>Floor 4 - Penthouse</option>
+</select>
+</div>
+<!-- Status Filter -->
+<div class="flex items-center gap-2">
+<label class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Status</label>
+<div class="flex bg-surface-container-low rounded p-1 border border-outline-variant">
+<button class="px-3 py-1.5 text-body-sm font-medium bg-surface-container-lowest rounded shadow-sm text-primary">All</button>
+<button class="px-3 py-1.5 text-body-sm text-on-surface-variant hover:text-primary transition-colors">Available</button>
+<button class="px-3 py-1.5 text-body-sm text-on-surface-variant hover:text-primary transition-colors">Occupied</button>
+<button class="px-3 py-1.5 text-body-sm text-on-surface-variant hover:text-primary transition-colors">Dirty</button>
+</div>
+</div>
+</div>
+<!-- View Toggles -->
+<div class="flex gap-2 border-l border-outline-variant pl-4">
+<button class="p-2 text-primary bg-surface-container-highest rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container rounded-lg transition-colors">
+<span class="material-symbols-outlined">view_list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Room Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Room Card: Available Suite -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm room-card-hover overflow-hidden flex flex-col relative group">
+<!-- Status Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-emerald-500"></div>
+<div class="p-5 pl-6 flex-grow flex flex-col gap-4">
+<!-- Header Row -->
+<div class="flex justify-between items-start">
+<div>
+<span class="font-headline-md text-headline-md text-on-surface block leading-none">301</span>
+<span class="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase mt-1 block">Executive Suite</span>
+</div>
+<!-- Badge -->
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div> Available
+                                </span>
+</div>
+<!-- Details -->
+<div class="grid grid-cols-2 gap-y-3 gap-x-2 mt-2">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<span class="font-body-sm text-body-sm">Capacity: 4</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">king_bed</span>
+<span class="font-body-sm text-body-sm">1 King, 1 Sofa</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant col-span-2">
+<span class="material-symbols-outlined text-[18px]">cleaning_services</span>
+<span class="font-body-sm text-body-sm">Cleaned 2h ago</span>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-4 pl-6 border-t border-outline-variant bg-surface-bright flex justify-between items-center">
+<span class="font-label-lg text-label-lg text-on-surface">$450 / night</span>
+<button class="text-secondary hover:text-secondary-fixed-dim font-label-md text-label-md uppercase tracking-wider flex items-center gap-1 transition-colors">
+                                Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Room Card: Occupied Standard -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm room-card-hover overflow-hidden flex flex-col relative group">
+<!-- Status Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-500"></div>
+<div class="p-5 pl-6 flex-grow flex flex-col gap-4">
+<!-- Header Row -->
+<div class="flex justify-between items-start">
+<div>
+<span class="font-headline-md text-headline-md text-on-surface block leading-none">215</span>
+<span class="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase mt-1 block">Standard King</span>
+</div>
+<!-- Badge -->
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-blue-500"></div> Occupied
+                                </span>
+</div>
+<!-- Details - Guest Info -->
+<div class="bg-surface-container p-3 rounded-lg mt-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-fixed-dim flex items-center justify-center text-primary font-semibold text-sm">
+                                        JS
+                                    </div>
+<div>
+<div class="font-body-sm text-body-sm text-on-surface font-medium">John Smith</div>
+<div class="font-label-md text-label-md text-on-surface-variant">Out: Oct 15</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-4 pl-6 border-t border-outline-variant bg-surface-bright flex justify-between items-center">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+<button class="text-secondary hover:text-secondary-fixed-dim font-label-md text-label-md uppercase tracking-wider flex items-center gap-1 transition-colors">
+                                Manage <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Room Card: Cleaning Required -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm room-card-hover overflow-hidden flex flex-col relative group">
+<!-- Status Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-amber-500"></div>
+<div class="p-5 pl-6 flex-grow flex flex-col gap-4">
+<!-- Header Row -->
+<div class="flex justify-between items-start">
+<div>
+<span class="font-headline-md text-headline-md text-on-surface block leading-none">218</span>
+<span class="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase mt-1 block">Standard Double</span>
+</div>
+<!-- Badge -->
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div> Dirty
+                                </span>
+</div>
+<!-- Details -->
+<div class="grid grid-cols-2 gap-y-3 gap-x-2 mt-2">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<span class="font-body-sm text-body-sm">Capacity: 2</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">bed</span>
+<span class="font-body-sm text-body-sm">2 Queens</span>
+</div>
+<div class="flex items-center gap-2 text-amber-700 col-span-2 font-medium bg-amber-50 p-2 rounded">
+<span class="material-symbols-outlined text-[18px]">priority_high</span>
+<span class="font-body-sm text-body-sm">Priority Cleaning (Check-in 3PM)</span>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-4 pl-6 border-t border-outline-variant bg-surface-bright flex justify-between items-center">
+<button class="bg-surface-container-high text-on-surface px-3 py-1.5 rounded text-xs font-medium hover:bg-surface-variant transition-colors border border-outline-variant">
+                                Assign Staff
+                            </button>
+<button class="text-secondary hover:text-secondary-fixed-dim font-label-md text-label-md uppercase tracking-wider flex items-center gap-1 transition-colors">
+                                Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Room Card: Maintenance -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm room-card-hover overflow-hidden flex flex-col relative group">
+<!-- Status Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>
+<div class="p-5 pl-6 flex-grow flex flex-col gap-4">
+<!-- Header Row -->
+<div class="flex justify-between items-start">
+<div>
+<span class="font-headline-md text-headline-md text-on-surface block leading-none">405</span>
+<span class="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase mt-1 block">Penthouse</span>
+</div>
+<!-- Badge -->
+<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200 flex items-center gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-red-500"></div> Maintenance
+                                </span>
+</div>
+<!-- Details -->
+<div class="grid grid-cols-1 gap-y-3 mt-2">
+<div class="flex items-start gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] mt-0.5 text-red-600">build</span>
+<div>
+<span class="font-body-sm text-body-sm text-on-surface font-medium block">HVAC Issue</span>
+<span class="font-label-md text-label-md">Reported Oct 12, 09:00 AM</span>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant my-1"></div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">engineering</span>
+</div>
+<span class="font-body-sm text-body-sm">Assigned: Tech Team B</span>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-4 pl-6 border-t border-outline-variant bg-surface-bright flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Est. fix: Today 4PM</span>
+<button class="text-secondary hover:text-secondary-fixed-dim font-label-md text-label-md uppercase tracking-wider flex items-center gap-1 transition-colors">
+                                View Ticket <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
