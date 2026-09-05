@@ -27,7 +27,15 @@ import { fetchRoomTypes } from '@/services/roomTypeApi';
 import { fetchRooms, fetchRoomById } from '@/services/roomApi';
 import { fetchGuests, fetchGuestBySlug } from '@/services/guestApi';
 import { searchAvailability } from '@/services/availabilityApi';
-import { fetchReservations, fetchReservationById, createReservationApi, type CreateReservationPayload } from '@/services/reservationApi';
+import {
+  fetchReservations,
+  fetchReservationById,
+  createReservationApi,
+  cancelReservationApi,
+  checkInReservationApi,
+  addInternalNoteApi,
+  type CreateReservationPayload,
+} from '@/services/reservationApi';
 import { fetchHousekeepingTasks, fetchHousekeepingStats, fetchStaffSchedule, type PaginatedResult as HkPaginatedResult } from '@/services/housekeepingApi';
 import { fetchBillingTransactions, fetchBillingMetrics, type PaginatedResult as BillingPaginatedResult } from '@/services/billingApi';
 import { fetchInvoice } from '@/services/invoiceApi';
@@ -125,6 +133,41 @@ export function useCreateReservation() {
       queryClient.invalidateQueries({ queryKey: availabilityKeys.all });
       queryClient.invalidateQueries({ queryKey: guestKeys.all });
       queryClient.invalidateQueries({ queryKey: dashboardKeys.all });
+    },
+  });
+}
+
+function invalidateReservationGraph(queryClient: ReturnType<typeof useQueryClient>, id: string) {
+  queryClient.invalidateQueries({ queryKey: reservationKeys.all });
+  queryClient.invalidateQueries({ queryKey: reservationKeys.detail(id) });
+  queryClient.invalidateQueries({ queryKey: roomKeys.all });
+  queryClient.invalidateQueries({ queryKey: housekeepingKeys.all });
+  queryClient.invalidateQueries({ queryKey: dashboardKeys.all });
+}
+
+export function useCancelReservation(id: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => cancelReservationApi(id),
+    onSuccess: () => invalidateReservationGraph(queryClient, id),
+  });
+}
+
+export function useCheckInReservation(id: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => checkInReservationApi(id),
+    onSuccess: () => invalidateReservationGraph(queryClient, id),
+  });
+}
+
+export function useAddInternalNote(id: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (body: string) => addInternalNoteApi(id, body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: reservationKeys.all });
+      queryClient.invalidateQueries({ queryKey: reservationKeys.detail(id) });
     },
   });
 }

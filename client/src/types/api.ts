@@ -243,6 +243,7 @@ export interface ReservationDetailDTO {
   amountPaidCents: number;
   outstandingCents: number;
   specialRequests: { title: string; description: string | null; iconName: string | null; dueAt: string | null }[];
+  internalNotes: { body: string; addedBy: string | null; addedAt: string }[];
   source: string;
   createdBy: string;
   createdAt: string;

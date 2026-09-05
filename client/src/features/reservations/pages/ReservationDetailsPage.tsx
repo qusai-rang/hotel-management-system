@@ -1,7 +1,13 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Icon, LoadingState } from '@/components/ui';
 import { cn } from '@/utils/cn';
-import { useReservationDetail } from '@/hooks/useFeatureData';
+import {
+  useReservationDetail,
+  useCancelReservation,
+  useCheckInReservation,
+  useAddInternalNote,
+} from '@/hooks/useFeatureData';
 
 const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
@@ -34,6 +40,15 @@ export default function ReservationDetailsPage() {
   const navigate = useNavigate();
   const { reservationId } = useParams<{ reservationId: string }>();
   const { data: detail, isLoading, isError } = useReservationDetail(reservationId ?? '');
+
+  const [cancelOpen, setCancelOpen] = useState(false);
+  const [cancelError, setCancelError] = useState<string | null>(null);
+  const [noteDraft, setNoteDraft] = useState('');
+  const [noteError, setNoteError] = useState<string | null>(null);
+
+  const cancelMutation = useCancelReservation(reservationId ?? '');
+  const checkInMutation = useCheckInReservation(reservationId ?? '');
+  const noteMutation = useAddInternalNote(reservationId ?? '');
 
   if (isLoading) {
     return <LoadingState message="Loading reservation…" />;
@@ -101,10 +116,12 @@ export default function ReservationDetailsPage() {
           <button type="button" aria-label="Back to reservations" onClick={() => navigate('/reservations')} className={backButtonClass}>
             <Icon name="arrow_back" />
           </button>
-          {detail.status !== 'checked_out' && detail.status !== 'cancelled' && (
+          {detail.status !== 'checked_out' && detail.status !== 'cancelled' && detail.status !== 'checked_in' && (
             <button
               type="button"
-              className="px-4 py-2 border border-error/30 text-error bg-surface-container-lowest rounded font-label-md text-label-md hover:bg-error-container/30 transition-colors flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error/40"
+              onClick={() => { setCancelError(null); setCancelOpen(true); }}
+              disabled={cancelMutation.isPending}
+              className="px-4 py-2 border border-error/30 text-error bg-surface-container-lowest rounded font-label-md text-label-md hover:bg-error-container/30 transition-colors flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error/40 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Icon name="cancel" className="text-[18px]" />
               Cancel Reservation
@@ -113,10 +130,12 @@ export default function ReservationDetailsPage() {
           {detail.status === 'confirmed' && (
             <button
               type="button"
-              className="px-5 py-2 bg-primary text-on-primary rounded font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2 cursor-pointer active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+              onClick={() => checkInMutation.mutate()}
+              disabled={checkInMutation.isPending}
+              className="px-5 py-2 bg-primary text-on-primary rounded font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2 cursor-pointer active:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Icon name="how_to_reg" className="text-[18px]" />
-              Check In
+              <Icon name={checkInMutation.isPending ? 'progress_activity' : 'how_to_reg'} className={cn('text-[18px]', checkInMutation.isPending && 'animate-spin')} />
+              {checkInMutation.isPending ? 'Checking In…' : 'Check In'}
             </button>
           )}
           {detail.status === 'checked_in' && (
@@ -293,11 +312,11 @@ export default function ReservationDetailsPage() {
             <div className={`${cardBase} p-6 flex flex-col`}>
               <h4 className={sectionTitleClass}>
                 <Icon name="room_service" className="text-outline" />
-                Special Requests
+                Special Requests &amp; Notes
               </h4>
               <div className="space-y-4 flex-1">
-                {(detail.specialRequests ?? []).length === 0 && (
-                  <p className="text-on-surface-variant text-sm text-center py-4">No special requests</p>
+                {(detail.specialRequests ?? []).length === 0 && (detail.internalNotes ?? []).length === 0 && (
+                  <p className="text-on-surface-variant text-sm text-center py-4">No requests or notes</p>
                 )}
                 {(detail.specialRequests ?? []).map((request) => (
                   <div key={request.title} className="flex items-start gap-3 p-3 bg-surface rounded-lg border border-outline-variant/20">
@@ -308,14 +327,58 @@ export default function ReservationDetailsPage() {
                     </div>
                   </div>
                 ))}
+                {(detail.internalNotes ?? []).map((note, i) => (
+                  <div key={i} className="flex items-start gap-3 p-3 bg-primary/5 rounded-lg border border-primary/10">
+                    <Icon name="sticky_note_2" className="shrink-0 mt-0.5 text-secondary" />
+                    <div className="min-w-0">
+                      <p className="font-body-sm text-body-sm text-on-surface">{note.body}</p>
+                      <p className="font-body-xs text-xs text-on-surface-variant mt-1">
+                        {note.addedAt ? `Added ${new Date(note.addedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}` : 'Added just now'}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <button
-                type="button"
-                className="mt-4 w-full py-2 border border-dashed border-outline-variant text-on-surface-variant rounded hover:bg-surface hover:text-primary transition-colors font-label-md text-label-md flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+
+              {noteMutation.isError && (
+                <p role="alert" className="font-body-sm text-body-sm text-error mt-2">
+                  {noteError ?? 'Failed to add note. Please try again.'}
+                </p>
+              )}
+
+              <form
+                className="mt-4 space-y-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const body = noteDraft.trim();
+                  if (!body) return;
+                  noteMutation.mutate(body, {
+                    onSuccess: () => {
+                      setNoteDraft('');
+                      setNoteError(null);
+                    },
+                    onError: (err: Error & { response?: { data?: { error?: { message?: string } } } }) => {
+                      setNoteError(err?.response?.data?.error?.message ?? 'Failed to add note. Please try again.');
+                    },
+                  });
+                }}
               >
-                <Icon name="add" className="text-[18px]" />
-                Add Internal Note
-              </button>
+                <textarea
+                  value={noteDraft}
+                  onChange={(e) => setNoteDraft(e.target.value)}
+                  rows={2}
+                  placeholder="Add an internal note for staff…"
+                  className="w-full px-3 py-2 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary/20 font-body-sm text-body-sm text-on-surface bg-surface-container-lowest outline-none placeholder:text-outline resize-none"
+                />
+                <button
+                  type="submit"
+                  disabled={!noteDraft.trim() || noteMutation.isPending}
+                  className="w-full py-2 border border-dashed border-outline-variant text-on-surface-variant rounded hover:bg-surface hover:text-primary transition-colors font-label-md text-label-md flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <Icon name={noteMutation.isPending ? 'progress_activity' : 'add'} className={cn('text-[18px]', noteMutation.isPending && 'animate-spin')} />
+                  {noteMutation.isPending ? 'Adding…' : 'Add Internal Note'}
+                </button>
+              </form>
             </div>
           </div>
 
@@ -343,6 +406,67 @@ export default function ReservationDetailsPage() {
           </div>
         </div>
       </div>
+
+      {/* Cancel confirmation modal */}
+      {cancelOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Cancel reservation"
+        >
+          <div className="absolute inset-0 bg-black/40" onClick={() => !cancelMutation.isPending && setCancelOpen(false)} />
+          <div className="relative bg-surface-container-lowest rounded-xl shadow-xl border border-outline-variant/30 w-full max-w-md p-6">
+            <div className="flex items-start gap-4 mb-4">
+              <span className="w-10 h-10 bg-error/10 text-error rounded-full flex items-center justify-center shrink-0">
+                <Icon name="cancel" />
+              </span>
+              <div>
+                <h3 className="font-headline-md text-headline-md text-primary mb-1">Cancel Reservation</h3>
+                <p className="font-body-sm text-body-sm text-on-surface-variant">
+                  Cancel {detail.code} for {guestName}? This action cannot be undone.
+                </p>
+              </div>
+            </div>
+
+            {cancelError && (
+              <p role="alert" className="font-body-sm text-body-sm text-error mb-3 border border-error/20 bg-error/5 rounded p-2">
+                {cancelError}
+              </p>
+            )}
+
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                type="button"
+                disabled={cancelMutation.isPending}
+                onClick={() => setCancelOpen(false)}
+                className="px-4 py-2 border border-outline-variant text-on-surface-variant rounded font-label-md text-label-md hover:bg-surface transition-colors cursor-pointer focus-visible:outline-none disabled:opacity-50"
+              >
+                Keep Reservation
+              </button>
+              <button
+                type="button"
+                disabled={cancelMutation.isPending}
+                onClick={() =>
+                  cancelMutation.mutate(undefined, {
+                    onSuccess: () => {
+                      setCancelOpen(false);
+                      setCancelError(null);
+                    },
+                    onError: (err: Error & { response?: { data?: { error?: { message?: string } } } }) => {
+                      setCancelError(err?.response?.data?.error?.message ?? 'Failed to cancel reservation. Please try again.');
+                    },
+                  })
+                }
+                className="px-4 py-2 bg-error text-on-error rounded font-label-md text-label-md hover:bg-error/90 transition-colors flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error/40 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Icon name={cancelMutation.isPending ? 'progress_activity' : 'check'} className={cn('text-[18px]', cancelMutation.isPending && 'animate-spin')} />
+                {cancelMutation.isPending ? 'Cancelling…' : 'Yes, Cancel'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

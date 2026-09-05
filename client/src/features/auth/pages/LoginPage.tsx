@@ -48,6 +48,11 @@ export default function LoginPage() {
     );
   }
 
+  function handleGuestLogin() {
+    setEmail('admin@luxestay.com');
+    setPassword('admin123');
+  }
+
   return (
     <AuthLayout>
       {/* Brand header */}
@@ -157,12 +162,16 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-6 text-center">
-          <p className="font-body-sm text-body-sm text-on-surface-variant">
+          <button
+            type="button"
+            onClick={handleGuestLogin}
+            className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus:outline-none"
+          >
             Need technical support?{' '}
-            <a href="#" className="text-primary font-medium hover:underline">
-              Contact IT
-            </a>
-          </p>
+            <span className="text-primary font-medium hover:underline">
+              Guest Login
+            </span>
+          </button>
         </div>
       </div>
 

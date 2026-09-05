@@ -1,9 +1,10 @@
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useLogout } from '@/hooks/useAuth';
 import { cn } from '@/utils/cn';
 import { Icon } from '@/components/ui/Icon';
 import avatarManagerMgmt from '@/assets/img/avatar-manager-mgmt.jpg';
 import avatarManagerRdetails from '@/assets/img/avatar-manager-rdetails.jpg';
-import { mainNavItems, secondaryNavItems, mgmtNavItems, mgmtUtilityLinks, type NavItem } from './navConfig';
+import { mainNavItems, secondaryNavItems, mgmtNavItems, mgmtUtilityLinks, type NavItem, type MgmtNavItem } from './navConfig';
 
 export type SidebarVariant =
   | 'default'
@@ -185,6 +186,43 @@ function Brand({ variant }: { variant: SidebarVariant }) {
   );
 }
 
+/** Renders a footer utility link. Support has no destination and stays inert;
+ *  Logout is wired to the auth logout flow. */
+function UtilityLink({
+  item,
+  className,
+  closeMobile,
+}: {
+  item: MgmtNavItem;
+  className: string;
+  closeMobile?: () => void;
+}) {
+  const logout = useLogout();
+
+  if (item.label === 'Logout') {
+    return (
+      <button
+        type="button"
+        onClick={() => {
+          closeMobile?.();
+          logout();
+        }}
+        className={`${className} w-full text-left cursor-pointer focus-visible:outline-none g-focus-ring`}
+      >
+        <Icon name={item.iconName} />
+        <span>{item.label}</span>
+      </button>
+    );
+  }
+
+  return (
+    <span className={className}>
+      <Icon name={item.iconName} />
+      <span>{item.label}</span>
+    </span>
+  );
+}
+
 /** Sidebar content shared by the management shells — room_management_grid_view lines 114-180
  *  and room_details lines 200-253. */
 function MgmtSidebarBody({
@@ -264,13 +302,12 @@ function MgmtSidebarBody({
           </button>
           <div className="space-y-2">
             {mgmtUtilityLinks.map((item) => (
-              <span
+              <UtilityLink
                 key={item.label}
+                item={item}
+                closeMobile={onCloseMobile}
                 className="flex items-center space-x-3 py-2 font-body-sm text-body-sm text-on-primary-container pl-5 hover:text-secondary-fixed-dim hover:bg-primary-container transition-colors"
-              >
-                <Icon name={item.iconName} />
-                <span>{item.label}</span>
-              </span>
+              />
             ))}
           </div>
           <div className="mt-6 flex items-center space-x-3">
@@ -294,14 +331,15 @@ function MgmtSidebarBody({
               Upgrade Stay
             </button>
           </div>
-          {/* Support / Logout — reference lines 166-179; inert until destinations exist */}
+          {/* Support / Logout — Support inert until a destination exists; Logout wired */}
           <ul className="flex flex-col gap-2 mt-6 pb-4">
             {mgmtUtilityLinks.map((item) => (
               <li key={item.label}>
-                <span className="flex items-center gap-3 py-2 font-body-sm text-body-sm text-on-primary-container pl-5 hover:text-secondary-fixed-dim transition-colors">
-                  <Icon name={item.iconName} />
-                  <span>{item.label}</span>
-                </span>
+                <UtilityLink
+                  item={item}
+                  closeMobile={onCloseMobile}
+                  className="flex items-center gap-3 py-2 font-body-sm text-body-sm text-on-primary-container pl-5 hover:text-secondary-fixed-dim transition-colors"
+                />
               </li>
             ))}
           </ul>
@@ -362,10 +400,11 @@ function ConfigSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
         <ul className="space-y-2 border-t border-primary-container pt-4">
           {mgmtUtilityLinks.map((item) => (
             <li key={item.label}>
-              <span className="flex items-center space-x-3 py-2 text-on-primary-container pl-5 hover:text-secondary-fixed-dim transition-all duration-200 ease-in-out">
-                <Icon name={item.iconName} />
-                <span className="font-label-lg text-label-lg">{item.label}</span>
-              </span>
+              <UtilityLink
+                item={item}
+                closeMobile={onCloseMobile}
+                className="flex items-center space-x-3 py-2 text-on-primary-container pl-5 hover:text-secondary-fixed-dim transition-all duration-200 ease-in-out font-label-lg text-label-lg"
+              />
             </li>
           ))}
         </ul>

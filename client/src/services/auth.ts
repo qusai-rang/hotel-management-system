@@ -2,32 +2,28 @@
 /*  Auth Token Storage                                                 */
 /* ================================================================== */
 
-const TOKEN_KEY = 'luxestay_auth_token';
+/**
+ * With httpOnly cookies, the token is stored in a cookie and automatically
+ * sent with requests. We don't store it in localStorage anymore.
+ * This file is kept for compatibility but functions are no-ops.
+ */
 
 export function getAuthToken(): string | null {
-  try {
-    return localStorage.getItem(TOKEN_KEY);
-  } catch {
-    return null;
-  }
+  // httpOnly cookie - not accessible from JS
+  // This is kept for backwards compatibility but returns null
+  return null;
 }
 
-export function setAuthToken(token: string): void {
-  try {
-    localStorage.setItem(TOKEN_KEY, token);
-  } catch {
-    // SSR or storage full — silently ignore
-  }
+export function setAuthToken(): void {
+  // No-op: token is set via httpOnly cookie by the server
 }
 
 export function removeAuthToken(): void {
-  try {
-    localStorage.removeItem(TOKEN_KEY);
-  } catch {
-    // silently ignore
-  }
+  // No-op: token is cleared via httpOnly cookie by the server
 }
 
 export function isAuthenticated(): boolean {
-  return getAuthToken() !== null;
+  // Can't check httpOnly cookie from JS
+  // Use useAuth hook which calls /auth/me
+  return false;
 }

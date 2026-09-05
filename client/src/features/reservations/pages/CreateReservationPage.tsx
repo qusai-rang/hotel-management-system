@@ -14,6 +14,17 @@ const STEPS = [
 
 const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 
+function todayISO(): string {
+  const d = new Date();
+  return d.toISOString().split('T')[0];
+}
+
+function addDays(iso: string, days: number): string {
+  const [y, m, d] = iso.split('-').map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d + days));
+  return dt.toISOString().split('T')[0];
+}
+
 function nightsBetween(checkIn: string, checkOut: string): number {
   if (!checkIn || !checkOut) return 0;
   const [iy, im, id] = checkIn.split('-').map(Number);
@@ -109,7 +120,7 @@ export default function CreateReservationPage() {
 
   const ratePerNightCents = selectedRoom?.ratePerNightCents ?? selectedRoomType?.basePricePerNightCents ?? 0;
   const subtotalCents = ratePerNightCents * nights;
-  const taxCents = Math.round(subtotalCents * 0.12);
+  const taxCents = Math.round(subtotalCents * 0.14);
   const totalCents = subtotalCents + taxCents;
   const depositCents = Math.round(totalCents * 0.5);
 
@@ -314,8 +325,12 @@ export default function CreateReservationPage() {
                   id="cr-checkin"
                   type="date"
                   value={checkIn}
+                  min={todayISO()}
                   onChange={(e) => {
                     setCheckIn(e.target.value);
+                    if (!checkOut || e.target.value >= checkOut) {
+                      setCheckOut(addDays(e.target.value, 1));
+                    }
                     setSelectedRoomId(null);
                   }}
                   className={dateInputClass}
@@ -332,7 +347,7 @@ export default function CreateReservationPage() {
                   id="cr-checkout"
                   type="date"
                   value={checkOut}
-                  min={checkIn || undefined}
+                  min={checkIn ? addDays(checkIn, 1) : todayISO()}
                   onChange={(e) => {
                     setCheckOut(e.target.value);
                     setSelectedRoomId(null);
@@ -421,7 +436,7 @@ export default function CreateReservationPage() {
                         <div className="font-body-sm text-body-sm text-on-surface-variant mb-4">{rt.description}</div>
                         <div className="flex justify-between items-end">
                           <div className="flex gap-1">
-                            {rt.amenities.map((a) => (
+                            {(rt.amenities ?? []).map((a) => (
                               <Icon key={a.iconName} name={a.iconName} className="text-[16px] text-outline" />
                             ))}
                           </div>
@@ -724,8 +739,8 @@ export default function CreateReservationPage() {
                 <span className="font-body-sm text-body-sm text-on-surface-variant">Subtotal ({nights} night{nights === 1 ? '' : 's'})</span>
                 <span className="font-body-sm text-body-sm font-bold text-on-surface">{usd.format(subtotalCents / 100)}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="font-body-sm text-body-sm text-on-surface-variant">Taxes &amp; Fees (12%)</span>
+<div className="flex justify-between items-center">
+                <span className="font-body-sm text-body-sm text-on-surface-variant">Taxes & Fees (14%)</span>
                 <span className="font-body-sm text-body-sm text-on-surface">{usd.format(taxCents / 100)}</span>
               </div>
               <div className="flex justify-between items-center">

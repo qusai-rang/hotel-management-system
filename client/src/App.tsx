@@ -16,14 +16,13 @@ import HousekeepingPage from '@/features/housekeeping/pages/HousekeepingPage';
 import BillingPage from '@/features/billing/pages/BillingPage';
 import CheckoutPage from '@/features/billing/pages/CheckoutPage';
 import InvoicePage from '@/features/billing/pages/InvoicePage';
-import ShowcasePage from '@/pages/ShowcasePage';
+import NotFoundPage from '@/pages/NotFoundPage';
 
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/showcase" element={<ShowcasePage />} />
 
       {/* Protected routes — require authentication */}
       <Route element={<ProtectedRoute />}>
@@ -78,10 +77,13 @@ export default function App() {
         {/* Reservations uses the "Reservations Desk" shell variant (square brand chip, bottom CTA) */}
         <Route element={<AppLayout shellVariant="desk" />}>
           <Route path="/reservations" element={<ReservationsPage />} />
-          {/* Unimplemented sections bounce back to reservations until their screens land */}
-          <Route path="*" element={<Navigate to="/reservations" replace />} />
         </Route>
+        {/* 404 for unknown protected routes */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
+
+      {/* 404 for unknown public routes */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

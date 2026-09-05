@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@/components/ui/Icon';
 import { LoadingState, ErrorState } from '@/components/ui';
@@ -118,18 +118,19 @@ export default function ReservationsPage() {
 
   const [pageSize] = useState(20);
 
+  const tableRef = useRef<HTMLDivElement>(null);
+
+  const scrollToTable = () => {
+    tableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const [bookingStatus, setBookingStatus] = useState<string>(BOOKING_STATUS_OPTIONS[0]);
   const [paymentStatus, setPaymentStatus] = useState<string>(PAYMENT_STATUS_OPTIONS[0]);
+  const [roomType, setRoomType] = useState<string>(ROOM_TYPE_OPTIONS[0]);
   const [query, setQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const apiStatus = statusLabelToApi[bookingStatus] ?? undefined;
-
-  const filters: Record<string, unknown> = { page: currentPage, pageSize };
-  if (apiStatus) filters.status = apiStatus;
-  if (query.trim()) filters.q = query.trim();
-
-  const { data: reservationsResponse, isLoading, isError, refetch } = useReservations(filters);
+  const { data: reservationsResponse, isLoading, isError, refetch } = useReservations({ pageSize: 500 });
   const { data: roomTypes } = useRoomTypes();
 
   const allRows = useMemo(() => {
@@ -141,12 +142,21 @@ export default function ReservationsPage() {
       paymentStatus === 'Fully Paid' ? 'fully-paid' :
       paymentStatus === 'Partial / Deposit' ? 'deposit-paid' :
       paymentStatus === 'Unpaid' ? 'unpaid' : undefined;
+    const statusKey = statusLabelToApi[bookingStatus];
+    const q = query.trim().toLowerCase();
+    const roomTypeActive = roomType !== ROOM_TYPE_OPTIONS[0];
 
     return allRows.filter((r) => {
+      if (statusKey && r.status !== statusKey) return false;
       if (paymentKey && r.payment !== paymentKey) return false;
+      if (roomTypeActive && r.roomType !== roomType) return false;
+      if (q) {
+        const haystack = `${r.guest} ${r.code} ${r.roomType} ${r.room}`.toLowerCase();
+        if (!haystack.includes(q)) return false;
+      }
       return true;
     });
-  }, [allRows, paymentStatus]);
+  }, [allRows, bookingStatus, paymentStatus, roomType, query]);
 
   const todayISO = new Date().toISOString().split('T')[0];
 
@@ -164,17 +174,18 @@ export default function ReservationsPage() {
     });
   }, [allRows, todayISO]);
 
-  const totalItems = reservationsResponse?.total ?? 0;
+  const totalItems = filtered.length;
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
   const page = Math.min(currentPage, totalPages);
   const start = totalItems === 0 ? 0 : (page - 1) * pageSize + 1;
   const end = Math.min(page * pageSize, totalItems);
+  const pagedRows = filtered.slice((page - 1) * pageSize, page * pageSize);
 
   const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());
-  const allVisibleSelected = filtered.length > 0 && filtered.every((r) => selected.has(r.id));
+  const allVisibleSelected = pagedRows.length > 0 && pagedRows.every((r) => selected.has(r.id));
 
   function toggleAllVisible() {
-    setSelected(allVisibleSelected ? new Set() : new Set(filtered.map((r) => r.id)));
+    setSelected(allVisibleSelected ? new Set() : new Set(pagedRows.map((r) => r.id)));
   }
 
   function toggleRow(id: string) {
@@ -278,7 +289,18 @@ export default function ReservationsPage() {
             ))}
           </div>
           {arrivals.length > 0 && (
-            <button type="button" className="block text-center text-sm font-semibold text-secondary mt-4 hover:underline cursor-pointer">
+            <button
+              type="button"
+              onClick={() => {
+                setBookingStatus('Confirmed');
+                setQuery('');
+                setRoomType(ROOM_TYPE_OPTIONS[0]);
+                setPaymentStatus(PAYMENT_STATUS_OPTIONS[0]);
+                setCurrentPage(1);
+                scrollToTable();
+              }}
+              className="block text-center text-sm font-semibold text-secondary mt-4 hover:underline cursor-pointer"
+            >
               View All Arrivals
             </button>
           )}
@@ -319,7 +341,18 @@ export default function ReservationsPage() {
             ))}
           </div>
           {departures.length > 0 && (
-            <button type="button" className="block text-center text-sm font-semibold text-secondary mt-4 hover:underline cursor-pointer">
+            <button
+              type="button"
+              onClick={() => {
+                setBookingStatus('Checked In');
+                setQuery('');
+                setRoomType(ROOM_TYPE_OPTIONS[0]);
+                setPaymentStatus(PAYMENT_STATUS_OPTIONS[0]);
+                setCurrentPage(1);
+                scrollToTable();
+              }}
+              className="block text-center text-sm font-semibold text-secondary mt-4 hover:underline cursor-pointer"
+            >
               View All Departures
             </button>
           )}
@@ -361,11 +394,19 @@ export default function ReservationsPage() {
             <div className="relative">
               <select
                 id="filter-room-type"
-                disabled
+                value={roomType}
+                onChange={(e) => {
+                  setRoomType(e.target.value);
+                  setCurrentPage(1);
+                }}
+                style={{ appearance: 'none', WebkitAppearance: 'none' }}
                 className={filterControlClass}
               >
                 {ROOM_TYPE_OPTIONS.map((o) => (
-                  <option key={o}>{o}</option>
+                  <option key={o} value={o}>{o}</option>
+                ))}
+                {(roomTypes ?? []).map((rt) => (
+                  <option key={rt.id} value={rt.name}>{rt.name}</option>
                 ))}
               </select>
               <Icon name="expand_more" className="absolute right-3 top-2.5 text-outline pointer-events-none text-[20px]" />
@@ -385,6 +426,7 @@ export default function ReservationsPage() {
                   setBookingStatus(e.target.value);
                   setCurrentPage(1);
                 }}
+                style={{ appearance: 'none', WebkitAppearance: 'none' }}
                 className={filterControlClass}
               >
                 {BOOKING_STATUS_OPTIONS.map((o) => (
@@ -408,6 +450,7 @@ export default function ReservationsPage() {
                   setPaymentStatus(e.target.value);
                   setCurrentPage(1);
                 }}
+                style={{ appearance: 'none', WebkitAppearance: 'none' }}
                 className={filterControlClass}
               >
                 {PAYMENT_STATUS_OPTIONS.map((o) => (
@@ -437,7 +480,7 @@ export default function ReservationsPage() {
       </div>
 
       {/* Data table */}
-      <div className="bg-surface-container-lowest rounded-lg surface-depth-1 overflow-hidden">
+      <div ref={tableRef} className="bg-surface-container-lowest rounded-lg surface-depth-1 overflow-hidden scroll-mt-24">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -462,7 +505,7 @@ export default function ReservationsPage() {
               </tr>
             </thead>
             <tbody className="font-body-sm text-body-sm text-on-surface divide-y divide-[#E2E8F0]">
-              {filtered.map((row) => {
+              {pagedRows.map((row) => {
                 const pill = statusPills[row.status] ?? { cls: 'bg-gray-100 text-gray-700', label: row.status };
                 const chip = paymentChips[row.payment];
                 return (

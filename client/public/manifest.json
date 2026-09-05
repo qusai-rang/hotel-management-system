@@ -1,0 +1,17 @@
+{
+  "name": "Luxe Stay HMS",
+  "short_name": "Luxe Stay",
+  "description": "Professional hotel property management system",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#775a19",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

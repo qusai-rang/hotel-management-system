@@ -3,7 +3,6 @@
 /* ================================================================== */
 
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
-import { getAuthToken, removeAuthToken } from './auth';
 
 /* ------------------------------------------------------------------ */
 /*  Create instance                                                     */
@@ -15,17 +14,36 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // Required for httpOnly cookies
 });
 
 /* ------------------------------------------------------------------ */
-/*  Request interceptor — attach Bearer token                           */
+/*  Request interceptor — add CSRF token from cookie                    */
 /* ------------------------------------------------------------------ */
 
-apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = getAuthToken();
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
+function getCsrfToken(): string | null {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'csrf_token') {
+      return decodeURIComponent(value);
+    }
   }
+  return null;
+}
+
+apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  // Skip CSRF for safe methods and login
+  const safeMethods = ['GET', 'HEAD', 'OPTIONS'];
+  const isLoginRequest = config.url?.includes('/auth/login');
+  
+  if (!safeMethods.includes(config.method?.toUpperCase() ?? '') && !isLoginRequest) {
+    const csrfToken = getCsrfToken();
+    if (csrfToken) {
+      config.headers['x-csrf-token'] = csrfToken;
+    }
+  }
+  
   return config;
 });
 
@@ -51,7 +69,6 @@ apiClient.interceptors.response.use(
     // (invalid credentials are a normal login error, not a session expiry).
     const isLoginRequest = requestUrl.includes('/auth/login');
     if (status === 401 && !isLoginRequest) {
-      removeAuthToken();
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
       }

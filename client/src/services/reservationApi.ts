@@ -70,3 +70,40 @@ export async function fetchReservationById(id: string): Promise<ReservationDetai
   if (!data.success || !data.item) throw new Error('Reservation not found');
   return data.item;
 }
+
+export interface ReservationActionResult {
+  id: string;
+  code: string;
+  status: string;
+}
+
+export async function cancelReservationApi(id: string): Promise<ReservationActionResult> {
+  const { data } = await apiClient.post<ApiSuccessResponse<ReservationActionResult>>(
+    `/reservations/${id}/cancel`,
+  );
+  if (!data.success || !data.item) throw new Error('Failed to cancel reservation');
+  return data.item;
+}
+
+export async function checkInReservationApi(id: string): Promise<ReservationActionResult> {
+  const { data } = await apiClient.post<ApiSuccessResponse<ReservationActionResult>>(
+    `/reservations/${id}/check-in`,
+  );
+  if (!data.success || !data.item) throw new Error('Failed to check in reservation');
+  return data.item;
+}
+
+export interface AddInternalNoteResult {
+  id: string;
+  code: string;
+  notes: { body: string; addedBy: string | null; addedAt: string }[];
+}
+
+export async function addInternalNoteApi(id: string, body: string): Promise<AddInternalNoteResult> {
+  const { data } = await apiClient.post<ApiSuccessResponse<AddInternalNoteResult>>(
+    `/reservations/${id}/notes`,
+    { body },
+  );
+  if (!data.success || !data.item) throw new Error('Failed to add note');
+  return data.item;
+}
