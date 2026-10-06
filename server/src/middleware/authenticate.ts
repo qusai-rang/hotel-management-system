@@ -7,6 +7,25 @@ import { toSafeUser } from '../utils/userSerializer';
 import { asyncHandler } from '../utils/asyncHandler';
 import type { JwtPayload } from '../types/auth';
 
+const COOKIE_NAME = 'auth_token';
+
+/**
+ * Extract token from cookies (httpOnly) or Authorization header.
+ * Priority: cookie > header (for browser clients, cookie is used).
+ */
+function extractToken(req: Request): string | null {
+  // Check httpOnly cookie first
+  if (req.cookies && req.cookies[COOKIE_NAME]) {
+    return req.cookies[COOKIE_NAME];
+  }
+  // Fallback to Authorization header for API clients
+  const header = req.headers.authorization;
+  if (header && header.startsWith('Bearer ')) {
+    return header.slice(7);
+  }
+  return null;
+}
+
 /**
  * Require a valid Bearer token.  Loads the user from MongoDB and attaches
  * a safe user representation to req.user.  Rejects:
@@ -19,13 +38,11 @@ import type { JwtPayload } from '../types/auth';
  */
 export const authenticate = asyncHandler(
   async (req: Request, _res: Response, next: NextFunction) => {
-    const header = req.headers.authorization;
+    const token = extractToken(req);
 
-    if (!header || !header.startsWith('Bearer ')) {
+    if (!token) {
       throw ApiError.unauthorized('Authentication required');
     }
-
-    const token = header.slice(7);
 
     let payload: JwtPayload;
     try {
@@ -43,3 +60,5 @@ export const authenticate = asyncHandler(
     next();
   },
 );
+
+export { COOKIE_NAME };

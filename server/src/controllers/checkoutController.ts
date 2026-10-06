@@ -4,7 +4,7 @@ import * as checkoutService from '../services/checkoutService';
 import { checkoutPaymentSchema } from '../validation/checkoutSchemas';
 
 export const getSession = asyncHandler(async (req: Request, res: Response) => {
-  const session = await checkoutService.getCheckoutSession(req.params.reservationId);
+  const session = await checkoutService.getCheckoutSession(req.params.reservationId, req.user!.id);
   res.json({ success: true, item: session });
 });
 

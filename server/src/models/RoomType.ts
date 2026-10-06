@@ -14,6 +14,7 @@ const roomTypeSchema = new Schema({
     label:    { type: String, required: true },
   }],
   accentColor: { type: String, trim: true },
+  depositRatio: { type: Number, min: 0, max: 1, default: 0.5 },
 }, { timestamps: true });
 
 export const RoomType = model('RoomType', roomTypeSchema);

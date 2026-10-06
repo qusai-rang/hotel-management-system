@@ -19,6 +19,7 @@ const reservationSchema = new Schema({
   adults:            { type: Number, required: true, min: 1 },
   children:          { type: Number, default: 0, min: 0 },
   specialRequests:   [specialRequestSchema],
+  internalNotes:     [{ body: { type: String, required: true, trim: true }, addedBy: { type: Schema.Types.ObjectId, ref: 'User' }, addedAt: { type: Date, default: Date.now } }],
   ratePerNightCents: { type: Number, required: true, min: 0 },
   taxRateBps:        { type: Number, required: true, min: 0 },
   depositCents:      { type: Number, required: true, min: 0 },

@@ -1,0 +1,220 @@
+[2026-08-29T16:10:37.695Z] === LuxeStay HMS — Comprehensive Browser Test Suite ===
+[2026-08-29T16:10:37.696Z] Target: http://localhost:5173
+[2026-08-29T16:10:37.716Z] Started: 29/8/2026, 9:40:37 pm
+[2026-08-29T16:10:37.904Z] 
+━━━ FLOW 1: LOGIN ━━━
+[2026-08-29T16:10:42.144Z]   Initial URL after goto: http://localhost:5173/login
+[2026-08-29T16:10:44.275Z]   📸 Screenshot: flow01_login_01_redirect_to_login.png
+[2026-08-29T16:10:44.297Z]   Page title element: Luxe Stay
+[2026-08-29T16:10:44.547Z]   📸 Screenshot: flow01_login_02_login_page_loaded.png
+[2026-08-29T16:10:45.340Z]   📸 Screenshot: flow01_login_03_credentials_filled.png
+[2026-08-29T16:10:45.405Z]   Clicked Sign In button
+[2026-08-29T16:10:45.811Z]   ✅ Navigated to: http://localhost:5173/dashboard
+[2026-08-29T16:10:47.898Z]   📸 Screenshot: flow01_login_04_dashboard_after_login.png
+[2026-08-29T16:10:47.898Z] 
+━━━ FLOW 2: DASHBOARD ━━━
+[2026-08-29T16:10:49.916Z]   Dashboard elements — Occupancy:2 Arrivals:4 Revenue:1 RecentBookings:1 Chart:1 QuickActions:1
+[2026-08-29T16:10:49.983Z]   📸 Screenshot: flow02_dashboard_01_dashboard_full.png
+[2026-08-29T16:10:50.050Z]   📸 Full-page screenshot: flow02_dashboard_02_dashboard_fullpage.png
+[2026-08-29T16:10:50.072Z]   ✅ No broken images detected
+[2026-08-29T16:10:50.073Z] 
+━━━ FLOW 3: RESERVATIONS LIST ━━━
+[2026-08-29T16:10:54.263Z]   📸 Screenshot: flow03_reservations_01_reservations_page.png
+[2026-08-29T16:10:54.278Z]   Table rows visible: 20
+[2026-08-29T16:10:55.361Z]   📸 Screenshot: flow03_reservations_02_filtered_confirmed.png
+[2026-08-29T16:10:55.363Z]   After 'Confirmed' filter: 5 rows
+[2026-08-29T16:10:56.439Z]   📸 Screenshot: flow03_reservations_03_search_filtered.png
+[2026-08-29T16:10:56.441Z]   After search 'guest': 1 rows
+[2026-08-29T16:10:57.045Z]   📸 Screenshot: flow03_reservations_04_reservations_reset.png
+[2026-08-29T16:10:57.045Z] 
+━━━ FLOW 4: CREATE RESERVATION ━━━
+[2026-08-29T16:11:00.740Z]   📸 Screenshot: flow04_create_reservation_01_wizard_step1.png
+[2026-08-29T16:11:00.756Z]   Radio buttons on page: 12
+[2026-08-29T16:11:01.313Z]   Selected first radio option via label
+[2026-08-29T16:11:01.371Z]   📸 Screenshot: flow04_create_reservation_02_guest_selected.png
+[2026-08-29T16:11:02.974Z]   📸 Screenshot: flow04_create_reservation_03_step2.png
+[2026-08-29T16:11:02.974Z]   Advanced to step 2
+[2026-08-29T16:11:04.574Z]   📸 Screenshot: flow04_create_reservation_04_step3.png
+[2026-08-29T16:11:04.574Z]   Advanced to step 3
+[2026-08-29T16:11:04.624Z]   📸 Screenshot: flow04_create_reservation_05_final_step.png
+[2026-08-29T16:11:04.625Z] 
+━━━ FLOW 5: RESERVATION DETAILS ━━━
+[2026-08-29T16:11:10.803Z]   Navigated to reservation detail: http://localhost:5173/reservations/6a92fb88435f8a36e0fe7bea
+[2026-08-29T16:11:10.860Z]   📸 Screenshot: flow05_reservation_details_01_detail_page.png
+[2026-08-29T16:11:10.871Z]   Detail sections — Guest:2 Room:3 Dates:3 Payment:5
+[2026-08-29T16:11:10.929Z]   📸 Full-page screenshot: flow05_reservation_details_02_detail_fullpage.png
+[2026-08-29T16:11:10.929Z] 
+━━━ FLOW 6: ROOMS GRID ━━━
+[2026-08-29T16:11:15.146Z]   📸 Screenshot: flow06_rooms_01_rooms_grid.png
+[2026-08-29T16:11:15.167Z]   Room card-like elements: 20
+[2026-08-29T16:11:15.175Z]   Status badges found: 23
+[2026-08-29T16:11:15.180Z]   Floor filter present: true
+[2026-08-29T16:11:16.278Z]   📸 Screenshot: flow06_rooms_02_status_filtered.png
+[2026-08-29T16:11:16.279Z]   Applied status filter
+[2026-08-29T16:11:16.343Z]   📸 Full-page screenshot: flow06_rooms_03_rooms_fullpage.png
+[2026-08-29T16:11:16.343Z] 
+━━━ FLOW 7: ROOM MANAGEMENT ━━━
+[2026-08-29T16:11:20.491Z]   📸 Screenshot: flow07_room_management_01_management_view.png
+[2026-08-29T16:11:20.508Z]   Management card elements: 0
+[2026-08-29T16:11:20.512Z]   Filter controls present: true
+[2026-08-29T16:11:20.574Z]   📸 Full-page screenshot: flow07_room_management_02_management_fullpage.png
+[2026-08-29T16:11:20.574Z] 
+━━━ FLOW 8: ROOM CONFIGURATION ━━━
+[2026-08-29T16:11:24.739Z]   📸 Screenshot: flow08_settings_01_configuration_page.png
+[2026-08-29T16:11:24.758Z]   Config elements — RoomTypes: 11, FloorMgmt: 2
+[2026-08-29T16:11:24.805Z]   📸 Full-page screenshot: flow08_settings_02_configuration_fullpage.png
+[2026-08-29T16:11:24.805Z] 
+━━━ FLOW 9: GUEST PROFILE ━━━
+[2026-08-29T16:11:31.471Z]   On reservation detail: http://localhost:5173/reservations/6a92fb88435f8a36e0fe7bea
+[2026-08-29T16:11:31.473Z]   No <a> guest link found. Trying API fallback...
+[2026-08-29T16:11:31.483Z]   ⚠ Could not find a guest to navigate to
+[2026-08-29T16:11:35.140Z]   📸 Screenshot: flow09_guest_profile_01_guest_profile.png
+[2026-08-29T16:11:35.158Z]   Guest profile content elements: 5
+[2026-08-29T16:11:35.209Z]   📸 Full-page screenshot: flow09_guest_profile_02_guest_profile_fullpage.png
+[2026-08-29T16:11:35.209Z] 
+━━━ FLOW 10: HOUSEKEEPING ━━━
+[2026-08-29T16:11:39.398Z]   📸 Screenshot: flow10_housekeeping_01_housekeeping_page.png
+[2026-08-29T16:11:39.419Z]   Housekeeping — Tasks: 4, Stats labels: 10
+[2026-08-29T16:11:39.479Z]   📸 Full-page screenshot: flow10_housekeeping_02_housekeeping_fullpage.png
+[2026-08-29T16:11:39.480Z] 
+━━━ FLOW 11: BILLING ━━━
+[2026-08-29T16:11:43.643Z]   📸 Screenshot: flow11_billing_01_billing_page.png
+[2026-08-29T16:11:43.661Z]   Billing — Transactions: 12, Metrics: 18
+[2026-08-29T16:11:43.727Z]   📸 Full-page screenshot: flow11_billing_02_billing_fullpage.png
+[2026-08-29T16:11:43.727Z] 
+━━━ FLOW 12: 404 PAGE ━━━
+[2026-08-29T16:11:47.393Z]   📸 Screenshot: flow12_404_01_404_page.png
+[2026-08-29T16:11:47.414Z]   404 page — "Not Found" text: 2, Back link: 1, Back text: 1
+[2026-08-29T16:11:47.414Z] 
+━━━ FLOW 13: UNAUTHORIZED ACCESS ━━━
+[2026-08-29T16:11:47.416Z]   Cookies cleared
+[2026-08-29T16:11:51.530Z]   After navigating to /dashboard without auth: http://localhost:5173/login
+[2026-08-29T16:11:51.776Z]   📸 Screenshot: flow13_unauthorized_01_redirect_to_login.png
+[2026-08-29T16:11:51.777Z]   ✅ Correctly redirected to login
+[2026-08-29T16:11:51.777Z] 
+━━━ RE-LOGIN FOR REMAINING FLOWS ━━━
+[2026-08-29T16:11:57.833Z]   ✅ Re-logged in, at: http://localhost:5173/dashboard
+[2026-08-29T16:11:57.833Z] 
+━━━ FLOW 14: DESKTOP FULL-PAGE SCREENSHOTS ━━━
+[2026-08-29T16:12:02.026Z]   📸 Full-page screenshot: flow14_desktop_fullpage_dashboard_desktop_full.png
+[2026-08-29T16:12:06.210Z]   📸 Full-page screenshot: flow14_desktop_fullpage_reservations_desktop_full.png
+[2026-08-29T16:12:10.392Z]   📸 Full-page screenshot: flow14_desktop_fullpage_rooms_desktop_full.png
+[2026-08-29T16:12:14.578Z]   📸 Full-page screenshot: flow14_desktop_fullpage_housekeeping_desktop_full.png
+[2026-08-29T16:12:18.778Z]   📸 Full-page screenshot: flow14_desktop_fullpage_billing_desktop_full.png
+[2026-08-29T16:12:18.779Z] 
+━━━ FLOW 15a: TABLET VIEW (768px) ━━━
+[2026-08-29T16:12:22.936Z]   📸 Screenshot: flow15a_tablet_dashboard_tablet_768.png
+[2026-08-29T16:12:26.586Z]   📸 Screenshot: flow15a_tablet_reservations_tablet_768.png
+[2026-08-29T16:12:26.586Z] 
+━━━ FLOW 15b: MOBILE VIEW (375px) ━━━
+[2026-08-29T16:12:30.725Z]   📸 Screenshot: flow15b_mobile_dashboard_mobile_375.png
+[2026-08-29T16:12:34.376Z]   📸 Screenshot: flow15b_mobile_reservations_mobile_375.png
+[2026-08-29T16:12:35.571Z] 
+══════════════════════════════════════════════════════════════════════
+[2026-08-29T16:12:35.571Z]   TEST SUITE SUMMARY
+[2026-08-29T16:12:35.571Z] ══════════════════════════════════════════════════════════════════════
+[2026-08-29T16:12:35.571Z] 
+📸 Screenshots Taken: 41
+[2026-08-29T16:12:35.571Z]    flow01_login | 01_redirect_to_login → flow01_login_01_redirect_to_login.png
+[2026-08-29T16:12:35.571Z]    flow01_login | 02_login_page_loaded → flow01_login_02_login_page_loaded.png
+[2026-08-29T16:12:35.571Z]    flow01_login | 03_credentials_filled → flow01_login_03_credentials_filled.png
+[2026-08-29T16:12:35.571Z]    flow01_login | 04_dashboard_after_login → flow01_login_04_dashboard_after_login.png
+[2026-08-29T16:12:35.571Z]    flow02_dashboard | 01_dashboard_full → flow02_dashboard_01_dashboard_full.png
+[2026-08-29T16:12:35.571Z]    flow02_dashboard | 02_dashboard_fullpage → flow02_dashboard_02_dashboard_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow03_reservations | 01_reservations_page → flow03_reservations_01_reservations_page.png
+[2026-08-29T16:12:35.571Z]    flow03_reservations | 02_filtered_confirmed → flow03_reservations_02_filtered_confirmed.png
+[2026-08-29T16:12:35.571Z]    flow03_reservations | 03_search_filtered → flow03_reservations_03_search_filtered.png
+[2026-08-29T16:12:35.571Z]    flow03_reservations | 04_reservations_reset → flow03_reservations_04_reservations_reset.png
+[2026-08-29T16:12:35.571Z]    flow04_create_reservation | 01_wizard_step1 → flow04_create_reservation_01_wizard_step1.png
+[2026-08-29T16:12:35.571Z]    flow04_create_reservation | 02_guest_selected → flow04_create_reservation_02_guest_selected.png
+[2026-08-29T16:12:35.571Z]    flow04_create_reservation | 03_step2 → flow04_create_reservation_03_step2.png
+[2026-08-29T16:12:35.571Z]    flow04_create_reservation | 04_step3 → flow04_create_reservation_04_step3.png
+[2026-08-29T16:12:35.571Z]    flow04_create_reservation | 05_final_step → flow04_create_reservation_05_final_step.png
+[2026-08-29T16:12:35.571Z]    flow05_reservation_details | 01_detail_page → flow05_reservation_details_01_detail_page.png
+[2026-08-29T16:12:35.571Z]    flow05_reservation_details | 02_detail_fullpage → flow05_reservation_details_02_detail_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow06_rooms | 01_rooms_grid → flow06_rooms_01_rooms_grid.png
+[2026-08-29T16:12:35.571Z]    flow06_rooms | 02_status_filtered → flow06_rooms_02_status_filtered.png
+[2026-08-29T16:12:35.571Z]    flow06_rooms | 03_rooms_fullpage → flow06_rooms_03_rooms_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow07_room_management | 01_management_view → flow07_room_management_01_management_view.png
+[2026-08-29T16:12:35.571Z]    flow07_room_management | 02_management_fullpage → flow07_room_management_02_management_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow08_settings | 01_configuration_page → flow08_settings_01_configuration_page.png
+[2026-08-29T16:12:35.571Z]    flow08_settings | 02_configuration_fullpage → flow08_settings_02_configuration_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow09_guest_profile | 01_guest_profile → flow09_guest_profile_01_guest_profile.png
+[2026-08-29T16:12:35.571Z]    flow09_guest_profile | 02_guest_profile_fullpage → flow09_guest_profile_02_guest_profile_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow10_housekeeping | 01_housekeeping_page → flow10_housekeeping_01_housekeeping_page.png
+[2026-08-29T16:12:35.571Z]    flow10_housekeeping | 02_housekeeping_fullpage → flow10_housekeeping_02_housekeeping_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow11_billing | 01_billing_page → flow11_billing_01_billing_page.png
+[2026-08-29T16:12:35.571Z]    flow11_billing | 02_billing_fullpage → flow11_billing_02_billing_fullpage.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow12_404 | 01_404_page → flow12_404_01_404_page.png
+[2026-08-29T16:12:35.571Z]    flow13_unauthorized | 01_redirect_to_login → flow13_unauthorized_01_redirect_to_login.png
+[2026-08-29T16:12:35.571Z]    flow14_desktop_fullpage | dashboard_desktop_full → flow14_desktop_fullpage_dashboard_desktop_full.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow14_desktop_fullpage | reservations_desktop_full → flow14_desktop_fullpage_reservations_desktop_full.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow14_desktop_fullpage | rooms_desktop_full → flow14_desktop_fullpage_rooms_desktop_full.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow14_desktop_fullpage | housekeeping_desktop_full → flow14_desktop_fullpage_housekeeping_desktop_full.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow14_desktop_fullpage | billing_desktop_full → flow14_desktop_fullpage_billing_desktop_full.png [full-page]
+[2026-08-29T16:12:35.571Z]    flow15a_tablet | dashboard_tablet_768 → flow15a_tablet_dashboard_tablet_768.png
+[2026-08-29T16:12:35.571Z]    flow15a_tablet | reservations_tablet_768 → flow15a_tablet_reservations_tablet_768.png
+[2026-08-29T16:12:35.571Z]    flow15b_mobile | dashboard_mobile_375 → flow15b_mobile_dashboard_mobile_375.png
+[2026-08-29T16:12:35.571Z]    flow15b_mobile | reservations_mobile_375 → flow15b_mobile_reservations_mobile_375.png
+[2026-08-29T16:12:35.571Z] 
+🔴 Console Errors: 1
+[2026-08-29T16:12:35.571Z]    [error] Failed to load resource: the server responded with a status of 401 (Unauthorized)
+[2026-08-29T16:12:35.571Z]       URL: http://localhost:5173/dashboard
+[2026-08-29T16:12:35.571Z] 
+🟡 Console Warnings: 48
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.571Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+[2026-08-29T16:12:35.572Z]    ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+[2026-08-29T16:12:35.572Z] 
+🌐 Network Errors (HTTP ≥400 or failed): 1
+[2026-08-29T16:12:35.572Z]    HTTP 401 Unauthorized — http://localhost:5000/api/v1/auth/me
+[2026-08-29T16:12:35.572Z] 
+🖼 Visual Issues Identified: 0
+[2026-08-29T16:12:35.572Z] 
+Completed: 29/8/2026, 9:42:35 pm
+[2026-08-29T16:12:35.572Z] ══════════════════════════════════════════════════════════════════════

@@ -8,8 +8,9 @@ import { Counter } from '../models/Counter';
 import { ActivityLog } from '../models/ActivityLog';
 import { Folio } from '../models/Folio';
 import { Payment } from '../models/Payment';
+import { Hotel } from '../models/Hotel';
 import { ApiError } from '../utils/ApiError';
-import type { ReservationListQuery, CreateReservationInput, UpdateReservationInput } from '../validation/reservationSchemas';
+import type { ReservationListQuery, CreateReservationInput, UpdateReservationInput, AddInternalNoteInput } from '../validation/reservationSchemas';
 import { serializeReservationListItem, serializeReservationDetail } from '../serializers/reservationSerializer';
 
 /* ------------------------------------------------------------------ */
@@ -17,8 +18,16 @@ import { serializeReservationListItem, serializeReservationDetail } from '../ser
 /* ------------------------------------------------------------------ */
 
 const ACTIVE_RESERVATION_STATUSES = ['pending', 'confirmed', 'checked_in'];
-const HOTEL_TAX_RATE_BPS = 1200; // 12%
 const DEPOSIT_RATIO = 0.5;
+
+let cachedTaxRateBps: number | null = null;
+
+async function getTaxRateBps(session?: mongoose.ClientSession): Promise<number> {
+  if (cachedTaxRateBps !== null) return cachedTaxRateBps;
+  const hotel = await Hotel.findOne().select('policies.taxRateBps').session(session ?? null).lean();
+  cachedTaxRateBps = hotel?.policies?.taxRateBps ?? 1200;
+  return cachedTaxRateBps;
+}
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -142,6 +151,8 @@ export async function createReservation(data: CreateReservationInput, userId: st
   session.startTransaction();
 
   try {
+    const taxRateBps = await getTaxRateBps(session);
+
     // 1. Validate guest
     let guestId: mongoose.Types.ObjectId;
     if (data.guestId) {
@@ -177,11 +188,24 @@ export async function createReservation(data: CreateReservationInput, userId: st
     const checkOutDate = normalizeToMidnight(new Date(data.checkOutDate));
     const nights = nightsBetween(checkInDate, checkOutDate);
 
+    // Validate dates (service-layer backup for schema validation)
+    const today = normalizeToMidnight(new Date());
+    if (checkInDate < today) {
+      throw ApiError.badRequest('checkInDate cannot be in the past');
+    }
+    if (checkOutDate <= checkInDate) {
+      throw ApiError.badRequest('checkOutDate must be after checkInDate');
+    }
+    if (nights > 90) {
+      throw ApiError.badRequest('Stay cannot exceed 90 nights');
+    }
+
     // 3. Determine rate
     let ratePerNightCents = roomType.basePricePerNightCents;
     let roomId: mongoose.Types.ObjectId | null = null;
 
     if (data.roomId) {
+      // Verify room exists and matches type
       const room = await Room.findById(data.roomId).session(session);
       if (!room) throw ApiError.badRequest('Invalid roomId');
       if (room.roomTypeId.toString() !== data.roomTypeId) {
@@ -200,7 +224,7 @@ export async function createReservation(data: CreateReservationInput, userId: st
 
     // 4. Calculate financials
     const subtotalCents = ratePerNightCents * nights;
-    const taxCents = Math.round(subtotalCents * (HOTEL_TAX_RATE_BPS / 10000));
+    const taxCents = Math.round(subtotalCents * (taxRateBps / 10000));
     const totalCents = subtotalCents + taxCents;
     const depositCents = Math.round(totalCents * DEPOSIT_RATIO);
 
@@ -220,7 +244,7 @@ export async function createReservation(data: CreateReservationInput, userId: st
       children: data.children,
       specialRequests: data.specialRequests ?? [],
       ratePerNightCents,
-      taxRateBps: HOTEL_TAX_RATE_BPS,
+      taxRateBps,
       depositCents,
       source: data.source ?? 'direct',
       createdBy: new mongoose.Types.ObjectId(userId),
@@ -265,6 +289,8 @@ export async function updateReservation(id: string, data: UpdateReservationInput
   session.startTransaction();
 
   try {
+    const taxRateBps = await getTaxRateBps(session);
+
     const existing = await Reservation.findById(id).session(session);
     if (!existing) throw ApiError.notFound('Reservation not found');
 
@@ -278,8 +304,17 @@ export async function updateReservation(id: string, data: UpdateReservationInput
     const newCheckIn = data.checkInDate ? normalizeToMidnight(new Date(data.checkInDate)) : existing.checkInDate;
     const newCheckOut = data.checkOutDate ? normalizeToMidnight(new Date(data.checkOutDate)) : existing.checkOutDate;
 
+    // Validate dates (service-layer backup for schema validation)
+    const today = normalizeToMidnight(new Date());
+    if (data.checkInDate && newCheckIn < today) {
+      throw ApiError.badRequest('checkInDate cannot be in the past');
+    }
     if (newCheckOut <= newCheckIn) {
       throw ApiError.badRequest('checkOutDate must be after checkInDate');
+    }
+    const nights = nightsBetween(newCheckIn, newCheckOut);
+    if (nights > 90) {
+      throw ApiError.badRequest('Stay cannot exceed 90 nights');
     }
 
     if (data.checkInDate) updateData.checkInDate = newCheckIn;
@@ -345,7 +380,7 @@ export async function updateReservation(id: string, data: UpdateReservationInput
       const rate = updateData.ratePerNightCents ?? existing.ratePerNightCents;
       const nights = nightsBetween(newCheckIn, newCheckOut);
       const subtotalCents = rate * nights;
-      const taxCents = Math.round(subtotalCents * (HOTEL_TAX_RATE_BPS / 10000));
+      const taxCents = Math.round(subtotalCents * (taxRateBps / 10000));
       const totalCents = subtotalCents + taxCents;
       updateData.depositCents = Math.round(totalCents * DEPOSIT_RATIO);
     }
@@ -380,6 +415,38 @@ export async function updateReservation(id: string, data: UpdateReservationInput
   } finally {
     session.endSession();
   }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Internal notes                                                     */
+/* ------------------------------------------------------------------ */
+
+export async function addInternalNote(id: string, data: AddInternalNoteInput, userId: string) {
+  const reservation = await Reservation.findByIdAndUpdate(
+    id,
+    { $push: { internalNotes: { body: data.body, addedBy: new mongoose.Types.ObjectId(userId), addedAt: new Date() } } },
+    { new: true, runValidators: true },
+  );
+  if (!reservation) throw ApiError.notFound('Reservation not found');
+
+  await ActivityLog.create({
+    actorId: new mongoose.Types.ObjectId(userId),
+    entityType: 'reservation',
+    entityId: reservation._id,
+    action: 'note_added',
+    title: `Note added to ${reservation.code}`,
+    description: `Internal note added: ${data.body.slice(0, 80)}`,
+  });
+
+  return {
+    id: reservation._id.toString(),
+    code: reservation.code,
+    notes: (reservation.internalNotes ?? []).map((n: any) => ({
+      body: n.body,
+      addedBy: n.addedBy?.toString?.() ?? null,
+      addedAt: n.addedAt?.toISOString?.() ?? null,
+    })),
+  };
 }
 
 /* ------------------------------------------------------------------ */
@@ -492,7 +559,7 @@ export async function checkInReservation(id: string, userId: string) {
       $set: { status: 'checked_in', checkedInAt: new Date() },
     }, { session });
 
-    // 8. Set room.occupancyStatus = occupied + currentReservationId
+    // 9. Set room.occupancyStatus = occupied + currentReservationId
     await Room.findByIdAndUpdate(reservation.roomId, {
       $set: {
         occupancyStatus: 'occupied',

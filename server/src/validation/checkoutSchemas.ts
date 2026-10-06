@@ -9,6 +9,7 @@ export const checkoutPaymentSchema = z.object({
   cardBrand: z.string().max(30).trim().optional(),
   cardLast4: z.string().length(4).trim().optional(),
   gatewayRef: z.string().max(100).trim().optional(),
+  idempotencyKey: z.string().min(1).max(100).trim().optional(),
 });
 
 export const checkoutCompletionSchema = z.object({}).optional();

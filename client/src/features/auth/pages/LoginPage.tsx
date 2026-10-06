@@ -30,6 +30,7 @@ export default function LoginPage() {
   const [remember, setRemember] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [guestLoginClicked, setGuestLoginClicked] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -51,6 +52,7 @@ export default function LoginPage() {
   function handleGuestLogin() {
     setEmail('admin@luxestay.com');
     setPassword('admin123');
+    setGuestLoginClicked(true);
   }
 
   return (
@@ -65,13 +67,18 @@ export default function LoginPage() {
       <div className="bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant p-8 w-full">
         <div className="mb-8 text-center">
           <h2 className="font-headline-md text-headline-md text-primary mb-2">Welcome Back</h2>
-          <p className="font-body-md text-body-md text-on-surface-variant">Sign in to access the dashboard.</p>
+          <p className="font-body-md text-body-md text-on-surface-variant">
+            Sign in to access the dashboard.
+          </p>
         </div>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Email */}
           <div>
-            <label className="block font-label-md text-label-md text-on-surface mb-2" htmlFor="email">
+            <label
+              className="block font-label-md text-label-md text-on-surface mb-2"
+              htmlFor="email"
+            >
               Email Address
             </label>
             <div className="relative">
@@ -82,7 +89,7 @@ export default function LoginPage() {
                 type="email"
                 required
                 autoComplete="email"
-                placeholder="manager@luxestay.com"
+                placeholder=""
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={inputClass}
@@ -93,10 +100,16 @@ export default function LoginPage() {
           {/* Password */}
           <div>
             <div className="flex justify-between items-center mb-2">
-              <label className="block font-label-md text-label-md text-on-surface" htmlFor="password">
+              <label
+                className="block font-label-md text-label-md text-on-surface"
+                htmlFor="password"
+              >
                 Password
               </label>
-              <a href="#" className="font-label-md text-label-md text-secondary hover:text-on-secondary-container transition-colors">
+              <a
+                href="#"
+                className="font-label-md text-label-md text-secondary hover:text-on-secondary-container transition-colors"
+              >
                 Forgot Password?
               </a>
             </div>
@@ -134,7 +147,10 @@ export default function LoginPage() {
               onChange={(e) => setRemember(e.target.checked)}
               className="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary/20 bg-surface cursor-pointer"
             />
-            <label htmlFor="remember" className="ml-2 font-body-sm text-body-sm text-on-surface-variant cursor-pointer select-none">
+            <label
+              htmlFor="remember"
+              className="ml-2 font-body-sm text-body-sm text-on-surface-variant cursor-pointer select-none"
+            >
               Remember me for 30 days
             </label>
           </div>
@@ -165,12 +181,11 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={handleGuestLogin}
-            className="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus:outline-none"
+            className="font-body-lg text-body-lg text-on-surface-variant text-primary transition-colors cursor-pointer focus:outline-none"
           >
-            Need technical support?{' '}
-            <span className="text-primary font-medium hover:underline">
-              Guest Login
-            </span>
+            {!guestLoginClicked && (
+              <span className="text-primary font-medium hover:underline">Guest Login?</span>
+            )}
           </button>
         </div>
       </div>

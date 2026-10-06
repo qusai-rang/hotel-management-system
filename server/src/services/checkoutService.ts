@@ -11,6 +11,7 @@ import { serializeCheckoutSession, serializeCheckoutCompletion } from '../serial
 import type { CheckoutPaymentInput } from '../validation/checkoutSchemas';
 import { createCheckoutHousekeepingTask } from './housekeepingService';
 import { generateInvoice } from './invoiceService';
+import { createFolio } from './folioService';
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -44,7 +45,7 @@ function computeFolioTotals(folio: any, paidCents: number) {
 /*  GET checkout session                                               */
 /* ------------------------------------------------------------------ */
 
-export async function getCheckoutSession(reservationId: string) {
+export async function getCheckoutSession(reservationId: string, actorId: string) {
   const reservation = await Reservation.findById(reservationId)
     .populate('guestId')
     .populate('roomId')
@@ -67,10 +68,12 @@ export async function getCheckoutSession(reservationId: string) {
     throw ApiError.conflict(`Cannot checkout reservation in "${resObj.status}" status`);
   }
 
-  // Must have a folio
-  const folioDoc = await Folio.findOne({ reservationId: reservation._id }).lean();
+  // Ensure a folio exists. A checked-in reservation should always have one;
+  // auto-create it if it was missed (e.g. created before folio generation).
+  let folioDoc = await Folio.findOne({ reservationId: reservation._id }).lean();
   if (!folioDoc) {
-    throw ApiError.notFound('No folio found for this reservation — cannot checkout');
+    await createFolio(reservationId, actorId);
+    folioDoc = await Folio.findOne({ reservationId: reservation._id }).lean();
   }
 
   const paidCents = await getTotalPaid(folioDoc._id);
@@ -105,6 +108,19 @@ export async function collectCheckoutPayment(
     throw ApiError.badRequest('cardLast4 is required for card payments');
   }
 
+  // Check for idempotency key to prevent duplicate payments
+  if (data.idempotencyKey) {
+    const existingPayment = await Payment.findOne({
+      folioId: folio._id,
+      idempotencyKey: data.idempotencyKey,
+    });
+
+    if (existingPayment) {
+      // Return existing payment (idempotent behavior)
+      return getCheckoutSession(reservationId, userId);
+    }
+  }
+
   // Create payment
   const [payment] = await Payment.create([{
     folioId: folio._id,
@@ -113,6 +129,7 @@ export async function collectCheckoutPayment(
     cardBrand: data.cardBrand,
     cardLast4: data.cardLast4,
     gatewayRef: data.gatewayRef,
+    idempotencyKey: data.idempotencyKey,
     status: 'captured',
     processedBy: new mongoose.Types.ObjectId(userId),
   }]);
@@ -128,7 +145,7 @@ export async function collectCheckoutPayment(
   }]);
 
   // Return updated session
-  return getCheckoutSession(reservationId);
+  return getCheckoutSession(reservationId, userId);
 }
 
 /* ------------------------------------------------------------------ */
@@ -185,6 +202,19 @@ export async function completeCheckout(reservationId: string, actorId: string) {
 
     // 9. Update room: occupancyStatus = vacant, currentReservationId = null
     const room = await Room.findById(reservation.roomId).session(session);
+    if (!room) throw ApiError.notFound('Assigned room not found');
+
+    // Optimistic locking: increment version to lock the room
+    const updatedRoom = await Room.findOneAndUpdate(
+      { _id: room._id, version: room.version },
+      { $inc: { version: 1 } },
+      { new: true, session }
+    );
+
+    if (!updatedRoom) {
+      throw ApiError.conflict('Room was modified concurrently, please retry');
+    }
+
     await Room.findByIdAndUpdate(reservation.roomId, {
       $set: {
         occupancyStatus: 'vacant',

@@ -15,6 +15,7 @@ export const roomTypeCreateSchema = z.object({
   sizeSqft: z.number().int().min(0).optional(),
   amenities: z.array(amenitySchema).default([]),
   accentColor: z.string().max(20).optional(),
+  depositRatio: z.number().min(0).max(1).default(0.5),
 });
 
 export const roomTypeUpdateSchema = z.object({
@@ -27,6 +28,7 @@ export const roomTypeUpdateSchema = z.object({
   sizeSqft: z.number().int().min(0).optional(),
   amenities: z.array(amenitySchema).optional(),
   accentColor: z.string().max(20).optional(),
+  depositRatio: z.number().min(0).max(1).optional(),
 }).refine(o => Object.keys(o).length > 0, { message: 'At least one field is required' });
 
 export const roomTypeListQuerySchema = z.object({

@@ -29,8 +29,17 @@ export async function searchAvailability(query: AvailabilityQuery) {
   const fromDate = normalizeToMidnight(new Date(query.from));
   const toDate = normalizeToMidnight(new Date(query.to));
 
+  // Validate dates (service-layer backup for schema validation)
+  const today = normalizeToMidnight(new Date());
+  if (fromDate < today) {
+    throw ApiError.badRequest('checkInDate cannot be in the past');
+  }
   if (toDate <= fromDate) {
     throw ApiError.badRequest('checkOutDate must be after checkInDate');
+  }
+  const nights = Math.round((toDate.getTime() - fromDate.getTime()) / 86400000);
+  if (nights > 90) {
+    throw ApiError.badRequest('Stay cannot exceed 90 nights');
   }
 
   const roomTypeFilter: Record<string, unknown> = {};

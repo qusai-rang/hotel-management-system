@@ -182,9 +182,17 @@ export async function createTask(data: HousekeepingTaskCreateInput, actorId: str
       lastActivityAt: new Date(),
     }], { session: s });
 
-    // Update room.housekeepingStatus
+    // Update room.housekeepingStatus with optimistic locking
     const newHkStatus = TASK_TO_ROOM_STATUS[data.status ?? 'dirty'];
-    await Room.findByIdAndUpdate(data.roomId, { $set: { housekeepingStatus: newHkStatus } }, { session: s });
+    const updatedRoom = await Room.findOneAndUpdate(
+      { _id: room._id, version: room.version },
+      { $inc: { version: 1 }, $set: { housekeepingStatus: newHkStatus } },
+      { new: true, session: s }
+    );
+
+    if (!updatedRoom) {
+      throw ApiError.conflict('Room was modified concurrently, please retry');
+    }
 
     // ActivityLog
     await ActivityLog.create([{
@@ -282,7 +290,15 @@ export async function updateTask(taskId: string, data: HousekeepingTaskUpdateInp
     // Update room.housekeepingStatus if task status changed
     if (updates.status && updates.status !== oldStatus) {
       const newHkStatus = TASK_TO_ROOM_STATUS[updates.status as HkTaskStatus];
-      await Room.findByIdAndUpdate(room._id, { $set: { housekeepingStatus: newHkStatus } }, { session: s });
+      const updatedRoom = await Room.findOneAndUpdate(
+        { _id: room._id, version: room.version },
+        { $inc: { version: 1 }, $set: { housekeepingStatus: newHkStatus } },
+        { new: true, session: s }
+      );
+
+      if (!updatedRoom) {
+        throw ApiError.conflict('Room was modified concurrently, please retry');
+      }
 
       // Room activity log
       await ActivityLog.create([{
@@ -446,7 +462,16 @@ export async function createCheckoutHousekeepingTask(roomId: string, actorId: st
       lastActivityAt: new Date(),
     }], { session: s });
 
-    await Room.findByIdAndUpdate(roomId, { $set: { housekeepingStatus: 'dirty' } }, { session: s });
+    // Update room.housekeepingStatus with optimistic locking
+    const updatedRoom = await Room.findOneAndUpdate(
+      { _id: room._id, version: room.version },
+      { $inc: { version: 1 }, $set: { housekeepingStatus: 'dirty' } },
+      { new: true, session: s }
+    );
+
+    if (!updatedRoom) {
+      throw ApiError.conflict('Room was modified concurrently, please retry');
+    }
 
     await ActivityLog.create([{
       actorId: new mongoose.Types.ObjectId(actorId),

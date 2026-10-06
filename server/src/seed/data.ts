@@ -24,7 +24,6 @@ interface UserSeed {
   seedKey: string;
   name: string;
   email: string;
-  password: string;
   role: UserRole;
 }
 
@@ -190,12 +189,12 @@ export const hotelData: HotelSeed = {
 /* ------------------------------------------------------------------ */
 
 export const userData: UserSeed[] = [
-  { seedKey: 'admin',     name: 'Admin User',    email: 'admin@luxestay.com',     password: 'admin123',     role: 'admin' },
-  { seedKey: 'elena',     name: 'Elena Rostova',  email: 'elena.r@luxestay.com',   password: 'manager123',   role: 'manager' },
-  { seedKey: 'front_desk', name: 'Front Desk',    email: 'frontdesk@luxestay.com', password: 'front123',     role: 'front_desk' },
-  { seedKey: 'marcus',    name: 'Marcus Torres',  email: 'marcus.t@luxestay.com',  password: 'house123',     role: 'housekeeping' },
-  { seedKey: 'sarah',     name: 'Sarah Jenkins',  email: 'sarah.j@luxestay.com',   password: 'house123',     role: 'housekeeping' },
-  { seedKey: 'david',     name: 'David Wong',     email: 'david.w@luxestay.com',   password: 'house123',     role: 'housekeeping' },
+  { seedKey: 'admin',      name: 'Admin User',    email: 'admin@luxestay.com',     role: 'admin' },
+  { seedKey: 'elena',      name: 'Elena Rostova',  email: 'elena.r@luxestay.com',   role: 'manager' },
+  { seedKey: 'front_desk', name: 'Front Desk',    email: 'frontdesk@luxestay.com', role: 'front_desk' },
+  { seedKey: 'marcus',     name: 'Marcus Torres',  email: 'marcus.t@luxestay.com',  role: 'housekeeping' },
+  { seedKey: 'sarah',      name: 'Sarah Jenkins',  email: 'sarah.j@luxestay.com',   role: 'housekeeping' },
+  { seedKey: 'david',      name: 'David Wong',     email: 'david.w@luxestay.com',   role: 'housekeeping' },
 ];
 
 /* ------------------------------------------------------------------ */

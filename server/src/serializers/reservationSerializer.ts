@@ -40,6 +40,7 @@ export interface ReservationDetailDTO {
   amountPaidCents: number;
   outstandingCents: number;
   specialRequests: { title: string; description: string | null; iconName: string | null; dueAt: string | null }[];
+  internalNotes: { body: string; addedBy: string | null; addedAt: string }[];
   source: string;
   createdBy: string;
   createdAt: string;
@@ -142,6 +143,11 @@ export function serializeReservationDetail(doc: any, amountPaidCents: number): R
       description: sr.description ?? null,
       iconName: sr.iconName ?? null,
       dueAt: sr.dueAt?.toISOString?.() ?? null,
+    })),
+    internalNotes: (obj.internalNotes ?? []).map((n: any) => ({
+      body: n.body,
+      addedBy: n.addedBy?.toString?.() ?? null,
+      addedAt: n.addedAt?.toISOString?.() ?? null,
     })),
     source: obj.source,
     createdBy: obj.createdBy?.toString?.() ?? '',

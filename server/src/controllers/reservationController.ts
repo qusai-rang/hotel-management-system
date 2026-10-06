@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import { asyncHandler } from '../utils/asyncHandler';
 import * as reservationService from '../services/reservationService';
 import * as folioService from '../services/folioService';
-import { reservationListQuerySchema, createReservationSchema, updateReservationSchema } from '../validation/reservationSchemas';
+import { reservationListQuerySchema, createReservationSchema, updateReservationSchema, addInternalNoteSchema } from '../validation/reservationSchemas';
 
 function getUserId(req: Request): string {
   const user = (req as Request & { user?: { id: string } }).user;
@@ -49,4 +49,11 @@ export const checkIn = asyncHandler(async (req: Request, res: Response) => {
   const userId = getUserId(req);
   const result = await reservationService.checkInReservation(req.params.id, userId);
   res.json({ success: true, item: result });
+});
+
+export const addNote = asyncHandler(async (req: Request, res: Response) => {
+  const data = addInternalNoteSchema.parse(req.body);
+  const userId = getUserId(req);
+  const result = await reservationService.addInternalNote(req.params.id, data, userId);
+  res.status(201).json({ success: true, item: result });
 });

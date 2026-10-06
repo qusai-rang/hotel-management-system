@@ -15,6 +15,7 @@ const roomSchema = new Schema({
   currentReservationId:    { type: Schema.Types.ObjectId, ref: 'Reservation' },
   priorityNote:            { type: String },
   cleanedAt:               { type: Date },
+  version:                 { type: Number, default: 0 },
 }, { timestamps: true });
 
 roomSchema.index({ floor: 1, occupancyStatus: 1 });

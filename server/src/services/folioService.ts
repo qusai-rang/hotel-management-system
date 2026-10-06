@@ -228,6 +228,21 @@ export async function addPayment(folioId: string, data: PaymentCreateInput, user
       throw ApiError.badRequest('cardLast4 is required for card payments');
     }
 
+    // Check for idempotency key to prevent duplicate payments
+    if (data.idempotencyKey) {
+      const existingPayment = await Payment.findOne({
+        folioId: folio._id,
+        idempotencyKey: data.idempotencyKey,
+      }).session(session);
+
+      if (existingPayment) {
+        await session.abortTransaction();
+        session.endSession();
+        // Return existing payment (idempotent behavior)
+        return serializePayment(existingPayment);
+      }
+    }
+
     // Create payment (simulated capture)
     const [payment] = await Payment.create([{
       folioId: folio._id,
@@ -236,6 +251,7 @@ export async function addPayment(folioId: string, data: PaymentCreateInput, user
       cardBrand: data.cardBrand,
       cardLast4: data.cardLast4,
       gatewayRef: data.gatewayRef,
+      idempotencyKey: data.idempotencyKey,
       status: 'captured',
       processedBy: new mongoose.Types.ObjectId(userId),
     }], { session });

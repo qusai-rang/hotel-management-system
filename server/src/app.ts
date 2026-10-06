@@ -2,6 +2,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import cors from 'cors';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { env } from './config/env';
 import apiRouter from './routes';
 import authRouter from './routes/authRoutes';
@@ -20,18 +21,23 @@ import { requestContext } from './middleware/requestContext';
 import { requestLogger } from './middleware/requestLogger';
 import { apiNotFound } from './middleware/notFound';
 import { errorHandler } from './middleware/errorHandler';
+import { csrfProtection } from './middleware/csrf';
 
 const app = express();
 
 app.disable('x-powered-by');
 
-app.use(cors({ origin: env.CORS_ORIGIN }));
+app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 /* Correlation id + structured request logging (headers/bodies never logged). */
 app.use(requestContext);
 app.use(requestLogger);
+
+/* CSRF protection for state-changing requests */
+app.use('/api/v1', csrfProtection);
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/room-types', roomTypeRouter);

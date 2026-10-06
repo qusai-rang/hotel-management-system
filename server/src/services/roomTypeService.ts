@@ -44,9 +44,16 @@ export async function listRoomTypes(query: RoomTypeListQuery) {
       id: d._id.toString(),
       code: d.code,
       name: d.name,
+      description: d.description ?? '',
       basePricePerNightCents: d.basePricePerNightCents,
       maxGuests: d.maxGuests,
+      bedLabel: d.bedLabel ?? '',
+      sizeSqft: d.sizeSqft ?? null,
+      amenities: d.amenities ?? [],
+      accentColor: d.accentColor ?? null,
       totalRooms: count,
+      createdAt: d.createdAt?.toISOString() ?? '',
+      updatedAt: d.updatedAt?.toISOString() ?? '',
     };
   });
 

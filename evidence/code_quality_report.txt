@@ -1,0 +1,332 @@
+================================================================================
+         CODE QUALITY & PERFORMANCE AUDIT REPORT — HOTEL MANAGEMENT SYSTEM
+================================================================================
+  Date:       2026-08-29
+  Scope:      Client (React + Vite)  |  Server (Express + MongoDB)
+  Auditor:    Automated + Manual Review
+================================================================================
+
+
+████████████████████████████████████████████████████████████████████████████████
+  PART 1 — AUTOMATED TOOLING RESULTS
+████████████████████████████████████████████████████████████████████████████████
+
+1.1  CLIENT LINT (eslint)
+--------------------------------------------------------------------------------
+  Command:  npm run lint
+  Result:   PASS — no warnings or errors.
+
+1.2  CLIENT TYPECHECK (tsc --noEmit)
+--------------------------------------------------------------------------------
+  Command:  npx tsc -b --noEmit
+  Result:   PASS — no type errors.
+
+1.3  SERVER LINT (eslint)
+--------------------------------------------------------------------------------
+  Command:  npm run lint
+  Result:   PASS — no warnings or errors.
+
+1.4  SERVER TYPECHECK (tsc --noEmit)
+--------------------------------------------------------------------------------
+  Command:  tsc --noEmit
+  Result:   FAIL — 8 type errors.
+
+  [P1] src/routes/authRoutes.ts(17,3)
+       error TS2322: 'requestIp' type mismatch — ip() returns (ip, ipv6Subnet?)
+       but ValueDeterminingMiddleware<string> expects (request) => string.
+  [P1] src/routes/checkoutRoutes.ts(18,3)     — same ip() type mismatch
+  [P1] src/routes/guestRoutes.ts(18,3)        — same ip() type mismatch
+  [P1] src/routes/reservationRoutes.ts(18,3)  — same ip() type mismatch
+  [P1] src/routes/roomRoutes.ts(18,3)         — same ip() type mismatch
+  [P1] src/routes/roomTypeRoutes.ts(18,3)     — same ip() type mismatch
+  [P2] src/services/checkoutService.ts(79,40) — 'folioDoc' is possibly null
+  [P2] src/services/checkoutService.ts(80,50) — 'folioDoc' is possibly null
+
+1.5  CLIENT BUILD
+--------------------------------------------------------------------------------
+  Command:  npm run build
+  Result:   PASS — build succeeded (4.88s).
+
+  WARNING — Large JS bundle detected:
+    dist/assets/index-zTqSTHB0.js  =  501.24 kB  (gzip: 128.41 kB)
+    → Exceeds 500 KB minified threshold.
+    → Recommendation: code-split with dynamic import() or manualChunks.
+  [P2] Client bundle — JS chunk 501.24 KB minified exceeds 500 KB warning.
+
+1.6  SERVER BUILD
+--------------------------------------------------------------------------------
+  Command:  npm run build
+  Result:   FAIL — same 8 type errors as 1.4 (tsc emits no JS on error).
+
+1.7  CLIENT DEPENDENCY AUDIT (npm audit)
+--------------------------------------------------------------------------------
+  Result:   4 vulnerabilities found.
+
+  [P2] react-router 6.0.0–7.17.0
+       Moderate: Open redirect via backslash in <Link> (CVE-2025-68470 bypass)
+       Moderate: Arbitrary constructor injection via SSR hydration
+       → Fix: upgrade to react-router-dom@7.18.3+ (breaking change).
+
+  [P1] vite <=6.4.2 / esbuild <=0.24.2
+       High: esbuild enables any website to send requests to dev server
+             and read the response.
+       → Fix: upgrade to vite@8.2.2+ (breaking change).
+
+1.8  SERVER DEPENDENCY AUDIT (npm audit)
+--------------------------------------------------------------------------------
+  Result:   0 vulnerabilities. PASS.
+
+1.9  OUTDATED DEPENDENCIES (npm outdated)
+--------------------------------------------------------------------------------
+  SERVER — 12 packages outdated:
+    express       4.22.2  →  5.2.1   (major)
+    mongoose      8.24.4  →  9.9.4   (major)
+    typescript    5.6.3   →  7.0.2   (major)
+    zod           3.25.76 →  4.5.2   (major)
+    dotenv        16.6.1  →  17.4.2  (major)
+    + 7 minor/patch updates
+
+  CLIENT — 18 packages outdated:
+    react         18.3.1  →  19.2.8  (major)
+    react-dom     18.3.1  →  19.2.8  (major)
+    react-router  6.30.6  →  7.18.3  (major)
+    vite          5.4.21  →  8.2.2   (major)
+    tailwindcss   3.4.19  →  4.3.3   (major)
+    typescript    5.6.3   →  7.0.2   (major)
+    + 12 minor/patch updates
+
+
+████████████████████████████████████████████████████████████████████████████████
+  PART 2 — STATIC CODE ANALYSIS (GREP-BASED FINDINGS)
+████████████████████████████████████████████████████████████████████████████████
+
+2.1  console.log IN PRODUCTION CODE
+--------------------------------------------------------------------------------
+  Client: 0 hits — clean.
+  Server: 17 hits total.
+
+  [P3] server/src/server.ts:9        — console.log (server startup banner)
+  [P3] server/src/server.ts:13       — console.log (shutdown message)
+  [P3] server/src/utils/logger.ts:27 — console.log (in logger — acceptable)
+  [P3] server/src/config/db.ts:8     — console.log (DB connection banner)
+  [P3] server/src/seed/index.ts:438–450 — 13× console.log (seed script output,
+       acceptable for CLI utility)
+
+  Assessment: Most are in infrastructure/seed code, not business logic.
+  logger.ts:27 is intentional (logger implementation). Low risk.
+
+2.2  TODO / FIXME / HACK / XXX COMMENTS
+--------------------------------------------------------------------------------
+  Result: 0 hits in source code. PASS.
+
+2.3  `as any` TYPE ASSERTIONS
+--------------------------------------------------------------------------------
+  Client: 0 hits — clean.
+  Server: 5 explicit `as any` casts.
+
+  [P2] server/src/seed/index.ts:74            — (c as any).deleteMany({})
+  [P2] server/src/services/housekeepingService.ts:243 — task.roomId as any
+  [P2] server/src/services/guestService.ts:101 — doc as any
+  [P2] server/src/services/roomService.ts:77   — d.roomTypeId as any
+  [P2] server/src/services/roomService.ts:79   — res?.guestId as any
+
+2.4  eslint-disable COMMENTS
+--------------------------------------------------------------------------------
+  Client: 0 hits.
+  Server: 22 hits — all are file-level disables for @typescript-eslint/no-explicit-any
+  with justification: "Mongoose documents are untyped after .lean()/.populate()".
+
+  Files affected (all serializers + services):
+    serializers/folioSerializer.ts:1
+    serializers/availabilitySerializer.ts:1
+    serializers/roomTypeSerializer.ts:1
+    serializers/billingSerializer.ts:1
+    serializers/checkoutSerializer.ts:1
+    serializers/roomSerializer.ts:1
+    serializers/reservationSerializer.ts:1
+    serializers/housekeepingSerializer.ts:1
+    serializers/paymentSerializer.ts:1
+    serializers/guestSerializer.ts:1
+    services/dashboardService.ts:1
+    services/housekeepingService.ts:1
+    services/roomService.ts:1
+    services/availabilityService.ts:1
+    services/checkoutService.ts:1
+    services/folioService.ts:1
+    services/billingService.ts:1
+    services/reservationService.ts:1
+    services/guestService.ts:1
+    services/invoiceService.ts:1
+    seed/index.ts:2
+
+  Assessment: Systemic — the project suppresses `no-explicit-any` across the
+  entire serialization/service layer. This masks 69+ `any`-typed parameters
+  and reduces type safety. A typed Mongoose lean() wrapper would fix root cause.
+
+2.5  `@ts-ignore` / `@ts-expect-error`
+--------------------------------------------------------------------------------
+  Result: 0 hits in both client and server. PASS.
+
+2.6  window.location USAGE (potential open-redirect / navigation risks)
+--------------------------------------------------------------------------------
+  Client: 3 hits.
+
+  [P2] client/src/components/ErrorBoundary.tsx:25 — window.location.reload()
+       Assessment: Acceptable in error boundary. Low risk.
+
+  [P2] client/src/services/apiClient.ts:72–73 — window.location.pathname check
+       + window.location.href = '/login'
+       Assessment: Redirect to /login on auth failure. Acceptable pattern but
+       uses hard redirect instead of React Router navigation.
+
+2.7  innerHTML / dangerouslySetInnerHTML (XSS vectors)
+--------------------------------------------------------------------------------
+  Result: 0 hits. PASS.
+
+2.8  eval() (code injection)
+--------------------------------------------------------------------------------
+  Client: 0 hits.  Server: 0 hits. PASS.
+
+2.9  $where (NoSQL injection)
+--------------------------------------------------------------------------------
+  Server: 0 hits. PASS.
+
+2.10 window.open / target="_blank" without rel="noopener"
+--------------------------------------------------------------------------------
+  Result: 0 target="_blank" links found. PASS.
+
+2.11 HARDCODED SECRETS
+--------------------------------------------------------------------------------
+  No hardcoded secret VALUES found. All secrets are read from env vars
+  via Zod validation (server/src/config/env.ts:8: JWT_SECRET).
+
+  Environment variables referenced (not hardcoded):
+    JWT_SECRET — validated as required string
+    password variables — read from process.env in seed script
+
+  Assessment: PASS — proper env-var pattern used throughout.
+
+2.12 MEMORY LEAK INDICATORS
+--------------------------------------------------------------------------------
+  Client addEventListener: 0 direct calls (React handles via JSX).
+  Client removeEventListener: 0 direct calls.
+  Client WebSocket/WebSocket: 0 usage.
+  Large arrays in useState: no oversized state detected.
+
+  Assessment: PASS — no direct event listener or WebSocket leaks.
+
+2.13 N+1 QUERY PATTERNS
+--------------------------------------------------------------------------------
+  [P1] server/src/services/availabilityService.ts:57–76
+       N+1 QUERY: Loops over roomTypes and makes 2 DB queries per iteration
+       (Room.find + Reservation.find). With many room types this is O(2N).
+       Fix: batch into 2 aggregate queries.
+
+  [P2] server/src/services/guestService.ts:71–75
+       3 sequential queries (Reservation.find, Folio.find, Payment.find)
+       where the last could be parallelized with the first two.
+       Currently sequential but acceptable for single-guest detail page.
+
+  [P2] server/src/services/housekeepingService.ts:332–341
+       User.findById() called inside conditional branches for activity log
+       description. Only 1–2 calls, acceptable.
+
+2.14 MISSING INDEXES
+--------------------------------------------------------------------------------
+  Models WITH indexes (good):
+    Room:         (floor, occupancyStatus), (roomTypeId)
+    Invoice:      (folioId), (guestId, issueDate)
+    Guest:        text index on (firstName, lastName)
+    Housekeeping: (status, context), (assigneeId, status), (roomId, lastActivityAt)
+    ActivityLog:  (entityType, entityId, createdAt)
+    Payment:      (folioId, createdAt), (status, createdAt),
+                  unique (folioId, idempotencyKey)
+    Reservation:  (guestId, checkInDate), (status, checkInDate),
+                  (roomId, status, checkInDate, checkOutDate)
+
+  [P2] Folio model — MISSING INDEXES:
+       - reservationId has `unique: true` (creates index) — OK.
+       - guestId is queried in guestService.ts:72 but has NO index.
+         Add: folioSchema.index({ guestId: 1 });
+
+  [P3] Hotel model — no indexes, but it's a singleton (always.findOne()).
+
+2.15 `: any` TYPE ANNOTATIONS
+--------------------------------------------------------------------------------
+  Client: 0 hits — clean.
+  Server: 69+ explicit `: any` annotations across serializers and services.
+
+  Top offenders by file:
+    serializers/checkoutSerializer.ts    — 11 any annotations
+    services/housekeepingService.ts      — 9 any annotations
+    serializers/folioSerializer.ts       — 5 any annotations
+    serializers/reservationSerializer.ts — 4 any annotations
+    services/billingService.ts           — 3 any annotations
+    services/availabilityService.ts      — 2 any annotations
+    services/checkoutService.ts          — 3 any annotations
+    services/reservationService.ts       — 3 any annotations
+    services/roomService.ts              — 4 any annotations
+    serializers/guestSerializer.ts       — 2 any annotations
+    (+ many more across 20+ files)
+
+  Assessment: Systemic issue. Root cause is untyped Mongoose .lean() results.
+
+2.16 DEAD CODE / UNUSED EXPORTS
+--------------------------------------------------------------------------------
+  No unused exported functions/components flagged by linting.
+  No unused imports detected. PASS.
+
+
+████████████████████████████████████████████████████████████████████████████████
+  PART 3 — SUMMARY
+████████████████████████████████████████████████████████████████████████████████
+
+  SEVERITY COUNTS:
+  ─────────────────────────────────────────────────
+    P0 (Critical):   0
+    P1 (High):       8     — server type errors (6 route ip() + 2 null safety)
+    P2 (Medium):     9     — bundle size, vuln deps, `as any`, window.location,
+                             N+1 queries, missing index, outdated deps, null check
+    P3 (Low):       10     — console.log (acceptable), Hotel model no index,
+                             logger usage, seed script output
+  ─────────────────────────────────────────────────
+    TOTAL:          27 actionable findings
+
+  AUTOMATED TOOL SUMMARY:
+  ─────────────────────────────────────────────────
+    Client Lint:        PASS
+    Client Typecheck:   PASS
+    Client Build:       PASS (1 warning)
+    Server Lint:        PASS
+    Server Typecheck:   FAIL (8 errors)
+    Server Build:       FAIL (blocks deployment)
+    Client Audit:       4 vulnerabilities (1 high, 3 moderate)
+    Server Audit:       0 vulnerabilities
+  ─────────────────────────────────────────────────
+
+  TOP PRIORITIES:
+  ─────────────────────────────────────────────────
+  1. [P1] Fix server TypeScript type errors — 6 route files have ip() type
+     mismatch with express-rate-limit. Wrap: `(_req) => requestIp.getClientIp(_req)`.
+     Also fix null guard on folioDoc in checkoutService.ts:79–80.
+
+  2. [P1] N+1 query in availabilityService.ts — batch room-type availability
+     into fewer queries. Current loop makes 2N DB calls.
+
+  3. [P2] Client vulnerability: esbuild/vite dev server SSRF — upgrade to vite 8+.
+     Client vulnerability: react-router open redirect — upgrade to 7.18.3+.
+
+  4. [P2] Client bundle 501 KB — apply code-splitting (React.lazy) for routes
+     and manualChunks for large vendor libs.
+
+  5. [P2] Add index on Folio.guestId — queried in guestService but unindexed.
+
+  6. [P2] Replace 69+ `: any` annotations in server services/serializers with
+     proper Mongoose lean() return types to improve type safety.
+
+  7. [P3] Plan migration from Express 4→5, Mongoose 8→9, React 18→19,
+     Vite 5→8 in staged releases.
+
+================================================================================
+  END OF REPORT
+================================================================================

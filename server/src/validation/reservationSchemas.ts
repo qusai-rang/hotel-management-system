@@ -3,6 +3,12 @@ import { RESERVATION_STATUSES } from '../models/enums';
 
 const ObjectIdStr = z.string().regex(/^[0-9a-f]{24}$/i, 'Invalid ObjectId');
 
+function todayMidnightUTC(): Date {
+  const d = new Date();
+  d.setUTCHours(0, 0, 0, 0);
+  return d;
+}
+
 const specialRequestSchema = z.object({
   title: z.string().min(1).max(200).trim(),
   description: z.string().max(500).optional(),
@@ -17,7 +23,7 @@ export const reservationListQuerySchema = z.object({
   from: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)).optional(),
   to: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)).optional(),
   page: z.coerce.number().int().min(1).default(1),
-  pageSize: z.coerce.number().int().min(1).max(100).default(20),
+  pageSize: z.coerce.number().int().min(1).max(1000).default(20),
 });
 
 export const createReservationSchema = z.object({
@@ -34,7 +40,7 @@ export const createReservationSchema = z.object({
   checkInDate: z.coerce.date(),
   checkOutDate: z.coerce.date(),
   adults: z.number().int().min(1),
-  children: z.number().int().min(0).default(0),
+  children: z.number().int().min(0).max(10).default(0),
   specialRequests: z.array(specialRequestSchema).default([]),
   source: z.string().max(100).trim().default('direct'),
 }).refine(
@@ -43,6 +49,16 @@ export const createReservationSchema = z.object({
 ).refine(
   (data) => data.checkOutDate > data.checkInDate,
   { message: 'checkOutDate must be after checkInDate', path: ['checkOutDate'] },
+).refine(
+  (data) => data.checkInDate >= todayMidnightUTC(),
+  { message: 'checkInDate cannot be in the past', path: ['checkInDate'] },
+).refine(
+  (data) => {
+    const diffMs = data.checkOutDate.getTime() - data.checkInDate.getTime();
+    const nights = Math.round(diffMs / 86400000);
+    return nights <= 90;
+  },
+  { message: 'Stay cannot exceed 90 nights', path: ['checkOutDate'] },
 );
 
 export const updateReservationSchema = z.object({
@@ -51,7 +67,7 @@ export const updateReservationSchema = z.object({
   checkInDate: z.coerce.date().optional(),
   checkOutDate: z.coerce.date().optional(),
   adults: z.number().int().min(1).optional(),
-  children: z.number().int().min(0).optional(),
+  children: z.number().int().min(0).max(10).optional(),
   specialRequests: z.array(specialRequestSchema).optional(),
 }).refine(
   (data) => Object.keys(data).length > 0,
@@ -64,8 +80,31 @@ export const updateReservationSchema = z.object({
     return true;
   },
   { message: 'checkOutDate must be after checkInDate', path: ['checkOutDate'] },
+).refine(
+  (data) => {
+    if (data.checkInDate) {
+      return data.checkInDate >= todayMidnightUTC();
+    }
+    return true;
+  },
+  { message: 'checkInDate cannot be in the past', path: ['checkInDate'] },
+).refine(
+  (data) => {
+    if (data.checkInDate && data.checkOutDate) {
+      const diffMs = data.checkOutDate.getTime() - data.checkInDate.getTime();
+      const nights = Math.round(diffMs / 86400000);
+      return nights <= 90;
+    }
+    return true;
+  },
+  { message: 'Stay cannot exceed 90 nights', path: ['checkOutDate'] },
 );
+
+export const addInternalNoteSchema = z.object({
+  body: z.string().min(1).max(2000).trim(),
+});
 
 export type ReservationListQuery = z.infer<typeof reservationListQuerySchema>;
 export type CreateReservationInput = z.infer<typeof createReservationSchema>;
 export type UpdateReservationInput = z.infer<typeof updateReservationSchema>;
+export type AddInternalNoteInput = z.infer<typeof addInternalNoteSchema>;

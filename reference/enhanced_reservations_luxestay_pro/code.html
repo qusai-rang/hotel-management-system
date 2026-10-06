@@ -1,607 +1,1115 @@
-<!DOCTYPE html><html class="h-full bg-background antialiased" lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Reservations - Luxe Stay HMS</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "surface-container-high": "#dce9ff",
-                      "surface-variant": "#d3e4fe",
-                      "surface-container-lowest": "#ffffff",
-                      "on-tertiary-fixed": "#191c1e",
-                      "on-tertiary-container": "#8d9092",
-                      "surface-bright": "#f8f9ff",
-                      "surface-container-low": "#eff4ff",
-                      "on-primary": "#ffffff",
-                      "tertiary-container": "#26292b",
-                      "tertiary-fixed-dim": "#c4c7c9",
-                      "on-primary-fixed": "#111c2d",
-                      "error": "#ba1a1a",
-                      "on-tertiary": "#ffffff",
-                      "surface": "#f8f9ff",
-                      "on-tertiary-fixed-variant": "#444749",
-                      "on-primary-container": "#8590a6",
-                      "surface-container-highest": "#d3e4fe",
-                      "on-surface": "#0b1c30",
-                      "primary-fixed": "#d8e3fb",
-                      "secondary": "#775a19",
-                      "on-secondary-fixed-variant": "#5d4201",
-                      "on-secondary-fixed": "#261900",
-                      "background": "#f8f9ff",
-                      "error-container": "#ffdad6",
-                      "inverse-on-surface": "#eaf1ff",
-                      "inverse-primary": "#bcc7de",
-                      "on-primary-fixed-variant": "#3c475a",
-                      "secondary-fixed": "#ffdea5",
-                      "tertiary": "#111516",
-                      "outline-variant": "#c5c6cd",
-                      "secondary-fixed-dim": "#e9c176",
-                      "outline": "#75777d",
-                      "on-error": "#ffffff",
-                      "primary-container": "#1e293b",
-                      "primary": "#091426",
-                      "surface-tint": "#545f73",
-                      "on-surface-variant": "#45474c",
-                      "secondary-container": "#fed488",
-                      "on-error-container": "#93000a",
-                      "surface-dim": "#cbdbf5",
-                      "inverse-surface": "#213145",
-                      "primary-fixed-dim": "#bcc7de",
-                      "surface-container": "#e5eeff",
-                      "on-background": "#0b1c30",
-                      "on-secondary": "#ffffff",
-                      "tertiary-fixed": "#e0e3e5",
-                      "on-secondary-container": "#785a1a"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "container-padding": "24px",
-                      "sidebar-width": "260px",
-                      "unit": "4px",
-                      "sidebar-collapsed": "72px",
-                      "gutter": "16px",
-                      "header-height": "64px"
-              },
-              "fontFamily": {
-                      "headline-lg-mobile": ["Noto Serif"],
-                      "label-md": ["Inter"],
-                      "headline-md": ["Noto Serif"],
-                      "headline-sm": ["Noto Serif"],
-                      "body-lg": ["Inter"],
-                      "headline-lg": ["Noto Serif"],
-                      "display-lg": ["Noto Serif"],
-                      "body-sm": ["Inter"],
-                      "body-md": ["Inter"],
-                      "label-lg": ["Inter"]
-              },
-              "fontSize": {
-                      "headline-lg-mobile": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                      "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "500"}],
-                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                      "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "500"}],
-                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
-                      "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
-                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                      "label-lg": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
-              }
-            }
-          }
-        }
+<!doctype html>
+<html class="h-full bg-background antialiased" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Reservations - Luxe Stay HMS</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-high": "#dce9ff",
+              "surface-variant": "#d3e4fe",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#191c1e",
+              "on-tertiary-container": "#8d9092",
+              "surface-bright": "#f8f9ff",
+              "surface-container-low": "#eff4ff",
+              "on-primary": "#ffffff",
+              "tertiary-container": "#26292b",
+              "tertiary-fixed-dim": "#c4c7c9",
+              "on-primary-fixed": "#111c2d",
+              error: "#ba1a1a",
+              "on-tertiary": "#ffffff",
+              surface: "#f8f9ff",
+              "on-tertiary-fixed-variant": "#444749",
+              "on-primary-container": "#8590a6",
+              "surface-container-highest": "#d3e4fe",
+              "on-surface": "#0b1c30",
+              "primary-fixed": "#d8e3fb",
+              secondary: "#775a19",
+              "on-secondary-fixed-variant": "#5d4201",
+              "on-secondary-fixed": "#261900",
+              background: "#f8f9ff",
+              "error-container": "#ffdad6",
+              "inverse-on-surface": "#eaf1ff",
+              "inverse-primary": "#bcc7de",
+              "on-primary-fixed-variant": "#3c475a",
+              "secondary-fixed": "#ffdea5",
+              tertiary: "#111516",
+              "outline-variant": "#c5c6cd",
+              "secondary-fixed-dim": "#e9c176",
+              outline: "#75777d",
+              "on-error": "#ffffff",
+              "primary-container": "#1e293b",
+              primary: "#091426",
+              "surface-tint": "#545f73",
+              "on-surface-variant": "#45474c",
+              "secondary-container": "#fed488",
+              "on-error-container": "#93000a",
+              "surface-dim": "#cbdbf5",
+              "inverse-surface": "#213145",
+              "primary-fixed-dim": "#bcc7de",
+              "surface-container": "#e5eeff",
+              "on-background": "#0b1c30",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed": "#e0e3e5",
+              "on-secondary-container": "#785a1a",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "container-padding": "24px",
+              "sidebar-width": "260px",
+              unit: "4px",
+              "sidebar-collapsed": "72px",
+              gutter: "16px",
+              "header-height": "64px",
+            },
+            fontFamily: {
+              "headline-lg-mobile": ["Noto Serif"],
+              "label-md": ["Inter"],
+              "headline-md": ["Noto Serif"],
+              "headline-sm": ["Noto Serif"],
+              "body-lg": ["Inter"],
+              "headline-lg": ["Noto Serif"],
+              "display-lg": ["Noto Serif"],
+              "body-sm": ["Inter"],
+              "body-md": ["Inter"],
+              "label-lg": ["Inter"],
+            },
+            fontSize: {
+              "headline-lg-mobile": [
+                "28px",
+                { lineHeight: "1.3", fontWeight: "600" },
+              ],
+              "label-md": [
+                "12px",
+                { lineHeight: "1", letterSpacing: "0.02em", fontWeight: "500" },
+              ],
+              "headline-md": ["24px", { lineHeight: "1.4", fontWeight: "600" }],
+              "headline-sm": ["20px", { lineHeight: "1.4", fontWeight: "500" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-lg": ["32px", { lineHeight: "1.3", fontWeight: "600" }],
+              "display-lg": [
+                "48px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "label-lg": [
+                "14px",
+                { lineHeight: "1", letterSpacing: "0.05em", fontWeight: "600" },
+              ],
+            },
+          },
+        },
+      };
     </script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .icon-fill {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        
-        /* Surface Depth 1 */
-        .surface-depth-1 {
-            border: 1px solid #E2E8F0;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.04);
-        }
-        
-        /* Interactive Y-axis shift */
-        .hover-shift {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .hover-shift:hover {
-            transform: translateY(-2px);
-            box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.06);
-        }
-        
-        /* Custom Input Focus */
-        .input-luxe:focus {
-            border-color: #785a1a; /* secondary-container equivalent conceptually for focus */
-            box-shadow: 0 0 0 2px rgba(119, 90, 25, 0.1);
-            outline: none;
-        }
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .icon-fill {
+        font-variation-settings:
+          "FILL" 1,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      /* Surface Depth 1 */
+      .surface-depth-1 {
+        border: 1px solid #e2e8f0;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      /* Interactive Y-axis shift */
+      .hover-shift {
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .hover-shift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Custom Input Focus */
+      .input-luxe:focus {
+        border-color: #785a1a; /* secondary-container equivalent conceptually for focus */
+        box-shadow: 0 0 0 2px rgba(119, 90, 25, 0.1);
+        outline: none;
+      }
     </style>
-</head>
-<body class="flex h-full font-body-md text-on-background bg-background overflow-hidden">
-<!-- SideNavBar -->
-<nav class="hidden md:flex flex-col h-screen p-4 bg-primary text-secondary font-body-md text-body-md fixed left-0 top-0 h-full w-sidebar-width border-r border-outline-variant shadow-sm z-20">
-<!-- Brand -->
-<div class="flex items-center gap-4 mb-8 px-2">
-<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined icon-fill text-primary" data-icon="hotel">hotel</span>
-</div>
-<div>
-<h1 class="font-headline-sm text-headline-sm text-on-primary">Luxe Stay</h1>
-<p class="font-label-md text-label-md text-on-primary-container opacity-80">Premium Management</p>
-</div>
-</div>
-<!-- Navigation Links -->
-<div class="flex flex-col gap-1 flex-grow">
-<!-- Dashboard -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg" href="{{DATA:SCREEN:SCREEN_19}}">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="">Dashboard</span>
-</a>
-<!-- Reservations (Active) -->
-<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-primary font-bold rounded-lg scale-95 active:scale-100 transition-transform" href="{{DATA:SCREEN:SCREEN_13}}">
-<span class="material-symbols-outlined icon-fill" data-icon="calendar_month">calendar_month</span>
-<span class="">Reservations</span>
-</a>
-<!-- Rooms -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg" href="{{DATA:SCREEN:SCREEN_12}}">
-<span class="material-symbols-outlined" data-icon="bed">bed</span>
-<span class="">Rooms</span>
-</a>
-<!-- Guests -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg" href="{{DATA:SCREEN:SCREEN_4}}">
-<span class="material-symbols-outlined" data-icon="group">group</span>
-<span class="">Guests</span>
-</a>
-<!-- Housekeeping -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg" href="{{DATA:SCREEN:SCREEN_7}}">
-<span class="material-symbols-outlined" data-icon="cleaning_services">cleaning_services</span>
-<span class="">Housekeeping</span>
-</a>
-<!-- Billing -->
-<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg" href="{{DATA:SCREEN:SCREEN_5}}">
-<span class="material-symbols-outlined" data-icon="payments">payments</span>
-<span class="">Billing</span>
-</a>
-</div>
-<!-- Settings & CTA -->
-<div class="flex flex-col gap-4 mt-auto">
-<a class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg" href="{{DATA:SCREEN:SCREEN_10}}">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="">Settings</span>
-</a>
-<button class="w-full py-3 px-4 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-lg hover-shift hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
-                New Booking
+  </head>
+  <body
+    class="flex h-full font-body-md text-on-background bg-background overflow-hidden"
+  >
+    <!-- SideNavBar -->
+    <nav
+      class="hidden md:flex flex-col h-screen p-4 bg-primary text-secondary font-body-md text-body-md fixed left-0 top-0 h-full w-sidebar-width border-r border-outline-variant shadow-sm z-20"
+    >
+      <!-- Brand -->
+      <div class="flex items-center gap-4 mb-8 px-2">
+        <div
+          class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center shrink-0"
+        >
+          <span
+            class="material-symbols-outlined icon-fill text-primary"
+            data-icon="hotel"
+            >hotel</span
+          >
+        </div>
+        <div>
+          <h1 class="font-headline-sm text-headline-sm text-on-primary">
+            Luxe Stay
+          </h1>
+          <p
+            class="font-label-md text-label-md text-on-primary-container opacity-80"
+          >
+            Premium Management
+          </p>
+        </div>
+      </div>
+      <!-- Navigation Links -->
+      <div class="flex flex-col gap-1 flex-grow">
+        <!-- Dashboard -->
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg"
+          href="{{DATA:SCREEN:SCREEN_19}}"
+        >
+          <span class="material-symbols-outlined" data-icon="dashboard"
+            >dashboard</span
+          >
+          <span class="">Dashboard</span>
+        </a>
+        <!-- Reservations (Active) -->
+        <a
+          class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-primary font-bold rounded-lg scale-95 active:scale-100 transition-transform"
+          href="{{DATA:SCREEN:SCREEN_13}}"
+        >
+          <span
+            class="material-symbols-outlined icon-fill"
+            data-icon="calendar_month"
+            >calendar_month</span
+          >
+          <span class="">Reservations</span>
+        </a>
+        <!-- Rooms -->
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg"
+          href="{{DATA:SCREEN:SCREEN_12}}"
+        >
+          <span class="material-symbols-outlined" data-icon="bed">bed</span>
+          <span class="">Rooms</span>
+        </a>
+        <!-- Guests -->
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg"
+          href="{{DATA:SCREEN:SCREEN_4}}"
+        >
+          <span class="material-symbols-outlined" data-icon="group">group</span>
+          <span class="">Guests</span>
+        </a>
+        <!-- Housekeeping -->
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg"
+          href="{{DATA:SCREEN:SCREEN_7}}"
+        >
+          <span class="material-symbols-outlined" data-icon="cleaning_services"
+            >cleaning_services</span
+          >
+          <span class="">Housekeeping</span>
+        </a>
+        <!-- Billing -->
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg"
+          href="{{DATA:SCREEN:SCREEN_5}}"
+        >
+          <span class="material-symbols-outlined" data-icon="payments"
+            >payments</span
+          >
+          <span class="">Billing</span>
+        </a>
+      </div>
+      <!-- Settings & CTA -->
+      <div class="flex flex-col gap-4 mt-auto">
+        <a
+          class="flex items-center gap-3 px-4 py-3 text-on-primary-fixed-variant hover:text-on-primary hover:bg-primary-fixed-variant transition-colors scale-95 active:scale-100 transition-transform rounded-lg"
+          href="{{DATA:SCREEN:SCREEN_10}}"
+        >
+          <span class="material-symbols-outlined" data-icon="settings"
+            >settings</span
+          >
+          <span class="">Settings</span>
+        </a>
+        <button
+          class="w-full py-3 px-4 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-lg hover-shift hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center justify-center gap-2"
+        >
+          <span class="material-symbols-outlined text-[18px]" data-icon="add"
+            >add</span
+          >
+          New Booking
+        </button>
+      </div>
+    </nav>
+    <!-- Main Content Wrapper -->
+    <main
+      class="flex-1 flex flex-col md:ml-sidebar-width h-full bg-background relative"
+    >
+      <!-- TopNavBar -->
+      <header
+        class="flex justify-between items-center px-container-padding h-header-height bg-surface text-primary font-label-lg text-label-lg sticky top-0 right-0 w-full shadow-sm z-10"
+      >
+        <!-- Mobile Menu Button (Visible on mobile) -->
+        <button
+          class="md:hidden text-primary p-2 -ml-2 rounded-lg hover:bg-surface-variant transition-colors"
+        >
+          <span class="material-symbols-outlined" data-icon="menu">menu</span>
+        </button>
+        <!-- Brand (Mobile Only) -->
+        <div
+          class="md:hidden font-headline-md text-headline-md text-primary font-bold"
+        >
+          Luxe Stay HMS
+        </div>
+        <!-- Search (Desktop) -->
+        <div class="hidden md:flex items-center flex-1 max-w-md relative">
+          <span
+            class="material-symbols-outlined absolute left-3 text-on-surface-variant"
+            data-icon="search"
+            >search</span
+          >
+          <input
+            class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-sm text-body-sm focus:ring-2 focus:ring-secondary focus:bg-surface-container-lowest transition-all"
+            placeholder="Search guests or reservation IDs..."
+            type="text"
+          />
+        </div>
+        <!-- Actions -->
+        <div class="flex items-center gap-4 ml-auto">
+          <button
+            class="w-10 h-10 rounded-full hover:bg-surface-variant flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors relative cursor-pointer active:opacity-80"
+          >
+            <span class="material-symbols-outlined" data-icon="notifications"
+              >notifications</span
+            >
+            <span
+              class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"
+            ></span>
+          </button>
+          <div class="h-6 w-px bg-outline-variant mx-1 hidden md:block"></div>
+          <button
+            class="hidden md:flex items-center justify-center px-4 py-2 bg-primary text-on-primary font-label-md text-label-md rounded hover-shift transition-colors tracking-wide"
+          >
+            Check In
+          </button>
+          <button
+            class="w-9 h-9 rounded-full overflow-hidden border border-outline-variant ml-2"
+          >
+            <img
+              class="w-full h-full object-cover"
+              data-alt="Professional headshot portrait of a hotel manager in uniform, neutral background, modern corporate style, soft studio lighting, high resolution, 8k."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV0q1Kp4eYL7nQlVa8gDW9m3zl2rg6CuaECPE1HYP03eD2yleZVVc-TRb3Ex9T9TU55y1K6MI3IsjyL0hx_4PIg7BuGv7Tb_1W29nLgb4cZcUZmt7T_-BqDGUkZZxOR2YuTfxCXAaKPgix7Oz7LNU0gPq3EM6g7xFO8LlYWplmctezUjWk-AZ3ju1c4ggjF9xA8bSdn5oUGVUiuA-HUcnnkZcSiBlk_LWY5mYdGTlMWLiYDOu2HXD6sQ"
+            />
+          </button>
+        </div>
+      </header>
+      <!-- Canvas / Page Content -->
+      <div class="flex-1 overflow-y-auto p-4 md:p-container-padding">
+        <!-- Page Header -->
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4"
+        >
+          <div>
+            <h2 class="font-display-lg text-display-lg text-primary mb-1">
+              Reservations Desk
+            </h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">
+              Manage daily operations, track arrivals, and process bookings
+              quickly.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button
+              class="flex items-center gap-2 px-4 py-2.5 bg-surface text-primary border border-outline-variant rounded font-label-lg text-label-lg hover-shift transition-colors"
+            >
+              <span
+                class="material-symbols-outlined text-[18px]"
+                data-icon="download"
+                >download</span
+              >
+              Export
             </button>
-</div>
-</nav>
-<!-- Main Content Wrapper -->
-<main class="flex-1 flex flex-col md:ml-sidebar-width h-full bg-background relative">
-<!-- TopNavBar -->
-<header class="flex justify-between items-center px-container-padding h-header-height bg-surface text-primary font-label-lg text-label-lg sticky top-0 right-0 w-full shadow-sm z-10">
-<!-- Mobile Menu Button (Visible on mobile) -->
-<button class="md:hidden text-primary p-2 -ml-2 rounded-lg hover:bg-surface-variant transition-colors">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
-</button>
-<!-- Brand (Mobile Only) -->
-<div class="md:hidden font-headline-md text-headline-md text-primary font-bold">
-                Luxe Stay HMS
-            </div>
-<!-- Search (Desktop) -->
-<div class="hidden md:flex items-center flex-1 max-w-md relative">
-<span class="material-symbols-outlined absolute left-3 text-on-surface-variant" data-icon="search">search</span>
-<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full font-body-sm text-body-sm focus:ring-2 focus:ring-secondary focus:bg-surface-container-lowest transition-all" placeholder="Search guests or reservation IDs..." type="text">
-</div>
-<!-- Actions -->
-<div class="flex items-center gap-4 ml-auto">
-<button class="w-10 h-10 rounded-full hover:bg-surface-variant flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors relative cursor-pointer active:opacity-80">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
-</button>
-<div class="h-6 w-px bg-outline-variant mx-1 hidden md:block"></div>
-<button class="hidden md:flex items-center justify-center px-4 py-2 bg-primary text-on-primary font-label-md text-label-md rounded hover-shift transition-colors tracking-wide">
-                    Check In
-                </button>
-<button class="w-9 h-9 rounded-full overflow-hidden border border-outline-variant ml-2">
-<img class="w-full h-full object-cover" data-alt="Professional headshot portrait of a hotel manager in uniform, neutral background, modern corporate style, soft studio lighting, high resolution, 8k." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV0q1Kp4eYL7nQlVa8gDW9m3zl2rg6CuaECPE1HYP03eD2yleZVVc-TRb3Ex9T9TU55y1K6MI3IsjyL0hx_4PIg7BuGv7Tb_1W29nLgb4cZcUZmt7T_-BqDGUkZZxOR2YuTfxCXAaKPgix7Oz7LNU0gPq3EM6g7xFO8LlYWplmctezUjWk-AZ3ju1c4ggjF9xA8bSdn5oUGVUiuA-HUcnnkZcSiBlk_LWY5mYdGTlMWLiYDOu2HXD6sQ">
-</button>
-</div>
-</header>
-<!-- Canvas / Page Content -->
-<div class="flex-1 overflow-y-auto p-4 md:p-container-padding">
-<!-- Page Header -->
-<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-<div>
-<h2 class="font-display-lg text-display-lg text-primary mb-1">Reservations Desk</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant">Manage daily operations, track arrivals, and process bookings quickly.</p>
-</div>
-<div class="flex items-center gap-3">
-<button class="flex items-center gap-2 px-4 py-2.5 bg-surface text-primary border border-outline-variant rounded font-label-lg text-label-lg hover-shift transition-colors">
-<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span>
-                        Export
-                    </button>
-<a href="{{DATA:SCREEN:SCREEN_16}}" class="flex items-center gap-2 px-4 py-2.5 bg-secondary text-on-secondary rounded font-label-lg text-label-lg hover-shift transition-colors shadow-sm"><span class="material-symbols-outlined text-[18px]" data-icon="flash_on">flash_on</span>Quick Booking</a>
-</div>
-</div>
-<!-- Dashboard Widgets -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-<!-- Today's Arrivals -->
-<div class="bg-surface-container-lowest rounded-lg surface-depth-1 p-5 border-l-4 border-l-primary">
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-headline-sm text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-secondary" data-icon="flight_land">flight_land</span>
+            <a
+              href="{{DATA:SCREEN:SCREEN_16}}"
+              class="flex items-center gap-2 px-4 py-2.5 bg-secondary text-on-secondary rounded font-label-lg text-label-lg hover-shift transition-colors shadow-sm"
+              ><span
+                class="material-symbols-outlined text-[18px]"
+                data-icon="flash_on"
+                >flash_on</span
+              >Quick Booking</a
+            >
+          </div>
+        </div>
+        <!-- Dashboard Widgets -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <!-- Today's Arrivals -->
+          <div
+            class="bg-surface-container-lowest rounded-lg surface-depth-1 p-5 border-l-4 border-l-primary"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-headline-sm text-primary flex items-center gap-2">
+                <span
+                  class="material-symbols-outlined text-secondary"
+                  data-icon="flight_land"
+                  >flight_land</span
+                >
                 Today's Arrivals
-            </h3>
-<span class="bg-surface-container-high text-primary font-bold px-2 py-1 rounded text-sm">12</span>
-</div>
-<div class="space-y-3">
-<div class="flex justify-between items-center border-b border-outline-variant pb-2">
-<div>
-<p class="font-semibold text-primary text-sm">Mr. Anderson (VIP)</p>
-<p class="text-xs text-on-surface-variant">Exec Suite • 14:00</p>
-</div>
-<button class="text-secondary hover:bg-surface-variant p-1 rounded"><span class="material-symbols-outlined" data-icon="check_circle">check_circle</span></button>
-</div>
-<div class="flex justify-between items-center border-b border-outline-variant pb-2">
-<div>
-<p class="font-semibold text-primary text-sm">Smith Family</p>
-<p class="text-xs text-on-surface-variant">Standard Double • 15:30</p>
-</div>
-<button class="text-secondary hover:bg-surface-variant p-1 rounded"><span class="material-symbols-outlined" data-icon="check_circle">check_circle</span></button>
-</div>
-<div class="flex justify-between items-center">
-<div>
-<p class="font-semibold text-primary text-sm">Corporate Group (x4)</p>
-<p class="text-xs text-on-surface-variant">Deluxe King • 18:00</p>
-</div>
-<button class="text-secondary hover:bg-surface-variant p-1 rounded"><span class="material-symbols-outlined" data-icon="check_circle">check_circle</span></button>
-</div>
-</div>
-<a class="block text-center text-sm font-semibold text-secondary mt-4 hover:underline" href="#">View All Arrivals</a>
-</div>
-<!-- Today's Departures -->
-<div class="bg-surface-container-lowest rounded-lg surface-depth-1 p-5 border-l-4 border-l-secondary-container">
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-headline-sm text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-outline" data-icon="flight_takeoff">flight_takeoff</span>
+              </h3>
+              <span
+                class="bg-surface-container-high text-primary font-bold px-2 py-1 rounded text-sm"
+                >12</span
+              >
+            </div>
+            <div class="space-y-3">
+              <div
+                class="flex justify-between items-center border-b border-outline-variant pb-2"
+              >
+                <div>
+                  <p class="font-semibold text-primary text-sm">
+                    Mr. Anderson (VIP)
+                  </p>
+                  <p class="text-xs text-on-surface-variant">
+                    Exec Suite • 14:00
+                  </p>
+                </div>
+                <button
+                  class="text-secondary hover:bg-surface-variant p-1 rounded"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    data-icon="check_circle"
+                    >check_circle</span
+                  >
+                </button>
+              </div>
+              <div
+                class="flex justify-between items-center border-b border-outline-variant pb-2"
+              >
+                <div>
+                  <p class="font-semibold text-primary text-sm">Smith Family</p>
+                  <p class="text-xs text-on-surface-variant">
+                    Standard Double • 15:30
+                  </p>
+                </div>
+                <button
+                  class="text-secondary hover:bg-surface-variant p-1 rounded"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    data-icon="check_circle"
+                    >check_circle</span
+                  >
+                </button>
+              </div>
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="font-semibold text-primary text-sm">
+                    Corporate Group (x4)
+                  </p>
+                  <p class="text-xs text-on-surface-variant">
+                    Deluxe King • 18:00
+                  </p>
+                </div>
+                <button
+                  class="text-secondary hover:bg-surface-variant p-1 rounded"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    data-icon="check_circle"
+                    >check_circle</span
+                  >
+                </button>
+              </div>
+            </div>
+            <a
+              class="block text-center text-sm font-semibold text-secondary mt-4 hover:underline"
+              href="#"
+              >View All Arrivals</a
+            >
+          </div>
+          <!-- Today's Departures -->
+          <div
+            class="bg-surface-container-lowest rounded-lg surface-depth-1 p-5 border-l-4 border-l-secondary-container"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="font-headline-sm text-primary flex items-center gap-2">
+                <span
+                  class="material-symbols-outlined text-outline"
+                  data-icon="flight_takeoff"
+                  >flight_takeoff</span
+                >
                 Today's Departures
-            </h3>
-<span class="bg-surface-container-high text-primary font-bold px-2 py-1 rounded text-sm">8</span>
-</div>
-<div class="space-y-3">
-<div class="flex justify-between items-center border-b border-outline-variant pb-2">
-<div>
-<p class="font-semibold text-primary text-sm">Ms. Jenkins</p>
-<p class="text-xs text-on-surface-variant">Room 305 • Late Checkout (14:00)</p>
-</div>
-<button class="text-primary hover:bg-surface-variant p-1 rounded"><span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span></button>
-</div>
-<div class="flex justify-between items-center border-b border-outline-variant pb-2">
-<div>
-<p class="font-semibold text-primary text-sm">David Lee</p>
-<p class="text-xs text-on-surface-variant">Room 112 • 11:00</p>
-</div>
-<button class="text-primary hover:bg-surface-variant p-1 rounded"><span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span></button>
-</div>
-<div class="flex justify-between items-center">
-<div>
-<p class="font-semibold text-primary text-sm">Garcia Couple</p>
-<p class="text-xs text-on-surface-variant">Room 420 • 11:00</p>
-</div>
-<button class="text-primary hover:bg-surface-variant p-1 rounded"><span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span></button>
-</div>
-</div>
-<a class="block text-center text-sm font-semibold text-secondary mt-4 hover:underline" href="#">View All Departures</a>
-</div>
-<!-- Room Availability -->
-<div class="bg-primary text-on-primary rounded-lg surface-depth-1 p-5 flex flex-col justify-between">
-<div>
-<h3 class="font-headline-sm flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined icon-fill text-secondary" data-icon="hotel">hotel</span>
+              </h3>
+              <span
+                class="bg-surface-container-high text-primary font-bold px-2 py-1 rounded text-sm"
+                >8</span
+              >
+            </div>
+            <div class="space-y-3">
+              <div
+                class="flex justify-between items-center border-b border-outline-variant pb-2"
+              >
+                <div>
+                  <p class="font-semibold text-primary text-sm">Ms. Jenkins</p>
+                  <p class="text-xs text-on-surface-variant">
+                    Room 305 • Late Checkout (14:00)
+                  </p>
+                </div>
+                <button
+                  class="text-primary hover:bg-surface-variant p-1 rounded"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    data-icon="receipt_long"
+                    >receipt_long</span
+                  >
+                </button>
+              </div>
+              <div
+                class="flex justify-between items-center border-b border-outline-variant pb-2"
+              >
+                <div>
+                  <p class="font-semibold text-primary text-sm">David Lee</p>
+                  <p class="text-xs text-on-surface-variant">
+                    Room 112 • 11:00
+                  </p>
+                </div>
+                <button
+                  class="text-primary hover:bg-surface-variant p-1 rounded"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    data-icon="receipt_long"
+                    >receipt_long</span
+                  >
+                </button>
+              </div>
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="font-semibold text-primary text-sm">
+                    Garcia Couple
+                  </p>
+                  <p class="text-xs text-on-surface-variant">
+                    Room 420 • 11:00
+                  </p>
+                </div>
+                <button
+                  class="text-primary hover:bg-surface-variant p-1 rounded"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    data-icon="receipt_long"
+                    >receipt_long</span
+                  >
+                </button>
+              </div>
+            </div>
+            <a
+              class="block text-center text-sm font-semibold text-secondary mt-4 hover:underline"
+              href="#"
+              >View All Departures</a
+            >
+          </div>
+          <!-- Room Availability -->
+          <div
+            class="bg-primary text-on-primary rounded-lg surface-depth-1 p-5 flex flex-col justify-between"
+          >
+            <div>
+              <h3 class="font-headline-sm flex items-center gap-2 mb-4">
+                <span
+                  class="material-symbols-outlined icon-fill text-secondary"
+                  data-icon="hotel"
+                  >hotel</span
+                >
                 Current Availability
-            </h3>
-<div class="grid grid-cols-2 gap-4">
-<div class="bg-inverse-surface p-3 rounded">
-<p class="text-xs text-on-primary-container uppercase tracking-wider mb-1">Standard</p>
-<p class="font-display-lg text-2xl font-bold">14</p>
-</div>
-<div class="bg-inverse-surface p-3 rounded">
-<p class="text-xs text-on-primary-container uppercase tracking-wider mb-1">Deluxe King</p>
-<p class="font-display-lg text-2xl font-bold text-secondary-container">2</p>
-</div>
-<div class="bg-inverse-surface p-3 rounded">
-<p class="text-xs text-on-primary-container uppercase tracking-wider mb-1">Exec Suite</p>
-<p class="font-display-lg text-2xl font-bold text-error-container">0</p>
-</div>
-<div class="bg-inverse-surface p-3 rounded">
-<p class="text-xs text-on-primary-container uppercase tracking-wider mb-1">Double</p>
-<p class="font-display-lg text-2xl font-bold">5</p>
-</div>
-</div>
-</div>
-<div class="mt-4 pt-4 border-t border-outline/30 flex justify-between items-center text-sm">
-<span class="text-on-primary-container">Occupancy: 85%</span>
-<span class="text-on-primary-container">Total Available: 21</span>
-</div>
-</div>
-</div>
-<!-- Filters Bar (Surface Depth 1) -->
-<div class="bg-surface-container-lowest rounded-lg surface-depth-1 p-4 mb-6 flex flex-col xl:flex-row gap-4 items-end">
-<div class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-<!-- Date Range -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Date Range</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]" data-icon="date_range">date_range</span>
-<input class="w-full pl-10 pr-3 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright" type="text" value="Oct 12 - Oct 19, 2023">
-</div>
-</div>
-<!-- Room Type Filter -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Room Type</label>
-<div class="relative">
-<select class="w-full pl-3 pr-10 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright appearance-none">
-<option>All Room Types</option>
-<option>Standard Single</option>
-<option>Standard Double</option>
-<option>Deluxe King</option>
-<option>Executive Suite</option>
-<option>Presidential Suite</option>
-</select>
-<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none text-[20px]" data-icon="expand_more">expand_more</span>
-</div>
-</div>
-<!-- Status Filter -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Booking Status</label>
-<div class="relative">
-<select class="w-full pl-3 pr-10 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright appearance-none">
-<option>All Statuses</option>
-<option>Confirmed</option>
-<option>Pending</option>
-<option>Checked In</option>
-<option>Checked Out</option>
-<option>Cancelled</option>
-</select>
-<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none text-[20px]" data-icon="expand_more">expand_more</span>
-</div>
-</div>
-<!-- Payment Status -->
-<div>
-<label class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider">Payment Status</label>
-<div class="relative">
-<select class="w-full pl-3 pr-10 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright appearance-none">
-<option>All Payments</option>
-<option>Fully Paid</option>
-<option>Partial / Deposit</option>
-<option>Unpaid</option>
-</select>
-<span class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none text-[20px]" data-icon="expand_more">expand_more</span>
-</div>
-</div>
-</div>
-<!-- Search Input for Table -->
-<div class="w-full lg:w-72 relative mt-4 xl:mt-0">
-<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]" data-icon="search">search</span>
-<input class="w-full pl-10 pr-3 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright" placeholder="Search guests or ID..." type="text">
-</div>
-</div>
-<!-- Data Table (Surface Depth 1) -->
-<div class="bg-surface-container-lowest rounded-lg surface-depth-1 overflow-hidden">
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-bright border-b border-[#E2E8F0]">
-<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider w-12">
-<input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox">
-</th>
-<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold cursor-pointer group">
-<div class="flex items-center gap-1">Guest / ID <span class="material-symbols-outlined text-[16px] text-outline opacity-0 group-hover:opacity-100 transition-opacity" data-icon="arrow_upward">arrow_upward</span></div>
-</th>
-<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold">Room Type / #</th>
-<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold">Dates</th>
-<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold">Status</th>
-<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold">Payment</th>
-<th class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider w-12"></th>
-</tr>
-</thead>
-<tbody class="font-body-sm text-body-sm text-on-surface divide-y divide-[#E2E8F0]">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'">
-<td class="py-4 px-4"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"></td>
-<td class="py-4 px-4">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-label-lg font-bold">EA</div>
-<div>
-<div class="font-semibold text-primary">Eleanor Astor</div>
-<div class="text-on-surface-variant text-xs font-mono">RSV-9938</div>
-</div>
-</div>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-primary">Executive Suite</div>
-<div class="text-on-surface-variant">Room 402</div>
-</td>
-<td class="py-4 px-4">
-<div class="text-primary">Oct 14 - Oct 18</div>
-<div class="text-on-surface-variant text-xs">4 nights</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#ecfdf5] text-[#065f46]">
-                                        Confirmed
-                                    </span>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-primary">$1,850.00</div>
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-surface-container-low text-primary border border-primary-fixed-dim">
-        Fully Paid
-    </span>
-</td>
-<td class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-outline hover:text-primary p-1"><span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span></button>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'">
-<td class="py-4 px-4"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"></td>
-<td class="py-4 px-4">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-surface-dim text-on-surface flex items-center justify-center font-label-lg font-bold">JD</div>
-<div>
-<div class="font-semibold text-primary">James Dupont</div>
-<div class="text-on-surface-variant text-xs font-mono">RSV-9941</div>
-</div>
-</div>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-primary">Deluxe King</div>
-<div class="text-on-surface-variant">Room 315</div>
-</td>
-<td class="py-4 px-4">
-<div class="text-primary">Oct 16 - Oct 19</div>
-<div class="text-on-surface-variant text-xs">3 nights</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#fef3c7] text-[#92400e]">
-                                        Pending
-                                    </span>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-primary">$945.00</div>
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim">
-        Deposit Paid
-    </span>
-</td>
-<td class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-outline hover:text-primary p-1"><span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span></button>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'">
-<td class="py-4 px-4"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"></td>
-<td class="py-4 px-4">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-surface-dim text-on-surface flex items-center justify-center font-label-lg font-bold">SM</div>
-<div>
-<div class="font-semibold text-primary">Sarah Miller</div>
-<div class="text-on-surface-variant text-xs font-mono">RSV-9912</div>
-</div>
-</div>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-primary">Standard Queen</div>
-<div class="text-on-surface-variant">Unassigned</div>
-</td>
-<td class="py-4 px-4">
-<div class="text-primary">Oct 18 - Oct 20</div>
-<div class="text-on-surface-variant text-xs">2 nights</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#fce7f3] text-[#9d174d]">
-                                        Cancelled
-                                    </span>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-on-surface-variant line-through">$420.00</div>
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-error-container text-on-error-container border border-error/20">
-        Refunded
-    </span>
-</td>
-<td class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-outline hover:text-primary p-1"><span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span></button>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-surface-bright transition-colors group cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'">
-<td class="py-4 px-4"><input class="rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox"></td>
-<td class="py-4 px-4">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded-full bg-surface-dim text-on-surface flex items-center justify-center font-label-lg font-bold">RC</div>
-<div>
-<div class="font-semibold text-primary">Robert Chen</div>
-<div class="text-on-surface-variant text-xs font-mono">RSV-9955</div>
-</div>
-</div>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-primary">Deluxe King</div>
-<div class="text-on-surface-variant">Room 208</div>
-</td>
-<td class="py-4 px-4">
-<div class="text-primary">Oct 12 - Oct 15</div>
-<div class="text-on-surface-variant text-xs">3 nights</div>
-</td>
-<td class="py-4 px-4">
-<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#eff4ff] text-[#1e40af] border border-[#bfdbfe]">
-                                        Checked In
-                                    </span>
-</td>
-<td class="py-4 px-4">
-<div class="font-medium text-primary">$1,105.00</div>
-<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-surface-container-low text-primary border border-primary-fixed-dim">
-        Fully Paid
-    </span>
-</td>
-<td class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
-<button class="text-outline hover:text-primary p-1"><span class="material-symbols-outlined text-[20px]" data-icon="more_vert">more_vert</span></button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<!-- Pagination -->
-<div class="px-4 py-3 border-t border-[#E2E8F0] bg-surface-container-lowest flex items-center justify-between sm:px-6">
-<div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-<div>
-<p class="text-sm text-on-surface-variant font-body-sm">
-                                Showing <span class="font-medium text-primary">1</span> to <span class="font-medium text-primary">4</span> of <span class="font-medium text-primary">97</span> results
-                            </p>
-</div>
-<div>
-<nav aria-label="Pagination" class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-<a class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-bright" href="#">
-<span class="sr-only">Previous</span>
-<span class="material-symbols-outlined text-[20px]" data-icon="chevron_left">chevron_left</span>
-</a>
-<a class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-secondary-container text-on-secondary-container text-sm font-medium z-10" href="#">
-                                    1
-                                </a>
-<a class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-on-surface-variant hover:bg-surface-bright" href="#">
-                                    2
-                                </a>
-<a class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-on-surface-variant hover:bg-surface-bright" href="#">
-                                    3
-                                </a>
-<span class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-on-surface-variant">
-                                    ...
-                                </span>
-<a class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-bright" href="#">
-<span class="sr-only">Next</span>
-<span class="material-symbols-outlined text-[20px]" data-icon="chevron_right">chevron_right</span>
-</a>
-</nav>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-
-
-</body></html>
+              </h3>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-inverse-surface p-3 rounded">
+                  <p
+                    class="text-xs text-on-primary-container uppercase tracking-wider mb-1"
+                  >
+                    Standard
+                  </p>
+                  <p class="font-display-lg text-2xl font-bold">14</p>
+                </div>
+                <div class="bg-inverse-surface p-3 rounded">
+                  <p
+                    class="text-xs text-on-primary-container uppercase tracking-wider mb-1"
+                  >
+                    Deluxe King
+                  </p>
+                  <p
+                    class="font-display-lg text-2xl font-bold text-secondary-container"
+                  >
+                    2
+                  </p>
+                </div>
+                <div class="bg-inverse-surface p-3 rounded">
+                  <p
+                    class="text-xs text-on-primary-container uppercase tracking-wider mb-1"
+                  >
+                    Exec Suite
+                  </p>
+                  <p
+                    class="font-display-lg text-2xl font-bold text-error-container"
+                  >
+                    0
+                  </p>
+                </div>
+                <div class="bg-inverse-surface p-3 rounded">
+                  <p
+                    class="text-xs text-on-primary-container uppercase tracking-wider mb-1"
+                  >
+                    Double
+                  </p>
+                  <p class="font-display-lg text-2xl font-bold">5</p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="mt-4 pt-4 border-t border-outline/30 flex justify-between items-center text-sm"
+            >
+              <span class="text-on-primary-container">Occupancy: 85%</span>
+              <span class="text-on-primary-container">Total Available: 21</span>
+            </div>
+          </div>
+        </div>
+        <!-- Filters Bar (Surface Depth 1) -->
+        <div
+          class="bg-surface-container-lowest rounded-lg surface-depth-1 p-4 mb-6 flex flex-col xl:flex-row gap-4 items-end"
+        >
+          <div
+            class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full"
+          >
+            <!-- Date Range -->
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider"
+                >Date Range</label
+              >
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]"
+                  data-icon="date_range"
+                  >date_range</span
+                >
+                <input
+                  class="w-full pl-10 pr-3 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright"
+                  type="text"
+                  value="Oct 12 - Oct 19, 2023"
+                />
+              </div>
+            </div>
+            <!-- Room Type Filter -->
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider"
+                >Room Type</label
+              >
+              <div class="relative">
+                <select
+                  class="w-full pl-3 pr-10 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright appearance-none"
+                >
+                  <option>All Room Types</option>
+                  <option>Standard Single</option>
+                  <option>Standard Double</option>
+                  <option>Deluxe King</option>
+                  <option>Executive Suite</option>
+                  <option>Presidential Suite</option>
+                </select>
+                <span
+                  class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none text-[20px]"
+                  data-icon="expand_more"
+                  >expand_more</span
+                >
+              </div>
+            </div>
+            <!-- Status Filter -->
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider"
+                >Booking Status</label
+              >
+              <div class="relative">
+                <select
+                  class="w-full pl-3 pr-10 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright appearance-none"
+                >
+                  <option>All Statuses</option>
+                  <option>Confirmed</option>
+                  <option>Pending</option>
+                  <option>Checked In</option>
+                  <option>Checked Out</option>
+                  <option>Cancelled</option>
+                </select>
+                <span
+                  class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none text-[20px]"
+                  data-icon="expand_more"
+                  >expand_more</span
+                >
+              </div>
+            </div>
+            <!-- Payment Status -->
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface-variant mb-1 uppercase tracking-wider"
+                >Payment Status</label
+              >
+              <div class="relative">
+                <select
+                  class="w-full pl-3 pr-10 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright appearance-none"
+                >
+                  <option>All Payments</option>
+                  <option>Fully Paid</option>
+                  <option>Partial / Deposit</option>
+                  <option>Unpaid</option>
+                </select>
+                <span
+                  class="material-symbols-outlined absolute right-3 top-2.5 text-outline pointer-events-none text-[20px]"
+                  data-icon="expand_more"
+                  >expand_more</span
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Search Input for Table -->
+          <div class="w-full lg:w-72 relative mt-4 xl:mt-0">
+            <span
+              class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]"
+              data-icon="search"
+              >search</span
+            >
+            <input
+              class="w-full pl-10 pr-3 py-2 border border-[#E2E8F0] rounded font-body-sm text-body-sm input-luxe text-primary bg-surface-bright"
+              placeholder="Search guests or ID..."
+              type="text"
+            />
+          </div>
+        </div>
+        <!-- Data Table (Surface Depth 1) -->
+        <div
+          class="bg-surface-container-lowest rounded-lg surface-depth-1 overflow-hidden"
+        >
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-surface-bright border-b border-[#E2E8F0]">
+                  <th
+                    class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider w-12"
+                  >
+                    <input
+                      class="rounded border-outline-variant text-secondary focus:ring-secondary"
+                      type="checkbox"
+                    />
+                  </th>
+                  <th
+                    class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold cursor-pointer group"
+                  >
+                    <div class="flex items-center gap-1">
+                      Guest / ID
+                      <span
+                        class="material-symbols-outlined text-[16px] text-outline opacity-0 group-hover:opacity-100 transition-opacity"
+                        data-icon="arrow_upward"
+                        >arrow_upward</span
+                      >
+                    </div>
+                  </th>
+                  <th
+                    class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold"
+                  >
+                    Room Type / #
+                  </th>
+                  <th
+                    class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold"
+                  >
+                    Dates
+                  </th>
+                  <th
+                    class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold"
+                  >
+                    Status
+                  </th>
+                  <th
+                    class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider font-semibold"
+                  >
+                    Payment
+                  </th>
+                  <th
+                    class="py-3 px-4 font-label-md text-label-md text-primary uppercase tracking-wider w-12"
+                  ></th>
+                </tr>
+              </thead>
+              <tbody
+                class="font-body-sm text-body-sm text-on-surface divide-y divide-[#E2E8F0]"
+              >
+                <!-- Row 1 -->
+                <tr
+                  class="hover:bg-surface-bright transition-colors group cursor-pointer"
+                  onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'"
+                >
+                  <td class="py-4 px-4">
+                    <input
+                      class="rounded border-outline-variant text-secondary focus:ring-secondary"
+                      type="checkbox"
+                    />
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-8 h-8 rounded-full bg-primary-fixed text-primary flex items-center justify-center font-label-lg font-bold"
+                      >
+                        EA
+                      </div>
+                      <div>
+                        <div class="font-semibold text-primary">
+                          Eleanor Astor
+                        </div>
+                        <div class="text-on-surface-variant text-xs font-mono">
+                          RSV-9938
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-medium text-primary">Executive Suite</div>
+                    <div class="text-on-surface-variant">Room 402</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="text-primary">Oct 14 - Oct 18</div>
+                    <div class="text-on-surface-variant text-xs">4 nights</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#ecfdf5] text-[#065f46]"
+                    >
+                      Confirmed
+                    </span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-medium text-primary">$1,850.00</div>
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-surface-container-low text-primary border border-primary-fixed-dim"
+                    >
+                      Fully Paid
+                    </span>
+                  </td>
+                  <td
+                    class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <button class="text-outline hover:text-primary p-1">
+                      <span
+                        class="material-symbols-outlined text-[20px]"
+                        data-icon="more_vert"
+                        >more_vert</span
+                      >
+                    </button>
+                  </td>
+                </tr>
+                <!-- Row 2 -->
+                <tr
+                  class="hover:bg-surface-bright transition-colors group cursor-pointer"
+                  onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'"
+                >
+                  <td class="py-4 px-4">
+                    <input
+                      class="rounded border-outline-variant text-secondary focus:ring-secondary"
+                      type="checkbox"
+                    />
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-8 h-8 rounded-full bg-surface-dim text-on-surface flex items-center justify-center font-label-lg font-bold"
+                      >
+                        JD
+                      </div>
+                      <div>
+                        <div class="font-semibold text-primary">
+                          James Dupont
+                        </div>
+                        <div class="text-on-surface-variant text-xs font-mono">
+                          RSV-9941
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-medium text-primary">Deluxe King</div>
+                    <div class="text-on-surface-variant">Room 315</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="text-primary">Oct 16 - Oct 19</div>
+                    <div class="text-on-surface-variant text-xs">3 nights</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#fef3c7] text-[#92400e]"
+                    >
+                      Pending
+                    </span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-medium text-primary">$945.00</div>
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim"
+                    >
+                      Deposit Paid
+                    </span>
+                  </td>
+                  <td
+                    class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <button class="text-outline hover:text-primary p-1">
+                      <span
+                        class="material-symbols-outlined text-[20px]"
+                        data-icon="more_vert"
+                        >more_vert</span
+                      >
+                    </button>
+                  </td>
+                </tr>
+                <!-- Row 3 -->
+                <tr
+                  class="hover:bg-surface-bright transition-colors group cursor-pointer"
+                  onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'"
+                >
+                  <td class="py-4 px-4">
+                    <input
+                      class="rounded border-outline-variant text-secondary focus:ring-secondary"
+                      type="checkbox"
+                    />
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-8 h-8 rounded-full bg-surface-dim text-on-surface flex items-center justify-center font-label-lg font-bold"
+                      >
+                        SM
+                      </div>
+                      <div>
+                        <div class="font-semibold text-primary">
+                          Sarah Miller
+                        </div>
+                        <div class="text-on-surface-variant text-xs font-mono">
+                          RSV-9912
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-medium text-primary">Standard Queen</div>
+                    <div class="text-on-surface-variant">Unassigned</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="text-primary">Oct 18 - Oct 20</div>
+                    <div class="text-on-surface-variant text-xs">2 nights</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#fce7f3] text-[#9d174d]"
+                    >
+                      Cancelled
+                    </span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div
+                      class="font-medium text-on-surface-variant line-through"
+                    >
+                      $420.00
+                    </div>
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-error-container text-on-error-container border border-error/20"
+                    >
+                      Refunded
+                    </span>
+                  </td>
+                  <td
+                    class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <button class="text-outline hover:text-primary p-1">
+                      <span
+                        class="material-symbols-outlined text-[20px]"
+                        data-icon="more_vert"
+                        >more_vert</span
+                      >
+                    </button>
+                  </td>
+                </tr>
+                <!-- Row 4 -->
+                <tr
+                  class="hover:bg-surface-bright transition-colors group cursor-pointer"
+                  onclick="window.location.href='{{DATA:SCREEN:SCREEN_18}}'"
+                >
+                  <td class="py-4 px-4">
+                    <input
+                      class="rounded border-outline-variant text-secondary focus:ring-secondary"
+                      type="checkbox"
+                    />
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-8 h-8 rounded-full bg-surface-dim text-on-surface flex items-center justify-center font-label-lg font-bold"
+                      >
+                        RC
+                      </div>
+                      <div>
+                        <div class="font-semibold text-primary">
+                          Robert Chen
+                        </div>
+                        <div class="text-on-surface-variant text-xs font-mono">
+                          RSV-9955
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-medium text-primary">Deluxe King</div>
+                    <div class="text-on-surface-variant">Room 208</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="text-primary">Oct 12 - Oct 15</div>
+                    <div class="text-on-surface-variant text-xs">3 nights</div>
+                  </td>
+                  <td class="py-4 px-4">
+                    <span
+                      class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#eff4ff] text-[#1e40af] border border-[#bfdbfe]"
+                    >
+                      Checked In
+                    </span>
+                  </td>
+                  <td class="py-4 px-4">
+                    <div class="font-medium text-primary">$1,105.00</div>
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-surface-container-low text-primary border border-primary-fixed-dim"
+                    >
+                      Fully Paid
+                    </span>
+                  </td>
+                  <td
+                    class="py-4 px-4 text-right opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <button class="text-outline hover:text-primary p-1">
+                      <span
+                        class="material-symbols-outlined text-[20px]"
+                        data-icon="more_vert"
+                        >more_vert</span
+                      >
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination -->
+          <div
+            class="px-4 py-3 border-t border-[#E2E8F0] bg-surface-container-lowest flex items-center justify-between sm:px-6"
+          >
+            <div
+              class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
+            >
+              <div>
+                <p class="text-sm text-on-surface-variant font-body-sm">
+                  Showing <span class="font-medium text-primary">1</span> to
+                  <span class="font-medium text-primary">4</span> of
+                  <span class="font-medium text-primary">97</span> results
+                </p>
+              </div>
+              <div>
+                <nav
+                  aria-label="Pagination"
+                  class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                >
+                  <a
+                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-bright"
+                    href="#"
+                  >
+                    <span class="sr-only">Previous</span>
+                    <span
+                      class="material-symbols-outlined text-[20px]"
+                      data-icon="chevron_left"
+                      >chevron_left</span
+                    >
+                  </a>
+                  <a
+                    class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-secondary-container text-on-secondary-container text-sm font-medium z-10"
+                    href="#"
+                  >
+                    1
+                  </a>
+                  <a
+                    class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-on-surface-variant hover:bg-surface-bright"
+                    href="#"
+                  >
+                    2
+                  </a>
+                  <a
+                    class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-on-surface-variant hover:bg-surface-bright"
+                    href="#"
+                  >
+                    3
+                  </a>
+                  <span
+                    class="relative inline-flex items-center px-4 py-2 border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-on-surface-variant"
+                  >
+                    ...
+                  </span>
+                  <a
+                    class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-[#E2E8F0] bg-surface-container-lowest text-sm font-medium text-outline hover:bg-surface-bright"
+                    href="#"
+                  >
+                    <span class="sr-only">Next</span>
+                    <span
+                      class="material-symbols-outlined text-[20px]"
+                      data-icon="chevron_right"
+                      >chevron_right</span
+                    >
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
