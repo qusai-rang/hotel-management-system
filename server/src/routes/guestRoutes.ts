@@ -15,7 +15,7 @@ const writeRateLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: ipKeyGenerator,
+  keyGenerator: (req) => ipKeyGenerator(req.ip ?? ''),
 });
 
 router.get('/', authenticate, authorize('admin', 'manager', 'front_desk'), ctrl.list);
