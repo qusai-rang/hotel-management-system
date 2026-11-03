@@ -17,7 +17,7 @@ export function csrfProtection(req: Request, _res: Response, next: NextFunction)
   }
 
   // Skip CSRF for login endpoint (handled by rate limiting)
-  if (req.path === '/auth/login') {
+  if (req.path === '/auth/login' || req.path === '/api/v1/auth/login') {
     return next();
   }
 
