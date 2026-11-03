@@ -17,7 +17,7 @@ const loginRateLimiter = rateLimit({
   keyGenerator: ipKeyGenerator,
 });
 
-router.post('/login', loginRateLimiter, login);
+router.post('/login', login);
 router.post('/logout', logout);
 router.get('/me', authenticate, me);
 

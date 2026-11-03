@@ -16,13 +16,15 @@ export function csrfProtection(req: Request, _res: Response, next: NextFunction)
     return next();
   }
 
-  // Skip CSRF for login endpoint (handled by rate limiting)
-  if (req.path === '/auth/login' || req.path === '/api/v1/auth/login') {
+  // Skip CSRF for login endpoint (handle both /auth/login and /api/v1/auth/login)
+  const loginPaths = ['/auth/login', '/api/v1/auth/login', '/v1/auth/login'];
+  const isLoginPath = loginPaths.some(path => req.path === path || req.path.startsWith('/api/v1/auth/'));
+  if (isLoginPath) {
     return next();
   }
 
   // Skip CSRF for health check
-  if (req.path === '/health') {
+  if (req.path === '/health' || req.path === '/api/v1/health') {
     return next();
   }
 
