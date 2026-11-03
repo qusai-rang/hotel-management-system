@@ -1,0 +1,35 @@
+{
+  "frameworkVersion": "auto",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index.ts"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "location": "Access-Control-Allow-Origin: *",
+      "matchOrigin": true
+    },
+    {
+      "source": "/api/(.*)",
+      "location": "Access-Control-Allow-Credentials: true"
+    },
+    {
+      "source": "/api/(.*)",
+      "location": "Access-Control-Allow-Methods: GET,POST,PUT,PATCH,DELETE,OPTIONS",
+      "matchOrigin": true
+    },
+    {
+      "source": "/api/(.*)",
+      "location": "Access-Control-Allow-Headers: Content-Type,Authorization,X-CSRF-Token",
+      "matchOrigin": true
+    }
+  ],
+  "functions": {
+    "api/index.ts": {
+      "maxDuration": 30
+    }
+  }
+}
