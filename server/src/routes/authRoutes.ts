@@ -14,10 +14,10 @@ const loginRateLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: ipKeyGenerator,
+  keyGenerator: (req) => ipKeyGenerator(req.ip ?? ''),
 });
 
-router.post('/login', login);
+router.post('/login', loginRateLimiter, login);
 router.post('/logout', logout);
 router.get('/me', authenticate, me);
 
