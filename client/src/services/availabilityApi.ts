@@ -29,7 +29,7 @@ export async function searchAvailability(
   };
   if (params.roomTypeId) apiParams.roomTypeId = params.roomTypeId;
 
-  const { data } = await apiClient.get<AvailabilityResponse>('/availability', {
+  const { data } = await apiClient.get<AvailabilityResponse>('/api/v1/availability', {
     params: apiParams,
   });
   if (!data.success) throw new Error('Failed to search availability');
