@@ -27,7 +27,11 @@ export function csrfProtection(req: Request, _res: Response, next: NextFunction)
 
   // Skip CSRF for health check
   if (req.path === '/health' || req.path === '/api/v1/health') {
+    return next();
   }
+
+  // Get token from cookie
+  const cookieToken = req.cookies?.[CSRF_COOKIE_NAME];
   // Get token from header
   const headerToken = req.headers[CSRF_HEADER_NAME] as string | undefined;
 
