@@ -3,8 +3,8 @@ import { login as loginService, loginSchema } from '../services/authService';
 import { asyncHandler } from '../utils/asyncHandler';
 import { ApiError } from '../utils/ApiError';
 import { COOKIE_NAME } from '../middleware/authenticate';
-import { env } from '../config/env';
 import { issueCsrfToken, CSRF_COOKIE_NAME } from '../middleware/csrf';
+import { getCookieSecurityOptions } from '../utils/cookieOptions';
 
 /**
  * POST /api/v1/auth/login
@@ -21,21 +21,20 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
   const result = await loginService(input.email, input.password);
 
   // Set httpOnly cookie with JWT
-  const isProduction = env.NODE_ENV === 'production';
   res.cookie(COOKIE_NAME, result.token, {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    ...getCookieSecurityOptions(req),
     maxAge: 24 * 60 * 60 * 1000, // 1 day
     path: '/',
   });
 
   // Issue CSRF token for subsequent requests
-  issueCsrfToken(req, res);
+  const csrfToken = issueCsrfToken(req, res);
 
   res.status(200).json({
     success: true,
     user: result.user,
+    csrfToken,
   });
 });
 
@@ -44,18 +43,16 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
  *
  * Clears the auth cookie.
  */
-export const logout = asyncHandler(async (_req: Request, res: Response) => {
-  const isProduction = env.NODE_ENV === 'production';
+export const logout = asyncHandler(async (req: Request, res: Response) => {
+  const cookieSecurity = getCookieSecurityOptions(req);
   res.clearCookie(COOKIE_NAME, {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    ...cookieSecurity,
     path: '/',
   });
   res.clearCookie(CSRF_COOKIE_NAME, {
     httpOnly: false,
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    ...cookieSecurity,
     path: '/',
   });
 
@@ -73,8 +70,11 @@ export const me = asyncHandler(async (req: Request, res: Response) => {
     throw ApiError.unauthorized('Authentication required');
   }
 
+  const csrfToken = req.cookies?.[CSRF_COOKIE_NAME] ?? issueCsrfToken(req, res);
+
   res.status(200).json({
     success: true,
     user: req.user,
+    csrfToken,
   });
 });

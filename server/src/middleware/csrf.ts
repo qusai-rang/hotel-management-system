@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import { ApiError } from '../utils/ApiError';
+import { getCookieSecurityOptions } from '../utils/cookieOptions';
 
 const CSRF_COOKIE_NAME = 'csrf_token';
 const CSRF_HEADER_NAME = 'x-csrf-token';
@@ -38,20 +39,19 @@ export function csrfProtection(req: Request, _res: Response, next: NextFunction)
   next();
 }
 
-export function issueCsrfToken(_req: Request, res: Response): void {
+export function issueCsrfToken(req: Request, res: Response): string {
   const token = generateCsrfToken();
-  const isProduction = process.env.NODE_ENV === 'production';
-  
+
   res.cookie(CSRF_COOKIE_NAME, token, {
     httpOnly: false, // Must be readable by JavaScript
-    secure: isProduction,
-    sameSite: isProduction ? 'none' : 'lax',
+    ...getCookieSecurityOptions(req),
     maxAge: 24 * 60 * 60 * 1000, // 1 day
     path: '/',
   });
-  
-  // Also set header for convenience
+
   res.setHeader(CSRF_HEADER_NAME, token);
+
+  return token;
 }
 
 export { CSRF_COOKIE_NAME, CSRF_HEADER_NAME };

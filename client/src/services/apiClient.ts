@@ -3,6 +3,7 @@
 /* ================================================================== */
 
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
+import { clearStoredCsrfToken, getStoredCsrfToken } from './csrf';
 
 /* ------------------------------------------------------------------ */
 /*  API prefix helpers                                                  */
@@ -40,6 +41,11 @@ const apiClient = axios.create({
 /* ------------------------------------------------------------------ */
 
 function getCsrfToken(): string | null {
+  const storedToken = getStoredCsrfToken();
+  if (storedToken) {
+    return storedToken;
+  }
+
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -91,6 +97,7 @@ apiClient.interceptors.response.use(
     // (invalid credentials are a normal login error, not a session expiry).
     const isLoginRequest = requestUrl.includes('/auth/login');
     if (status === 401 && !isLoginRequest) {
+      clearStoredCsrfToken();
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
       }

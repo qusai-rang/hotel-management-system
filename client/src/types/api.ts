@@ -21,12 +21,14 @@ export interface SafeUser {
 export interface LoginResponse {
   success: boolean;
   user: SafeUser;
-  token: string;
+  token?: string;
+  csrfToken?: string;
 }
 
 export interface MeResponse {
   success: boolean;
   user: SafeUser;
+  csrfToken?: string;
 }
 
 /* ------------------------------------------------------------------ */
