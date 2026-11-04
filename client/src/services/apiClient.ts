@@ -5,11 +5,29 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
 /* ------------------------------------------------------------------ */
+/*  API prefix helpers                                                  */
+/* ------------------------------------------------------------------ */
+
+const API_PREFIX = '/api/v1';
+
+function normalizeBaseURL(raw: string): string {
+  return raw.trim().replace(/\/+$/, '').replace(/\/api\/v1$/, '');
+}
+
+function withApiPrefix(url: string): string {
+  if (/^https?:\/\//i.test(url)) return url;
+  const path = url.replace(/^\/api\/v1(?=\/|$)/, '');
+  return `${API_PREFIX}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
+const rawBaseURL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? '';
+
+/* ------------------------------------------------------------------ */
 /*  Create instance                                                     */
 /* ------------------------------------------------------------------ */
 
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL as string,
+  baseURL: normalizeBaseURL(rawBaseURL),
   timeout: 15_000,
   headers: {
     'Content-Type': 'application/json',
@@ -33,6 +51,10 @@ function getCsrfToken(): string | null {
 }
 
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  if (config.url) {
+    config.url = withApiPrefix(config.url);
+  }
+
   // Skip CSRF for safe methods and login
   const safeMethods = ['GET', 'HEAD', 'OPTIONS'];
   const isLoginRequest = config.url?.includes('/auth/login');
