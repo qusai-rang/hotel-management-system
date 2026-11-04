@@ -23,7 +23,8 @@ export type TopbarVariant =
   | 'guest'
   | 'housekeeping'
   | 'billing'
-  | 'invoice';
+  | 'invoice'
+  | 'dashboard';
 
 interface TopbarProps {
   onMenuClick: () => void;
