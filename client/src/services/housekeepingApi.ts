@@ -22,7 +22,7 @@ export async function fetchHousekeepingTasks(
   filters?: Record<string, unknown>,
 ): Promise<PaginatedResult<HousekeepingTaskDTO>> {
   const { data } = await apiClient.get<PaginatedResponse<HousekeepingTaskDTO>>(
-    '/housekeeping/tasks',
+    '/api/v1/housekeeping/tasks',
     { params: filters },
   );
   if (!data.success) throw new Error('Failed to fetch housekeeping tasks');
@@ -31,7 +31,7 @@ export async function fetchHousekeepingTasks(
 
 export async function fetchHousekeepingStats(): Promise<HousekeepingStatsDTO> {
   const { data } = await apiClient.get<ApiSuccessResponse<HousekeepingStatsDTO>>(
-    '/housekeeping/stats',
+    '/api/v1/housekeeping/stats',
   );
   if (!data.success || !data.item) throw new Error('Failed to fetch housekeeping stats');
   return data.item;
@@ -41,7 +41,7 @@ export async function fetchStaffSchedule(
   date?: string,
 ): Promise<StaffScheduleEntryDTO[]> {
   const { data } = await apiClient.get<{ success: boolean; items: StaffScheduleEntryDTO[] }>(
-    '/housekeeping/staff-schedule',
+    '/api/v1/housekeeping/staff-schedule',
     { params: date ? { date } : undefined },
   );
   if (!data.success) throw new Error('Failed to fetch staff schedule');

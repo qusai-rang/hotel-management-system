@@ -16,7 +16,7 @@ export async function fetchBillingTransactions(
   filters?: Record<string, unknown>,
 ): Promise<PaginatedResult<BillingTransactionRow>> {
   const { data } = await apiClient.get<PaginatedResponse<BillingTransactionRow>>(
-    '/billing/transactions',
+    '/api/v1/billing/transactions',
     { params: filters },
   );
   if (!data.success) throw new Error('Failed to fetch billing transactions');
@@ -24,7 +24,7 @@ export async function fetchBillingTransactions(
 }
 
 export async function fetchBillingMetrics(): Promise<BillingMetrics> {
-  const { data } = await apiClient.get<ApiSuccessResponse<BillingMetrics>>('/billing/metrics');
+  const { data } = await apiClient.get<ApiSuccessResponse<BillingMetrics>>('/api/v1/billing/metrics');
   if (!data.success || !data.item) throw new Error('Failed to fetch billing metrics');
   return data.item;
 }
