@@ -4,7 +4,14 @@ import { cn } from '@/utils/cn';
 import { Icon } from '@/components/ui/Icon';
 import avatarManagerMgmt from '@/assets/img/avatar-manager-mgmt.jpg';
 import avatarManagerRdetails from '@/assets/img/avatar-manager-rdetails.jpg';
-import { mainNavItems, secondaryNavItems, mgmtNavItems, mgmtUtilityLinks, type NavItem, type MgmtNavItem } from './navConfig';
+import {
+  mainNavItems,
+  secondaryNavItems,
+  mgmtNavItems,
+  mgmtUtilityLinks,
+  type NavItem,
+  type MgmtNavItem,
+} from './navConfig';
 
 export type SidebarVariant =
   | 'default'
@@ -126,8 +133,15 @@ function Brand({ variant }: { variant: SidebarVariant }) {
             variant === 'roomDetails' && 'border-b border-primary-container',
           )}
         >
-          <h1 className="font-headline-sm text-headline-sm text-secondary-fixed tracking-tight">LuxeStay Pro</h1>
-          <p className={cn(variant === 'mgmt' ? 'font-body-sm text-body-sm' : 'font-label-md text-label-md', 'text-on-primary-container mt-1')}>
+          <h1 className="font-headline-sm text-headline-sm text-secondary-fixed tracking-tight">
+            LuxeStay Pro
+          </h1>
+          <p
+            className={cn(
+              variant === 'mgmt' ? 'font-body-sm text-body-sm' : 'font-label-md text-label-md',
+              'text-on-primary-container mt-1',
+            )}
+          >
             Grand Plaza Heights
           </p>
         </div>
@@ -180,7 +194,9 @@ function Brand({ variant }: { variant: SidebarVariant }) {
       </div>
       <div>
         <h1 className="font-headline-sm text-headline-sm text-on-primary">Luxe Stay</h1>
-        <p className="font-label-md text-label-md text-on-primary-container opacity-80">Premium Management</p>
+        <p className="font-label-md text-label-md text-on-primary-container opacity-80">
+          Premium Management
+        </p>
       </div>
     </div>
   );
@@ -360,8 +376,12 @@ function ConfigSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
   return (
     <>
       <div className="px-container-padding py-6">
-        <h1 className="font-headline-sm text-headline-sm text-secondary-fixed tracking-tight">LuxeStay Pro</h1>
-        <p className="font-label-md text-label-md text-on-primary-container mt-1">Grand Plaza Heights</p>
+        <h1 className="font-headline-sm text-headline-sm text-secondary-fixed tracking-tight">
+          LuxeStay Pro
+        </h1>
+        <p className="font-label-md text-label-md text-on-primary-container mt-1">
+          Grand Plaza Heights
+        </p>
       </div>
       <nav aria-label="Main" className="flex-1 mt-6">
         <ul className="space-y-2">
@@ -422,13 +442,20 @@ function GuestSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
       <div className="mb-8 px-4 flex items-center gap-3">
         <Icon name="diamond" fill className="text-secondary-fixed text-[32px]" />
         <div>
-          <h1 className="font-headline-md text-headline-md font-bold text-secondary-fixed">LuxeStay Pro</h1>
+          <h1 className="font-headline-md text-headline-md font-bold text-secondary-fixed">
+            LuxeStay Pro
+          </h1>
           <p className="font-label-md text-label-md text-secondary-fixed opacity-80">Premium HMS</p>
         </div>
       </div>
       <div className="flex-1 overflow-y-auto space-y-1">
         {mainNavItems.map((item) => (
-          <NavLink key={item.path} to={item.path} onClick={onCloseMobile} className={guestNavLinkClass}>
+          <NavLink
+            key={item.path}
+            to={item.path}
+            onClick={onCloseMobile}
+            className={guestNavLinkClass}
+          >
             {({ isActive }) => (
               <>
                 <Icon name={item.iconName} fill={isActive} />
@@ -438,10 +465,7 @@ function GuestSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
           </NavLink>
         ))}
         {/* Analytics — no destination screen exists yet */}
-        <span className={guestNavLinkClass({ isActive: false })}>
-          <Icon name="analytics" />
-          <span className="font-label-lg text-label-lg">Analytics</span>
-        </span>
+
         <NavLink to="/settings" onClick={onCloseMobile} className={guestNavLinkClass}>
           {({ isActive }) => (
             <>
@@ -479,7 +503,9 @@ function HkSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
       <div className="flex items-center gap-3 mb-10 px-2">
         <Icon name="hotel" fill className="text-secondary-fixed text-3xl" />
         <div>
-          <h1 className="font-headline-md text-headline-md font-bold text-secondary-fixed">LuxeStay Pro</h1>
+          <h1 className="font-headline-md text-headline-md font-bold text-secondary-fixed">
+            LuxeStay Pro
+          </h1>
           <p className="font-label-md text-label-md text-primary-fixed-dim">Premium HMS</p>
         </div>
       </div>
@@ -496,13 +522,7 @@ function HkSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
             </NavLink>
           </li>
         ))}
-        {/* Analytics — no destination screen exists yet */}
-        <li>
-          <span className={linkClass({ isActive: false })}>
-            <Icon name="analytics" />
-            <span className="font-label-lg text-label-lg">Analytics</span>
-          </span>
-        </li>
+
         <li>
           <NavLink to="/settings" onClick={onCloseMobile} className={linkClass}>
             {({ isActive }) => (
@@ -545,7 +565,9 @@ function InvoiceSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
           <Icon name="hotel_class" fill className="text-on-secondary-fixed" />
         </div>
         <div>
-          <h1 className="font-headline-md text-headline-md font-bold text-secondary-fixed">LuxeStay Pro</h1>
+          <h1 className="font-headline-md text-headline-md font-bold text-secondary-fixed">
+            LuxeStay Pro
+          </h1>
           <p className="font-label-md text-label-md text-secondary-fixed opacity-80">Premium HMS</p>
         </div>
       </div>
@@ -561,11 +583,7 @@ function InvoiceSidebarBody({ onCloseMobile }: { onCloseMobile: () => void }) {
             )}
           </NavLink>
         ))}
-        {/* Analytics — no destination screen exists yet */}
-        <span className={linkClass({ isActive: false })}>
-          <Icon name="analytics" />
-          <span className="font-label-lg text-label-lg">Analytics</span>
-        </span>
+
         <NavLink to="/settings" onClick={onCloseMobile} className={linkClass}>
           {() => (
             <>
@@ -625,102 +643,130 @@ export function Sidebar({ mobileOpen, onCloseMobile, variant = 'default' }: Side
           mobileOpen ? 'flex translate-x-0 shadow-xl' : '-translate-x-full',
         )}
       >
-        {variant !== 'mgmt' && variant !== 'roomDetails' && variant !== 'config' && variant !== 'guest' && variant !== 'housekeeping' && variant !== 'invoice' && (
-          <>
-        <Brand variant={variant} />
+        {variant !== 'mgmt' &&
+          variant !== 'roomDetails' &&
+          variant !== 'config' &&
+          variant !== 'guest' &&
+          variant !== 'housekeeping' &&
+          variant !== 'invoice' && (
+            <>
+              <Brand variant={variant} />
 
-        {/* CTA (dashboard placement: above the nav) */}
-        {!desk && !details && !rooms && (
-          <button
-            type="button"
-            onClick={goToNewBooking}
-            className="w-full bg-secondary-fixed hover:bg-secondary-fixed-dim text-primary font-label-lg text-label-lg py-3 px-4 rounded-lg flex items-center justify-center gap-2 mb-8 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
-          >
-            <Icon name="add" />
-            New Booking
-          </button>
-        )}
+              {/* CTA (dashboard placement: above the nav) */}
+              {!desk && !details && !rooms && (
+                <button
+                  type="button"
+                  onClick={goToNewBooking}
+                  className="w-full bg-secondary-fixed hover:bg-secondary-fixed-dim text-primary font-label-lg text-label-lg py-3 px-4 rounded-lg flex items-center justify-center gap-2 mb-8 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+                >
+                  <Icon name="add" />
+                  New Booking
+                </button>
+              )}
 
-        {/* details placement: solid-gold CTA directly after the brand block */}
-        {details && (
-          <button
-            type="button"
-            onClick={goToNewBooking}
-            className="w-full bg-secondary text-on-secondary font-label-lg text-label-lg py-3 rounded-lg mb-6 hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
-          >
-            <Icon name="add" className="text-[18px]" />
-            New Booking
-          </button>
-        )}
+              {/* details placement: solid-gold CTA directly after the brand block */}
+              {details && (
+                <button
+                  type="button"
+                  onClick={goToNewBooking}
+                  className="w-full bg-secondary text-on-secondary font-label-lg text-label-lg py-3 rounded-lg mb-6 hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow-sm flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+                >
+                  <Icon name="add" className="text-[18px]" />
+                  New Booking
+                </button>
+              )}
 
-        {/* Navigation links */}
-        {rooms ? (
-          /* reference/rooms lines 139-169: single scroll column, Settings rides at its end */
-          <div className="flex flex-col gap-2 flex-grow overflow-y-auto">
-            <NavList items={mainNavItems} onNavigate={onCloseMobile} linkClass={roomsNavLinkClass} />
-            <NavList
-              items={secondaryNavItems}
-              onNavigate={onCloseMobile}
-              linkClass={roomsNavLinkClass}
-              tailItemClass="mt-auto"
-            />
-          </div>
-        ) : details ? (
-          <div className="flex-1 overflow-y-auto pr-2 space-y-1">
-            <NavList items={mainNavItems} onNavigate={onCloseMobile} linkClass={detailNavLinkClass} />
-          </div>
-        ) : (
-          <nav aria-label="Main" className={cn('overflow-y-auto', desk ? 'flex flex-col gap-1 flex-grow' : 'flex-1')}>
-            {desk ? (
-              <NavList items={mainNavItems} onNavigate={onCloseMobile} />
-            ) : (
-              <ul className="space-y-2">
-                <NavList items={mainNavItems} onNavigate={onCloseMobile} />
-              </ul>
-            )}
-          </nav>
-        )}
+              {/* Navigation links */}
+              {rooms ? (
+                /* reference/rooms lines 139-169: single scroll column, Settings rides at its end */
+                <div className="flex flex-col gap-2 flex-grow overflow-y-auto">
+                  <NavList
+                    items={mainNavItems}
+                    onNavigate={onCloseMobile}
+                    linkClass={roomsNavLinkClass}
+                  />
+                  <NavList
+                    items={secondaryNavItems}
+                    onNavigate={onCloseMobile}
+                    linkClass={roomsNavLinkClass}
+                    tailItemClass="mt-auto"
+                  />
+                </div>
+              ) : details ? (
+                <div className="flex-1 overflow-y-auto pr-2 space-y-1">
+                  <NavList
+                    items={mainNavItems}
+                    onNavigate={onCloseMobile}
+                    linkClass={detailNavLinkClass}
+                  />
+                </div>
+              ) : (
+                <nav
+                  aria-label="Main"
+                  className={cn(
+                    'overflow-y-auto',
+                    desk ? 'flex flex-col gap-1 flex-grow' : 'flex-1',
+                  )}
+                >
+                  {desk ? (
+                    <NavList items={mainNavItems} onNavigate={onCloseMobile} />
+                  ) : (
+                    <ul className="space-y-2">
+                      <NavList items={mainNavItems} onNavigate={onCloseMobile} />
+                    </ul>
+                  )}
+                </nav>
+              )}
 
-        {rooms ? (
-          /* CTA pinned at the very bottom — reference/rooms lines 170-176 */
-          <div className="mt-4 px-2">
-            <button
-              type="button"
-              onClick={goToNewBooking}
-              className="w-full py-3 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-lg shadow-sm hover:bg-secondary-fixed transition-colors flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
-            >
-              <Icon name="add" />
-              New Booking
-            </button>
-          </div>
-        ) : desk ? (
-          /* Settings & CTA — reference/enhanced_reservations lines 182-192 */
-          <div className="flex flex-col gap-4 mt-auto">
-            <NavList items={secondaryNavItems} onNavigate={onCloseMobile} />
-            <button
-              type="button"
-              onClick={goToNewBooking}
-              className="w-full py-3 px-4 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-lg hover-shift hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
-            >
-              <Icon name="add" className="text-[18px]" />
-              New Booking
-            </button>
-          </div>
-        ) : details ? (
-          /* Settings under divider — reference/reservation_details lines 174-179 */
-          <div className="pt-4 mt-4 border-t border-primary-fixed-variant/30">
-            <NavList items={secondaryNavItems} onNavigate={onCloseMobile} linkClass={detailNavLinkClass} />
-          </div>
-        ) : (
-          /* Bottom settings — billing adds a top divider (billing_payments line 125) */
-          <div className={cn('mt-auto', variant === 'billing' && 'pt-6 border-t border-on-primary-fixed-variant')}>
-            <ul>
-              <NavList items={secondaryNavItems} onNavigate={onCloseMobile} />
-            </ul>
-          </div>
-        )}
-          </>
-        )}
+              {rooms ? (
+                /* CTA pinned at the very bottom — reference/rooms lines 170-176 */
+                <div className="mt-4 px-2">
+                  <button
+                    type="button"
+                    onClick={goToNewBooking}
+                    className="w-full py-3 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-lg shadow-sm hover:bg-secondary-fixed transition-colors flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+                  >
+                    <Icon name="add" />
+                    New Booking
+                  </button>
+                </div>
+              ) : desk ? (
+                /* Settings & CTA — reference/enhanced_reservations lines 182-192 */
+                <div className="flex flex-col gap-4 mt-auto">
+                  <NavList items={secondaryNavItems} onNavigate={onCloseMobile} />
+                  <button
+                    type="button"
+                    onClick={goToNewBooking}
+                    className="w-full py-3 px-4 bg-secondary text-on-secondary font-label-lg text-label-lg rounded-lg hover-shift hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+                  >
+                    <Icon name="add" className="text-[18px]" />
+                    New Booking
+                  </button>
+                </div>
+              ) : details ? (
+                /* Settings under divider — reference/reservation_details lines 174-179 */
+                <div className="pt-4 mt-4 border-t border-primary-fixed-variant/30">
+                  <NavList
+                    items={secondaryNavItems}
+                    onNavigate={onCloseMobile}
+                    linkClass={detailNavLinkClass}
+                  />
+                </div>
+              ) : (
+                /* Bottom settings — billing adds a top divider (billing_payments line 125) */
+                <div
+                  className={cn(
+                    'mt-auto',
+                    variant === 'billing' && 'pt-6 border-t border-on-primary-fixed-variant',
+                  )}
+                >
+                  <ul>
+                    <NavList items={secondaryNavItems} onNavigate={onCloseMobile} />
+                  </ul>
+                </div>
+              )}
+            </>
+          )}
         {(variant === 'mgmt' || variant === 'roomDetails') && (
           <MgmtSidebarBody variant={variant} onCloseMobile={onCloseMobile} />
         )}

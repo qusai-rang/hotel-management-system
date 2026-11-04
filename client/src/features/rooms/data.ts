@@ -21,6 +21,7 @@ export interface RoomMaintenanceInfo {
 
 export interface RoomRecord {
   id: string;
+  number: string;
   typeLabel: string;
   status: RoomGridStatus;
   floor: 1 | 2 | 3 | 4;
@@ -52,6 +53,7 @@ export type StatusFilter = (typeof statusFilterLabels)[number];
 export const rooms: RoomRecord[] = [
   {
     id: '301',
+    number: '301',
     typeLabel: 'Executive Suite',
     status: 'available',
     floor: 3,
@@ -63,6 +65,7 @@ export const rooms: RoomRecord[] = [
   },
   {
     id: '215',
+    number: '215',
     typeLabel: 'Standard King',
     status: 'occupied',
     floor: 2,
@@ -71,6 +74,7 @@ export const rooms: RoomRecord[] = [
   },
   {
     id: '218',
+    number: '218',
     typeLabel: 'Standard Double',
     status: 'dirty',
     floor: 2,
@@ -81,6 +85,7 @@ export const rooms: RoomRecord[] = [
   },
   {
     id: '405',
+    number: '405',
     typeLabel: 'Penthouse',
     status: 'maintenance',
     floor: 4,

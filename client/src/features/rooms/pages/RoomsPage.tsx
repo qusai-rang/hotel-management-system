@@ -47,7 +47,8 @@ const statusBadgeLabels: Record<RoomGridStatus, string> = {
 function mapRoomToRecord(room: RoomListItem): RoomRecord {
   const displayStatus = room.displayStatus as RoomGridStatus;
   return {
-    id: room.number,
+    id: room.id,
+    number: room.number,
     typeLabel: room.roomType.name,
     status: displayStatus,
     floor: room.floor as 1 | 2 | 3 | 4,
@@ -86,7 +87,7 @@ export default function RoomsPage() {
     const q = query.trim().toLowerCase();
     return allRooms.filter((room) => {
       if (q) {
-        const haystack = [room.id, room.typeLabel, room.guest?.name ?? ''].join(' ').toLowerCase();
+        const haystack = [room.number, room.typeLabel, room.guest?.name ?? ''].join(' ').toLowerCase();
         if (!haystack.includes(q)) return false;
       }
       return true;
@@ -106,7 +107,7 @@ export default function RoomsPage() {
           {/* Header Row */}
           <div className="flex justify-between items-start">
             <div>
-              <span className="font-headline-md text-headline-md text-on-surface block leading-none">{room.id}</span>
+              <span className="font-headline-md text-headline-md text-on-surface block leading-none">{room.number}</span>
               <span className="font-label-md text-label-md text-on-surface-variant tracking-wider uppercase mt-1 block">
                 {room.typeLabel}
               </span>
@@ -189,7 +190,7 @@ export default function RoomsPage() {
           ) : room.status === 'occupied' ? (
             <button
               type="button"
-              aria-label={`More actions for room ${room.id}`}
+              aria-label={`More actions for room ${room.number}`}
               className="text-on-surface-variant hover:text-primary transition-colors cursor-pointer focus-visible:outline-none"
             >
               <Icon name="more_horiz" />

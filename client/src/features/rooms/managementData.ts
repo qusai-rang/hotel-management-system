@@ -22,6 +22,7 @@ export interface CleaningProgress {
 
 export interface ManagementRoom {
   id: string;
+  number: string;
   typeLabel: string;
   status: ManagementRoomStatus;
   capacityLabel: string;
@@ -47,6 +48,7 @@ export const mgmtStatusOptions = ['All Statuses', 'Available', 'Occupied', 'Clea
 export const managementRooms: ManagementRoom[] = [
   {
     id: '301',
+    number: '301',
     typeLabel: 'Executive Suite',
     status: 'occupied',
     capacityLabel: '2 Adults',
@@ -56,6 +58,7 @@ export const managementRooms: ManagementRoom[] = [
   },
   {
     id: '302',
+    number: '302',
     typeLabel: 'Deluxe King',
     status: 'available',
     capacityLabel: '2 Adults',
@@ -65,6 +68,7 @@ export const managementRooms: ManagementRoom[] = [
   },
   {
     id: '305',
+    number: '305',
     typeLabel: 'Standard Double',
     status: 'cleaning',
     capacityLabel: '4 Adults',

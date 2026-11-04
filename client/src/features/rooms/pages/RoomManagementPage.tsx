@@ -30,7 +30,8 @@ function mgmtStatusLabelToApi(label: string): ManagementRoomStatus | undefined {
 function mapToManagementRoom(room: RoomListItem): ManagementRoom {
   const displayStatus = room.displayStatus as ManagementRoomStatus;
   return {
-    id: room.number,
+    id: room.id,
+    number: room.number,
     typeLabel: room.roomType.name,
     status: displayStatus,
     capacityLabel: `${room.capacityAdults} Adult${room.capacityAdults !== 1 ? 's' : ''}`,
@@ -71,7 +72,7 @@ export default function RoomManagementPage() {
     return allRooms.filter((room) => {
       if (typeLabel !== mgmtTypeOptions[0] && room.typeLabel !== typeLabel) return false;
       if (q) {
-        const haystack = [room.id, room.typeLabel, room.guest?.name ?? ''].join(' ').toLowerCase();
+        const haystack = [room.number, room.typeLabel, room.guest?.name ?? ''].join(' ').toLowerCase();
         if (!haystack.includes(q)) return false;
       }
       return true;
@@ -83,7 +84,7 @@ export default function RoomManagementPage() {
       {list.map((room) => (
         <RoomManagementCard
           key={room.id}
-          number={room.id}
+          number={room.number}
           typeLabel={room.typeLabel}
           status={room.status}
           capacityLabel={room.capacityLabel}
