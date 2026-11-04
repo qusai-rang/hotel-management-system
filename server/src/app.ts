@@ -26,6 +26,7 @@ import { csrfProtection } from './middleware/csrf';
 const app = express();
 
 app.disable('x-powered-by');
+app.set('trust proxy', 1);
 
 app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 app.use(express.json({ limit: '1mb' }));
