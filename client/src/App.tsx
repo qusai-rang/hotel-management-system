@@ -33,6 +33,7 @@ export default function App() {
         {/* New Reservation is a focused transactional flow — source suppresses the nav shells entirely */}
         <Route path="/reservations/new" element={<CreateReservationPage />} />
         <Route element={<AppLayout />}>
+          <Route path="/dashboard/summary" element={<DashboardPage />} /> {/* Summary FIRST */}
           <Route path="/dashboard" element={<DashboardPage />} />
         </Route>
         {/* Rooms uses its own shell variant (gold brand chip, pill search + Check In) */}
