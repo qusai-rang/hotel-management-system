@@ -15,7 +15,7 @@ export interface CheckoutPaymentPayload {
 
 export async function fetchCheckoutSession(reservationId: string): Promise<CheckoutSessionDTO> {
   const { data } = await apiClient.get<ApiSuccessResponse<CheckoutSessionDTO>>(
-    `/checkout/${reservationId}`,
+    `/api/v1/checkout/${reservationId}`,
   );
   if (!data.success || !data.item) throw new Error('Checkout session not found');
   return data.item;
@@ -26,7 +26,7 @@ export async function collectCheckoutPayment(
   payload: CheckoutPaymentPayload,
 ): Promise<CheckoutSessionDTO> {
   const { data } = await apiClient.post<ApiSuccessResponse<CheckoutSessionDTO>>(
-    `/checkout/${reservationId}/payments`,
+    `/api/v1/checkout/${reservationId}/payments`,
     payload,
   );
   if (!data.success || !data.item) throw new Error('Failed to collect payment');
@@ -35,7 +35,7 @@ export async function collectCheckoutPayment(
 
 export async function completeCheckout(reservationId: string): Promise<CheckoutCompletionDTO> {
   const { data } = await apiClient.post<ApiSuccessResponse<CheckoutCompletionDTO>>(
-    `/checkout/${reservationId}/complete`,
+    `/api/v1/checkout/${reservationId}/complete`,
   );
   if (!data.success || !data.item) throw new Error('Failed to complete checkout');
   return data.item;

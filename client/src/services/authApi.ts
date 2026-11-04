@@ -11,7 +11,7 @@ import type { LoginResponse, MeResponse, SafeUser } from '@/types/api';
 /* ------------------------------------------------------------------ */
 
 export async function loginApi(email: string, password: string): Promise<{ user: SafeUser; token?: string }> {
-  const { data } = await apiClient.post<LoginResponse>('/auth/login', { email, password });
+  const { data } = await apiClient.post<LoginResponse>('/api/v1/auth/login', { email, password });
   if (!data.success) throw new Error('Login failed');
   setStoredCsrfToken(data.csrfToken);
   return { user: data.user };
@@ -22,7 +22,7 @@ export async function loginApi(email: string, password: string): Promise<{ user:
 /* ------------------------------------------------------------------ */
 
 export async function getMeApi(): Promise<SafeUser> {
-  const { data } = await apiClient.get<MeResponse>('/auth/me');
+  const { data } = await apiClient.get<MeResponse>('/api/v1/auth/me');
   if (!data.success) throw new Error('Failed to fetch user');
   setStoredCsrfToken(data.csrfToken);
   return data.user;

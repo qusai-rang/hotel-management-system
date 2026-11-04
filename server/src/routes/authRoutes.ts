@@ -14,7 +14,7 @@ const loginRateLimiter = rateLimit({
   },
   standardHeaders: true,
   legacyHeaders: false,
-  keyGenerator: ipKeyGenerator,
+  keyGenerator: (req) => ipKeyGenerator(req.ip ?? ''),
 });
 
 router.post('/login', loginRateLimiter, login);

@@ -75,6 +75,7 @@ export async function getCheckoutSession(reservationId: string, actorId: string)
     await createFolio(reservationId, actorId);
     folioDoc = await Folio.findOne({ reservationId: reservation._id }).lean();
   }
+  if (!folioDoc) throw ApiError.notFound('No folio found for this reservation');
 
   const paidCents = await getTotalPaid(folioDoc._id);
   const payments = await Payment.find({ folioId: folioDoc._id }).sort({ createdAt: -1 }).lean();

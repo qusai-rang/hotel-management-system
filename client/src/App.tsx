@@ -24,60 +24,71 @@ export default function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Protected routes — require authentication */}
       <Route element={<ProtectedRoute />}>
-        {/* Reservation details uses its own shell variant (search pill, centered title, Reservations tab active) */}
         <Route element={<AppLayout shellVariant="details" />}>
+          {/* Reservation details - its own shell */}
           <Route path="/reservations/:reservationId" element={<ReservationDetailsPage />} />
         </Route>
-        {/* New Reservation is a focused transactional flow — source suppresses the nav shells entirely */}
+
+        {/* New Reservation - focused flow */}
         <Route path="/reservations/new" element={<CreateReservationPage />} />
-        <Route element={<AppLayout />}>
+
+        {/* Dashboard - with summary FIRST */}
+        <Route element={<AppLayout shellVariant="dashboard" />}>
+          {/* Summary MUST come before dashboard */}
+          <Route path="/dashboard/summary" element={<DashboardPage />} />
+
           <Route path="/dashboard" element={<DashboardPage />} />
         </Route>
-        {/* Rooms uses its own shell variant (gold brand chip, pill search + Check In) */}
+
+        {/* Rooms - works already */}
         <Route element={<AppLayout shellVariant="rooms" />}>
           <Route path="/rooms" element={<RoomsPage />} />
         </Route>
-        {/* Room Management uses its own shell variant (text brand + manager portrait, left-bar nav) */}
+
+        {/* Room Management */}
         <Route element={<AppLayout shellVariant="mgmt" />}>
           <Route path="/rooms/manage" element={<RoomManagementPage />} />
         </Route>
-        {/* Room Details shares the management sidebar family with its own topbar treatment */}
+
+        {/* Room Details */}
         <Route element={<AppLayout shellVariant="roomDetails" />}>
           <Route path="/rooms/:roomId" element={<RoomDetailsPage />} />
         </Route>
-        {/* Add/Edit Room is a focused task screen — shells suppressed like Create Reservation.
-            Static segments rank above /rooms/:roomId, so ordering here is safe. */}
+
+        {/* Add/Edit Room */}
         <Route path="/rooms/new" element={<AddEditRoomPage />} />
         <Route path="/rooms/:roomId/edit" element={<AddEditRoomPage />} />
-        {/* Property Configuration — the Settings destination in the management sidebar family */}
+
+        {/* Settings */}
         <Route element={<AppLayout shellVariant="config" />}>
           <Route path="/settings" element={<RoomConfigurationPage />} />
         </Route>
-        {/* Guest Profile uses its own shell variant (diamond brand, Guests tab active, help button) */}
+
+        {/* Guest Profile */}
         <Route element={<AppLayout shellVariant="guest" />}>
           <Route path="/guests/:guestId" element={<GuestProfilePage />} />
         </Route>
-        {/* Housekeeping uses its own shell variant (hotel-icon brand, manager identity topbar) */}
+
+        {/* Housekeeping */}
         <Route element={<AppLayout shellVariant="housekeeping" />}>
           <Route path="/housekeeping" element={<HousekeepingPage />} />
         </Route>
-        {/* Billing uses the dashboard sidebar family with a footer-divider Settings link */}
+
+        {/* Billing */}
         <Route element={<AppLayout shellVariant="billing" />}>
           <Route path="/billing" element={<BillingPage />} />
-        </Route>
-        {/* Invoice gets its own shell (nav chrome wrapped in #nav-shell for the print
-            stylesheet) and is parameterized by the invoice identifier */}
-        <Route element={<AppLayout shellVariant="invoice" />}>
           <Route path="/billing/invoices/:invoiceId" element={<InvoicePage />} />
         </Route>
-        {/* Check-out is a transactional flow — shells suppressed like Create Reservation */}
+
+        {/* Check-out */}
         <Route path="/checkout" element={<CheckoutPage />} />
-        {/* Reservations uses the "Reservations Desk" shell variant (square brand chip, bottom CTA) */}
+
+        {/* Reservations Desk */}
         <Route element={<AppLayout shellVariant="desk" />}>
           <Route path="/reservations" element={<ReservationsPage />} />
         </Route>
+
         {/* 404 for unknown protected routes */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>

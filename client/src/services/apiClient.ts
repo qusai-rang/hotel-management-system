@@ -63,7 +63,7 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
   // Skip CSRF for safe methods and login
   const safeMethods = ['GET', 'HEAD', 'OPTIONS'];
-  const isLoginRequest = config.url?.includes('/auth/login');
+  const isLoginRequest = config.url?.includes('/api/v1/auth/login');
   
   if (!safeMethods.includes(config.method?.toUpperCase() ?? '') && !isLoginRequest) {
     const csrfToken = getCsrfToken();

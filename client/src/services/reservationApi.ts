@@ -1,9 +1,10 @@
-/* ================================================================== */
-/*  Reservations API Service                                           */
-/* ================================================================== */
-
 import apiClient from './apiClient';
-import type { ApiSuccessResponse, PaginatedResponse, ReservationDetailDTO, ReservationListItem } from '@/types/api';
+import type {
+  ApiSuccessResponse,
+  PaginatedResponse,
+  ReservationDetailDTO,
+  ReservationListItem,
+} from '@/types/api';
 
 export interface PaginatedResult<T> {
   items: T[];
@@ -15,9 +16,12 @@ export interface PaginatedResult<T> {
 export async function fetchReservations(
   filters?: Record<string, unknown>,
 ): Promise<PaginatedResult<ReservationListItem>> {
-  const { data } = await apiClient.get<PaginatedResponse<ReservationListItem>>('/reservations', {
-    params: filters,
-  });
+  const { data } = await apiClient.get<PaginatedResponse<ReservationListItem>>(
+    '/api/v1/reservations',
+    {
+      params: filters,
+    },
+  );
   if (!data.success) throw new Error('Failed to fetch reservations');
   return {
     items: data.items ?? [],
@@ -56,7 +60,7 @@ export async function createReservationApi(
   payload: CreateReservationPayload,
 ): Promise<CreateReservationResult> {
   const { data } = await apiClient.post<{ success: boolean; item: CreateReservationResult }>(
-    '/reservations',
+    '/api/v1/reservations',
     payload,
   );
   if (!data.success || !data.item) throw new Error('Failed to create reservation');
@@ -65,7 +69,7 @@ export async function createReservationApi(
 
 export async function fetchReservationById(id: string): Promise<ReservationDetailDTO> {
   const { data } = await apiClient.get<ApiSuccessResponse<ReservationDetailDTO>>(
-    `/reservations/${id}`,
+    '/api/v1/reservations/' + id,
   );
   if (!data.success || !data.item) throw new Error('Reservation not found');
   return data.item;
@@ -79,7 +83,7 @@ export interface ReservationActionResult {
 
 export async function cancelReservationApi(id: string): Promise<ReservationActionResult> {
   const { data } = await apiClient.post<ApiSuccessResponse<ReservationActionResult>>(
-    `/reservations/${id}/cancel`,
+    '/api/v1/reservations/' + id + '/cancel',
   );
   if (!data.success || !data.item) throw new Error('Failed to cancel reservation');
   return data.item;
@@ -87,7 +91,7 @@ export async function cancelReservationApi(id: string): Promise<ReservationActio
 
 export async function checkInReservationApi(id: string): Promise<ReservationActionResult> {
   const { data } = await apiClient.post<ApiSuccessResponse<ReservationActionResult>>(
-    `/reservations/${id}/check-in`,
+    '/api/v1/reservations/' + id + '/check-in',
   );
   if (!data.success || !data.item) throw new Error('Failed to check in reservation');
   return data.item;
@@ -101,7 +105,7 @@ export interface AddInternalNoteResult {
 
 export async function addInternalNoteApi(id: string, body: string): Promise<AddInternalNoteResult> {
   const { data } = await apiClient.post<ApiSuccessResponse<AddInternalNoteResult>>(
-    `/reservations/${id}/notes`,
+    '/api/v1/reservations/' + id + '/notes',
     { body },
   );
   if (!data.success || !data.item) throw new Error('Failed to add note');
